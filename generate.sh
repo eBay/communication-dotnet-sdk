@@ -31,8 +31,8 @@ dotnet kiota generate \
   -l csharp \
   -d specs/commerce_feedback_v1_beta_oas3.yaml \
   -c FeedbackApiClient \
-  -n Communication.Generated.Feedback \
-  -o CommunicationSdk/Generated/Feedback \
+  -n EBay.Communication.Generated.Feedback \
+  -o EBay.Communication/Generated/Feedback \
   --ebc --tam internal --co
 
 echo ""
@@ -41,8 +41,8 @@ dotnet kiota generate \
   -l csharp \
   -d specs/commerce_message_v1_oas3.yaml \
   -c MessageApiClient \
-  -n Communication.Generated.Message \
-  -o CommunicationSdk/Generated/Message \
+  -n EBay.Communication.Generated.Message \
+  -o EBay.Communication/Generated/Message \
   --ebc --tam internal --co
 
 echo ""
@@ -51,8 +51,8 @@ dotnet kiota generate \
   -l csharp \
   -d specs/commerce_notification_v1_oas3.yaml \
   -c NotificationApiClient \
-  -n Communication.Generated.Notification \
-  -o CommunicationSdk/Generated/Notification \
+  -n EBay.Communication.Generated.Notification \
+  -o EBay.Communication/Generated/Notification \
   --ebc --tam internal --co
 
 echo ""
@@ -61,14 +61,14 @@ dotnet kiota generate \
   -l csharp \
   -d specs/sell_negotiation_v1_oas3.yaml \
   -c NegotiationApiClient \
-  -n Communication.Generated.Negotiation \
-  -o CommunicationSdk/Generated/Negotiation \
+  -n EBay.Communication.Generated.Negotiation \
+  -o EBay.Communication/Generated/Negotiation \
   --ebc --tam internal --co
 
 # Build the project
 echo ""
 echo "Building the SDK..."
-dotnet build CommunicationSdk/CommunicationSdk.csproj
+dotnet build EBay.Communication/EBay.Communication.csproj
 
 echo ""
 echo "========================================="
