@@ -11,6 +11,8 @@
     <Version>1.0.0</Version>
     <Authors>eBay</Authors>
     <Description>Communication SDK for eBay Feedback, Message, Notification, and Negotiation APIs</Description>
+    <PackageProjectUrl>https://github.com/eBay/communication-dotnet-sdk</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/eBay/communication-dotnet-sdk</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
