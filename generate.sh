@@ -65,6 +65,9 @@ dotnet kiota generate \
   -o EBay.Communication/Generated/Negotiation \
   --ebc --tam internal --co
 
+echo "Adding license headers to generated files..."
+./add-license-headers.sh ./EBay.Communication/Generated
+
 # Build the project
 echo ""
 echo "Building the SDK..."
