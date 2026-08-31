@@ -13,14 +13,8 @@
 // limitations under the License.
 
 
-using EBay.Communication.Generated.Feedback;
-using EBay.Communication.Generated.Message;
-using EBay.Communication.Generated.Negotiation;
-using EBay.Communication.Generated.Notification;
-using EBay.Communication.Clients.Rest;
 using EBay.Communication.Configuration;
 using Microsoft.Kiota.Abstractions.Authentication;
-using Microsoft.Kiota.Http.HttpClientLibrary;
 
 namespace EBay.Communication;
 
@@ -28,30 +22,10 @@ namespace EBay.Communication;
 /// Main entry point for the Communication SDK
 /// Provides access to Feedback, Message, Notification, and Negotiation APIs
 /// </summary>
-public sealed class CommunicationClient : IDisposable
+public partial class CommunicationClient : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly bool _ownsHttpClient;
-
-    /// <summary>
-    /// Feedback API client
-    /// </summary>
-    public FeedbackClient Feedback { get; }
-
-    /// <summary>
-    /// Message API client (M2M Public API Service)
-    /// </summary>
-    public MessageClient Message { get; }
-
-    /// <summary>
-    /// Notification API client
-    /// </summary>
-    public NotificationClient Notification { get; }
-
-    /// <summary>
-    /// Negotiation API client
-    /// </summary>
-    public NegotiationClient Negotiation { get; }
 
     /// <summary>
     /// DI-friendly constructor: ITokenContext injected by the container.
@@ -72,34 +46,7 @@ public sealed class CommunicationClient : IDisposable
         var authenticationProvider = new BaseBearerTokenAuthenticationProvider(authProvider);
 
         // All REST API adapters share the single DI-provided HttpClient
-        Feedback = new FeedbackClient(
-            new FeedbackApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
-            config,
-            tokenContext);
-
-        Message = new MessageClient(
-            new MessageApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
-            config,
-            tokenContext);
-
-        Notification = new NotificationClient(
-            new NotificationApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
-            config,
-            tokenContext);
-
-        Negotiation = new NegotiationClient(
-            new NegotiationApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
-            config,
-            tokenContext);
-
+        InitializeRestClients(authenticationProvider, httpClient, config, tokenContext);
     }
 
     /// <summary>
