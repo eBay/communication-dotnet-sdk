@@ -29,7 +29,7 @@ echo ""
 echo "Regenerating Feedback API client..."
 dotnet kiota generate \
   -l csharp \
-  -d specs/commerce_feedback_v1_beta_oas3.yaml \
+  -d specs/openapi/feedback.yaml \
   -c FeedbackApiClient \
   -n EBay.Communication.Generated.Feedback \
   -o EBay.Communication/Generated/Feedback \
@@ -39,7 +39,7 @@ echo ""
 echo "Regenerating Message API client..."
 dotnet kiota generate \
   -l csharp \
-  -d specs/commerce_message_v1_oas3.yaml \
+  -d specs/openapi/message.yaml \
   -c MessageApiClient \
   -n EBay.Communication.Generated.Message \
   -o EBay.Communication/Generated/Message \
@@ -49,7 +49,7 @@ echo ""
 echo "Regenerating Notification API client..."
 dotnet kiota generate \
   -l csharp \
-  -d specs/commerce_notification_v1_oas3.yaml \
+  -d specs/openapi/notification.yaml \
   -c NotificationApiClient \
   -n EBay.Communication.Generated.Notification \
   -o EBay.Communication/Generated/Notification \
@@ -59,7 +59,7 @@ echo ""
 echo "Regenerating Negotiation API client..."
 dotnet kiota generate \
   -l csharp \
-  -d specs/sell_negotiation_v1_oas3.yaml \
+  -d specs/openapi/negotiation.yaml \
   -c NegotiationApiClient \
   -n EBay.Communication.Generated.Negotiation \
   -o EBay.Communication/Generated/Negotiation \
