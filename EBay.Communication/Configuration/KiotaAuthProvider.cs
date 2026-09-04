@@ -28,7 +28,7 @@ internal sealed class KiotaAuthProvider : IAccessTokenProvider
     {
         _config = config ?? throw new ArgumentNullException(nameof(config));
         _tokenContext = tokenContext ?? throw new ArgumentNullException(nameof(tokenContext));
-        AllowedHostsValidator = new AllowedHostsValidator(config.GetAllowedHosts());
+        AllowedHostsValidator = new AllowedHostsValidator(config.AllowedHosts);
     }
 
     public Task<string> GetAuthorizationTokenAsync(

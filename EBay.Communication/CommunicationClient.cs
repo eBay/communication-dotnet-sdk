@@ -24,53 +24,62 @@ namespace EBay.Communication;
 /// </summary>
 public partial class CommunicationClient : IDisposable
 {
-    private readonly HttpClient _httpClient;
-    private readonly bool _ownsHttpClient;
+    internal const string FeedbackClientName = "CommunicationClient.Feedback";
+    internal const string MessageClientName = "CommunicationClient.Message";
+    internal const string NegotiationClientName = "CommunicationClient.Negotiation";
+    internal const string NotificationClientName = "CommunicationClient.Notification";
+
+    private readonly HttpClient[] _ownedClients;
 
     /// <summary>
-    /// DI-friendly constructor: ITokenContext injected by the container.
+    /// DI-friendly constructor: each HttpClient is a named client from IHttpClientFactory
+    /// with DiagnosticLoggingHandler and BaseAddress already configured.
     /// </summary>
     internal CommunicationClient(
         CommunicationConfiguration config,
-        HttpClient httpClient,
+        HttpClient feedbackClient,
+        HttpClient messageClient,
+        HttpClient negotiationClient,
+        HttpClient notificationClient,
         ITokenContext tokenContext)
     {
-        ArgumentNullException.ThrowIfNull(config);
-        ArgumentNullException.ThrowIfNull(httpClient);
-        ArgumentNullException.ThrowIfNull(tokenContext);
+        _ownedClients = [];
 
-        _httpClient = httpClient;
-        _ownsHttpClient = false;
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
 
-        var authProvider = new KiotaAuthProvider(config, tokenContext);
-        var authenticationProvider = new BaseBearerTokenAuthenticationProvider(authProvider);
-
-        // All REST API adapters share the single DI-provided HttpClient
-        InitializeRestClients(authenticationProvider, httpClient, config, tokenContext);
+        InitializeRestClients(auth, feedbackClient, messageClient, negotiationClient, notificationClient, config, tokenContext);
     }
 
     /// <summary>
     /// Standalone constructor for use outside DI (tests, scripts).
-    /// Creates its own HttpClient with DiagnosticLoggingHandler wired in.
+    /// Creates its own HttpClients with DiagnosticLoggingHandler.
     /// </summary>
     public CommunicationClient(CommunicationConfiguration config)
-        : this(config, BuildStandaloneHttpClient(config), new AsyncLocalTokenContext())
     {
-        _ownsHttpClient = true;
+        var tokenContext = new AsyncLocalTokenContext();
+        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
+
+        var feedbackClient = BuildStandaloneHttpClient(config, config.FeedbackBaseUrl);
+        var messageClient = BuildStandaloneHttpClient(config, config.MessageBaseUrl);
+        var negotiationClient = BuildStandaloneHttpClient(config, config.NegotiationBaseUrl);
+        var notificationClient = BuildStandaloneHttpClient(config, config.NotificationBaseUrl);
+        _ownedClients = [feedbackClient, messageClient, negotiationClient, notificationClient];
+
+        InitializeRestClients(auth, feedbackClient, messageClient, negotiationClient, notificationClient, config, tokenContext);
     }
 
-    private static HttpClient BuildStandaloneHttpClient(CommunicationConfiguration config)
+    private static HttpClient BuildStandaloneHttpClient(CommunicationConfiguration config, string baseUrl)
     {
         var handler = new DiagnosticLoggingHandler(config)
         {
             InnerHandler = new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) }
         };
-        return new HttpClient(handler) { Timeout = config.HttpTimeout };
+        return new HttpClient(handler) { BaseAddress = new Uri(baseUrl), Timeout = config.HttpTimeout };
     }
 
     public void Dispose()
     {
-        if (_ownsHttpClient)
-            _httpClient?.Dispose();
+        foreach (var client in _ownedClients)
+            client.Dispose();
     }
 }

@@ -36,19 +36,39 @@ public static class ServiceCollectionExtensions
         services.AddSingleton(config);
         services.AddSingleton<ITokenContext, AsyncLocalTokenContext>();
 
-        services.AddHttpClient(nameof(CommunicationClient))
-            .ConfigureHttpClient(c => c.Timeout = config.HttpTimeout)
+        services.AddHttpClient(CommunicationClient.FeedbackClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<CommunicationConfiguration>().FeedbackBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<CommunicationConfiguration>().HttpTimeout)
             .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+        services.AddHttpClient(CommunicationClient.MessageClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<CommunicationConfiguration>().MessageBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<CommunicationConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+        services.AddHttpClient(CommunicationClient.NegotiationClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<CommunicationConfiguration>().NegotiationBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<CommunicationConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+        services.AddHttpClient(CommunicationClient.NotificationClientName,
+                (sp, c) => c.BaseAddress = new Uri(sp.GetRequiredService<CommunicationConfiguration>().NotificationBaseUrl))
+            .ConfigureHttpClient((sp, c) => c.Timeout = sp.GetRequiredService<CommunicationConfiguration>().HttpTimeout)
+            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+
         services.AddScoped<CommunicationClient>(sp =>
-            new CommunicationClient(
+        {
+            var factory = sp.GetRequiredService<IHttpClientFactory>();
+            return new CommunicationClient(
                 sp.GetRequiredService<CommunicationConfiguration>(),
-                sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(CommunicationClient)),
-                sp.GetRequiredService<ITokenContext>()));
+                factory.CreateClient(CommunicationClient.FeedbackClientName),
+                factory.CreateClient(CommunicationClient.MessageClientName),
+                factory.CreateClient(CommunicationClient.NegotiationClientName),
+                factory.CreateClient(CommunicationClient.NotificationClientName),
+                sp.GetRequiredService<ITokenContext>());
+        });
 
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Feedback);
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Message);
-        services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Notification);
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Negotiation);
+        services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Notification);
 
         return services;
     }

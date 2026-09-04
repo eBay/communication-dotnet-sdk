@@ -47,36 +47,39 @@ public partial class CommunicationClient
     public NegotiationClient Negotiation { get; private set; } = null!;
 
     private void InitializeRestClients(
-        IAuthenticationProvider authenticationProvider,
-        HttpClient httpClient,
+        IAuthenticationProvider auth,
+        HttpClient feedbackClient,
+        HttpClient messageClient,
+        HttpClient negotiationClient,
+        HttpClient notificationClient,
         CommunicationConfiguration config,
         ITokenContext tokenContext)
     {
         Feedback = new FeedbackClient(
             new FeedbackApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
+                auth,
+                httpClient: feedbackClient)),
             config,
             tokenContext);
 
         Message = new MessageClient(
             new MessageApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
+                auth,
+                httpClient: messageClient)),
             config,
             tokenContext);
 
         Notification = new NotificationClient(
             new NotificationApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
+                auth,
+                httpClient: notificationClient)),
             config,
             tokenContext);
 
         Negotiation = new NegotiationClient(
             new NegotiationApiClient(new HttpClientRequestAdapter(
-                authenticationProvider,
-                httpClient: httpClient)),
+                auth,
+                httpClient: negotiationClient)),
             config,
             tokenContext);
     }

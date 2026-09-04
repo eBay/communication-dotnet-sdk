@@ -54,7 +54,7 @@ public sealed class CommunicationConfiguration
     public string FeedbackBaseUrl
     {
         get => _feedbackBaseUrl;
-        set => _feedbackBaseUrl = RequireHttps(value, nameof(FeedbackBaseUrl));
+        set => _feedbackBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -63,7 +63,7 @@ public sealed class CommunicationConfiguration
     public string MessageBaseUrl
     {
         get => _messageBaseUrl;
-        set => _messageBaseUrl = RequireHttps(value, nameof(MessageBaseUrl));
+        set => _messageBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public sealed class CommunicationConfiguration
     public string NotificationBaseUrl
     {
         get => _notificationBaseUrl;
-        set => _notificationBaseUrl = RequireHttps(value, nameof(NotificationBaseUrl));
+        set => _notificationBaseUrl = RequireHttps(value);
     }
 
     /// <summary>
@@ -81,19 +81,15 @@ public sealed class CommunicationConfiguration
     public string NegotiationBaseUrl
     {
         get => _negotiationBaseUrl;
-        set => _negotiationBaseUrl = RequireHttps(value, nameof(NegotiationBaseUrl));
+        set => _negotiationBaseUrl = RequireHttps(value);
     }
 
-    /// <summary>
-    /// Gets all allowed hosts for the auth provider
-    /// </summary>
-    internal IEnumerable<string> GetAllowedHosts() =>
-        ["api.ebay.com", "apim.ebay.com", "apiz.ebay.com"];
+    internal IEnumerable<string> AllowedHosts => ["api.ebay.com", "apim.ebay.com", "apiz.ebay.com"];
 
-    private static string RequireHttps(string value, string paramName)
+    private static string RequireHttps(string value)
     {
         if (!value.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
-            throw new ArgumentException("Only HTTPS endpoints are allowed.", paramName);
+            throw new ArgumentException($"URL must use HTTPS: '{value}'", nameof(value));
         return value;
     }
 }
