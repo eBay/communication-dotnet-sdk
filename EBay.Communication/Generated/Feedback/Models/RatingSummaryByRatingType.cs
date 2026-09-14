@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueDistribution> FeedbackRatingValueDistribution { get; set; }
 #endif
-        /// <summary>This type provides fields for the time period on which the feedback summary is calculated.</summary>
+        /// <summary>The time period on which the feedback summary is calculated.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Period? Period { get; set; }
@@ -53,14 +53,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.Period Period { get; set; }
 #endif
-        /// <summary>This enumerated value indicates the user&apos;s role in the feedback  (&lt;code&gt;BUYER&lt;/code&gt; or &lt;code&gt;SELLER&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:UserRoleEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? UserRoleType { get; set; }
-#nullable restore
-#else
-        public string UserRoleType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the user&apos;s role in the feedback  (&lt;code&gt;BUYER&lt;/code&gt; or &lt;code&gt;SELLER&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum? UserRoleType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.RatingSummaryByRatingType"/> and sets the default values.
         /// </summary>
@@ -89,7 +83,7 @@ namespace EBay.Communication.Generated.Feedback.Models
                 { "feedbackMetrics", n => { FeedbackMetrics = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackMetrics>(global::EBay.Communication.Generated.Feedback.Models.FeedbackMetrics.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "feedbackRatingValueDistribution", n => { FeedbackRatingValueDistribution = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueDistribution>(global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueDistribution.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "period", n => { Period = n.GetObjectValue<global::EBay.Communication.Generated.Feedback.Models.Period>(global::EBay.Communication.Generated.Feedback.Models.Period.CreateFromDiscriminatorValue); } },
-                { "userRoleType", n => { UserRoleType = n.GetStringValue(); } },
+                { "userRoleType", n => { UserRoleType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum>(); } },
             };
         }
         /// <summary>
@@ -102,7 +96,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackMetrics>("feedbackMetrics", FeedbackMetrics);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueDistribution>("feedbackRatingValueDistribution", FeedbackRatingValueDistribution);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Feedback.Models.Period>("period", Period);
-            writer.WriteStringValue("userRoleType", UserRoleType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum>("userRoleType", UserRoleType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

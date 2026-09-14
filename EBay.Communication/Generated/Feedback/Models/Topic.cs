@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The main topic (or category) detected in the comment. See the available &lt;b&gt;topics&lt;/b&gt; in &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#uri.filter&quot;&gt;filter&lt;/a&gt;.</summary>
+        /// <summary>The main topic (or category) detected in the comment. See the available &lt;strong&gt;topics&lt;/strong&gt; in the &lt;strong&gt;filter&lt;/strong&gt; query parameter.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CoarseTopic { get; set; }
@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string FineTopic { get; set; }
 #endif
-        /// <summary>This array lists any text snippets, phrases, or examples, from the feedback that supports the detected topic.</summary>
+        /// <summary>This array lists any text snippets, phrases, or examples from the feedback that supports the detected topic.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<string>? HighlightedTexts { get; set; }

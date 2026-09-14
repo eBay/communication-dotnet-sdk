@@ -42,8 +42,8 @@ public sealed class NegotiationClient
     /// </summary>
     public Task<PagedEligibleItemCollection?> FindEligibleItemsAsync(
         string xEBAYCMARKETPLACEID,
-        string? limit = null,
-        string? offset = null,
+        int? limit = null,
+        int? offset = null,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
         CancellationToken ct = default)

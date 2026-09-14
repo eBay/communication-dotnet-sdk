@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>A type that contains information about the delivery configuration.</summary>
+        /// <summary>The configuration associated with this destination.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Notification.Models.DeliveryConfig? DeliveryConfig { get; set; }
@@ -53,14 +53,8 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>The status for this destination.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The &lt;b&gt;MARKED_DOWN&lt;/b&gt; value is set by eBay systems and cannot be used in a create or update call by applications.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;ENABLED&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;DISABLED&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;MARKED_DOWN&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:DestinationStatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
-#endif
+        /// <summary>The status for this destination.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The &lt;code&gt;MARKED_DOWN&lt;/code&gt; value is set by eBay systems and cannot be used in a create or update call by applications.&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;ENABLED&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;DISABLED&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;MARKED_DOWN&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
+        public global::EBay.Communication.Generated.Notification.Models.DestinationStatusEnum? Status { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Models.Destination"/> and sets the default values.
         /// </summary>
@@ -89,7 +83,7 @@ namespace EBay.Communication.Generated.Notification.Models
                 { "deliveryConfig", n => { DeliveryConfig = n.GetObjectValue<global::EBay.Communication.Generated.Notification.Models.DeliveryConfig>(global::EBay.Communication.Generated.Notification.Models.DeliveryConfig.CreateFromDiscriminatorValue); } },
                 { "destinationId", n => { DestinationId = n.GetStringValue(); } },
                 { "name", n => { Name = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetStringValue(); } },
+                { "status", n => { Status = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.DestinationStatusEnum>(); } },
             };
         }
         /// <summary>
@@ -102,7 +96,7 @@ namespace EBay.Communication.Generated.Notification.Models
             writer.WriteObjectValue<global::EBay.Communication.Generated.Notification.Models.DeliveryConfig>("deliveryConfig", DeliveryConfig);
             writer.WriteStringValue("destinationId", DestinationId);
             writer.WriteStringValue("name", Name);
-            writer.WriteStringValue("status", Status);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.DestinationStatusEnum>("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

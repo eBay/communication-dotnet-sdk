@@ -53,7 +53,7 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public string FilterId { get; set; }
 #endif
-        /// <summary>A type that describes the details of the subscription payload.</summary>
+        /// <summary>The payload associated with this subscription.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail? Payload { get; set; }
@@ -61,14 +61,8 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail Payload { get; set; }
 #endif
-        /// <summary>The status of this subscription. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
-#endif
+        /// <summary>The status of this subscription.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum? Status { get; set; }
         /// <summary>The unique identifier for the subscription.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -114,7 +108,7 @@ namespace EBay.Communication.Generated.Notification.Models
                 { "destinationId", n => { DestinationId = n.GetStringValue(); } },
                 { "filterId", n => { FilterId = n.GetStringValue(); } },
                 { "payload", n => { Payload = n.GetObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>(global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetStringValue(); } },
+                { "status", n => { Status = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>(); } },
                 { "subscriptionId", n => { SubscriptionId = n.GetStringValue(); } },
                 { "topicId", n => { TopicId = n.GetStringValue(); } },
             };
@@ -130,7 +124,7 @@ namespace EBay.Communication.Generated.Notification.Models
             writer.WriteStringValue("destinationId", DestinationId);
             writer.WriteStringValue("filterId", FilterId);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>("payload", Payload);
-            writer.WriteStringValue("status", Status);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>("status", Status);
             writer.WriteStringValue("subscriptionId", SubscriptionId);
             writer.WriteStringValue("topicId", TopicId);
             writer.WriteAdditionalData(AdditionalData);

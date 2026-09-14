@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field provides the URL of an attached image and is included in the response whenever an image is attached.</summary>
+        /// <summary>This field provides the URL of an attached image and is included in the response whenever an image is attached to the feedback.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Url { get; set; }

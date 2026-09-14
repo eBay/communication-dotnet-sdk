@@ -93,9 +93,9 @@ public sealed class NotificationClient
     /// <summary>
     /// This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.
     /// A single destination for all topics is valid, as is individual destinations for each topic.
-    /// To update a destination, use the <b>updateDestination</b> call.
+    /// To update a destination, use the <see href="/develop/api/sell/notification_api#sell-notification_api-destination-updatedestination">updateDestination</see> call.
     /// The destination created will need to be referenced while creating or updating a subscription to a topic.
-    /// <b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <see href="/api-docs/commerce/notification/overview.html">Notification API overview</see> for more information.
+    /// <b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. See the <see href="/develop/guides/sell/sell-communications-guide#retrievingeBaynotifications">Communications Guide</see> for more information.
     /// </summary>
     public Task CreateDestinationAsync(
         DestinationRequest body,
@@ -128,7 +128,7 @@ public sealed class NotificationClient
 
     /// <summary>
     /// This method allows applications to update a destination.
-    /// <b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <see href="/api-docs/commerce/notification/overview.html">Notification API overview</see> for more information.
+    /// <b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully.
     /// </summary>
     public Task UpdateDestinationAsync(
         string destinationId,
@@ -166,7 +166,7 @@ public sealed class NotificationClient
     /// This method allows users to retrieve a public key using a specified key ID. The public key that is returned in the response payload is used to process and validate eBay notifications.
     /// The public key ID, which is a required request parameter for this method, is retrieved from the Base64-encoded <b>X-EBAY-SIGNATURE</b> header that is included in the eBay notification.
     /// Important! </b>"&gt;<b>Important!</b> The retrieved public key value should be cached for a temporary — but reasonable — amount of time (e.g., one-hour is recommended.) This key should not be requested for every notification since doing so can result in exceeding <see href="/develop/apis/api-call-limits">API call limits</see> if a large number of notification requests is received.
-    /// <b>Note:</b> For more details about how to process eBay push notifications and validate notification message payloads, see the <see href="/api-docs/commerce/notification/overview.html">Notification API overview</see>.
+    /// <b>Note:</b> For more details about how to process eBay push notifications and validate notification message payloads, see the <see href="/develop/guides-v2/sell-communications-guide#overview">Communications Guide</see>.
     /// </summary>
     public Task<PublicKey?> GetPublicKeyAsync(
         string publicKeyId,
@@ -210,7 +210,7 @@ public sealed class NotificationClient
     /// <summary>
     /// This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
     /// Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.
-    /// You can create the subscription in disabled mode, test it (see the <b>test</b> method), and when everything is ready, you can enable the subscription (see the <b>enableSubscription</b> method).
+    /// You can create the subscription in disabled mode, test it (see the <b>test</b> method), and when everything is ready, you can enable the subscription (see the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription">enableSubscription</see> method).
     /// <b>Note:</b> If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.
     /// </summary>
     public Task CreateSubscriptionAsync(
@@ -229,8 +229,8 @@ public sealed class NotificationClient
     /// <summary>
     /// This method allows applications to create a filter for a subscription. Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.
     /// The <b>filterSchema</b> value must be a valid <see href="https://json-schema.org">JSON Schema Core document</see> (version 2020-12 or later). The <b>filterSchema</b> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications. The user does not need to provide <c>$schema</c> and <c>$id</c> definitions.
-    /// When a filter is first created, it is not immediately active on the subscription. If the request has a valid JSON body, the successful call returns the HTTP status code <b>201 Created</b>. Newly created filters are in <c>PENDING</c> status until they are reviewed. If a filter is valid, it will move from <c>PENDING</c> status to <c>ENABLED</c> status. You can find the status of a filter using the <see href="/api-docs/commerce/notification/resources/subscription/methods/getSubscriptionFilter">getSubscriptionFilter</see> method. See <see href="/api-docs/commerce/notification/overview.html#create-filter">Creating a subscription filter for a topic</see> for additional information.
-    /// <b>Note:</b> Only one filter can be in <b>ENABLED</b> (which means active) status on a subscription at a time. If an <b>ENABLED</b> filter is overwritten by a new call to <b>CREATE</b> a filter for the subscription, it stays in <b>ENABLED</b> status until the new <b>PENDING</b> filter becomes the <b>ENABLED</b> filter, and the existing filter then becomes <b>DISABLED</b>.
+    /// When a filter is first created, it is not immediately active on the subscription. If the request has a valid JSON body, the successful call returns the HTTP status code <b>201 Created</b>. Newly created filters are in <c>PENDING</c> status until they are reviewed. If a filter is valid, it will move from <c>PENDING</c> status to <c>ENABLED</c> status. You can find the status of a filter using the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-getsubscriptionfilter">getSubscriptionFilter</see> method.
+    /// <b>Note:</b> Only one filter can be in <c>ENABLED</c> (which means active) status on a subscription at a time. If an <c>ENABLED</c> filter is overwritten by a new call to <c>CREATE</c> a filter for the subscription, it stays in <b>ENABLED</b> status until the new <b>PENDING</b> filter becomes the <c>ENABLED</c> filter, and the existing filter then becomes <c>DISABLED</c>.
     /// </summary>
     public Task CreateSubscriptionFilterAsync(
         string subscriptionId,
@@ -248,7 +248,7 @@ public sealed class NotificationClient
 
     /// <summary>
     /// This method allows applications to retrieve subscription details for the specified subscription.
-    /// Specify the subscription to retrieve using the <b>subscription_id</b>. Use the <b>getSubscriptions</b> method to browse all subscriptions if you do not know the <b>subscription_id</b>.
+    /// Specify the subscription to retrieve using the <b>subscription_id</b>. Use the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-getsubscriptions">getSubscriptions</see> method to browse all subscriptions if you do not know the <b>subscription_id</b>.
     /// Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
     /// </summary>
     public Task<Subscription?> GetSubscriptionAsync(
@@ -267,7 +267,7 @@ public sealed class NotificationClient
     /// <summary>
     /// This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
     /// <b>Note:</b> This call returns an error if an application is not authorized to subscribe to a topic.
-    /// You can pause and restart a subscription. See the <b>disableSubscription</b> and <b>enableSubscription</b> methods.
+    /// You can pause and restart a subscription. See the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-disablesubscription">disableSubscription</see> and <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription">enableSubscription</see>methods.
     /// </summary>
     public Task UpdateSubscriptionAsync(
         string subscriptionId,
@@ -320,7 +320,7 @@ public sealed class NotificationClient
 
     /// <summary>
     /// This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.
-    /// <b>Note:</b> Subscription filters in <b>PENDING</b> status can not be disabled. However, a new filter can be created instead with the <b>createSubscriptionFilter</b> method and this new filter will override the <b>PENDING</b> filter.
+    /// <b>Note:</b> Subscription filters in <c>PENDING</c> status can not be disabled. However, a new filter can be created instead with the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-createsubscriptionfilter">createSubscriptionFilter</see> method and this new filter will override the <c>PENDING</c> filter.
     /// </summary>
     public Task DeleteSubscriptionFilterAsync(
         string filterId,
@@ -337,7 +337,7 @@ public sealed class NotificationClient
         }, ct));
 
     /// <summary>
-    /// This method disables a subscription, which prevents the subscription from providing notifications. To restart a subscription, call <b>enableSubscription</b>.
+    /// This method disables a subscription, which prevents the subscription from providing notifications. To restart a subscription, call <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription">enableSubscription</see>.
     /// </summary>
     public Task DisableSubscriptionAsync(
         string subscriptionId,
@@ -353,7 +353,7 @@ public sealed class NotificationClient
         }, ct));
 
     /// <summary>
-    /// This method allows applications to enable a disabled subscription. To pause (or disable) an enabled subscription, call <b>disableSubscription</b>.
+    /// This method allows applications to enable a disabled subscription. To pause (or disable) an enabled subscription, call <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-disablesubscription">disableSubscription</see>.
     /// </summary>
     public Task EnableSubscriptionAsync(
         string subscriptionId,
@@ -370,10 +370,10 @@ public sealed class NotificationClient
 
     /// <summary>
     /// This method triggers a mocked test payload that includes a notification ID, publish date, and so on. Use this method to test your subscription end-to-end.
-    /// You can create the subscription in disabled mode, test it using this method, and when everything is ready, you can enable the subscription (see the <b>enableSubscription</b> method).
+    /// You can create the subscription in disabled mode, test it using this method, and when everything is ready, you can enable the subscription (see the <see href="/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription">enableSubscription</see> method).
     /// <b>Note:</b> Use the <b>notificationId</b> to tell the difference between a test payload and a real payload.
     /// </summary>
-    public Task TestSubscriptionAsync(
+    public Task<Error?> TestSubscriptionAsync(
         string subscriptionId,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
@@ -391,7 +391,7 @@ public sealed class NotificationClient
     /// Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.
     /// A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
     /// Specify the topic to retrieve using the <b>topic_id</b> URI parameter.
-    /// <b>Note:</b> Use the <see href="/api-docs/commerce/notification/resources/topic/methods/getTopics">getTopics</see> method to find a topic if you do not know the topic ID.
+    /// <b>Note:</b> Use the <see href="/develop/api/sell/notification_api#sell-notification_api-topic-gettopics">getTopics</see> method to find a topic if you do not know the topic ID.
     /// </summary>
     public Task<Topic?> GetTopicAsync(
         string topicId,

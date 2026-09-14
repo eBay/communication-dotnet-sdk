@@ -47,7 +47,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
 #else
         public string CreationDate { get; set; }
 #endif
-        /// <summary>The eBay &lt;b&gt;UserName&lt;/b&gt; of the user (seller) who initiated the offer.</summary>
+        /// <summary>The eBay &lt;b&gt;UserName&lt;/b&gt; of the user (seller) who initiated the offer.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? InitiatedBy { get; set; }
@@ -95,22 +95,10 @@ namespace EBay.Communication.Generated.Negotiation.Models
 #else
         public string OfferId { get; set; }
 #endif
-        /// <summary>The current state, or status, of an offer.  &lt;br&gt;&lt;br&gt;Status states include &lt;code&gt;PENDING&lt;/code&gt;, &lt;code&gt;COUNTERED&lt;/code&gt;, &lt;code&gt;ACCEPTED&lt;/code&gt;, and &lt;code&gt;DECLINED&lt;/code&gt;. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/sell/negotiation/types/api:OfferStatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? OfferStatus { get; set; }
-#nullable restore
-#else
-        public string OfferStatus { get; set; }
-#endif
-        /// <summary>The type of offer being made. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/sell/negotiation/types/api:OfferTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? OfferType { get; set; }
-#nullable restore
-#else
-        public string OfferType { get; set; }
-#endif
+        /// <summary>The status of the offer that was extended to a buyer.</summary>
+        public global::EBay.Communication.Generated.Negotiation.Models.OfferStatusEnum? OfferStatus { get; set; }
+        /// <summary>This enum describes the types of offers that can be made in a buyer-seller discount negotiation.</summary>
+        public global::EBay.Communication.Generated.Negotiation.Models.OfferTypeEnum? OfferType { get; set; }
         /// <summary>A unique, eBay-assigned ID for the revision of the offer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -152,8 +140,8 @@ namespace EBay.Communication.Generated.Negotiation.Models
                 { "message", n => { Message = n.GetStringValue(); } },
                 { "offerDuration", n => { OfferDuration = n.GetObjectValue<global::EBay.Communication.Generated.Negotiation.Models.TimeDuration>(global::EBay.Communication.Generated.Negotiation.Models.TimeDuration.CreateFromDiscriminatorValue); } },
                 { "offerId", n => { OfferId = n.GetStringValue(); } },
-                { "offerStatus", n => { OfferStatus = n.GetStringValue(); } },
-                { "offerType", n => { OfferType = n.GetStringValue(); } },
+                { "offerStatus", n => { OfferStatus = n.GetEnumValue<global::EBay.Communication.Generated.Negotiation.Models.OfferStatusEnum>(); } },
+                { "offerType", n => { OfferType = n.GetEnumValue<global::EBay.Communication.Generated.Negotiation.Models.OfferTypeEnum>(); } },
                 { "offeredItems", n => { OfferedItems = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Negotiation.Models.OfferedItem>(global::EBay.Communication.Generated.Negotiation.Models.OfferedItem.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "revision", n => { Revision = n.GetStringValue(); } },
             };
@@ -174,8 +162,8 @@ namespace EBay.Communication.Generated.Negotiation.Models
             writer.WriteObjectValue<global::EBay.Communication.Generated.Negotiation.Models.TimeDuration>("offerDuration", OfferDuration);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Negotiation.Models.OfferedItem>("offeredItems", OfferedItems);
             writer.WriteStringValue("offerId", OfferId);
-            writer.WriteStringValue("offerStatus", OfferStatus);
-            writer.WriteStringValue("offerType", OfferType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Negotiation.Models.OfferStatusEnum>("offerStatus", OfferStatus);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Negotiation.Models.OfferTypeEnum>("offerType", OfferType);
             writer.WriteStringValue("revision", Revision);
             writer.WriteAdditionalData(AdditionalData);
         }

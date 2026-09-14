@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field is used to add or modify an email address that will be used for Notification API alerts associated with the application. &lt;b&gt;getConfig&lt;/b&gt; can be used to get the email address currently being used for alerts.</summary>
+        /// <summary>This field is used to add or modify an email address that will be used for Notification API alerts associated with the application. &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-config-getconfig&quot;&gt;getConfig&lt;/a&gt; can be used to get the email address currently being used for alerts.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? AlertEmail { get; set; }

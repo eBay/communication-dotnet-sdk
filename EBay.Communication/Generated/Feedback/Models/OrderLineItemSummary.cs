@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field provides the unique identifier for the listing associated with the feedback entry. Conditionally returned based on the authorization flow and user context. See &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.orderLineItemSummary&quot;&gt;orderLineItemSummary&lt;/a&gt; for details on when this field is included.</summary>
+        /// <summary>This field provides the unique identifier for the listing associated with the feedback entry. It is conditionally returned based on the authorization flow and user context. See &lt;strong&gt;orderLineItemSummary&lt;/strong&gt; for details on when this field is included.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ListingId { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string ListingId { get; set; }
 #endif
-        /// <summary>This type provides details about the price of the listing awaiting feedback.</summary>
+        /// <summary>This container provides the sale price of the listing. It is conditionally returned based on the authorization flow and user context. See &lt;strong&gt;orderLineItemSummary&lt;/strong&gt; for details on when this field is included.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.ListingPrice? ListingPrice { get; set; }
@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.ListingPrice ListingPrice { get; set; }
 #endif
-        /// <summary>This field contains the title of the listing. Conditionally returned based on the authorization flow and user context. See &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.orderLineItemSummary&quot;&gt;orderLineItemSummary&lt;/a&gt; for details on when this field is included.</summary>
+        /// <summary>This field contains the title of the listing. It is conditionally returned based on the authorization flow and user context. See &lt;strong&gt;orderLineItemSummary&lt;/strong&gt; for details on when this field is included.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ListingTitle { get; set; }
@@ -61,7 +61,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.OrderLineItemAttribute> OrderLineItemAttributes { get; set; }
 #endif
-        /// <summary>The unique identifier of the line item for this feedback. Conditionally returned based on the authorization flow and user context. See &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.orderLineItemSummary&quot;&gt;orderLineItemSummary&lt;/a&gt; for details on when this field is included.</summary>
+        /// <summary>The unique identifier of the line item for this feedback. It is conditionally returned based on the authorization flow and user context. See &lt;strong&gt;orderLineItemSummary&lt;/strong&gt; for details on when this field is included.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? OrderLineItemId { get; set; }
@@ -69,7 +69,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string OrderLineItemId { get; set; }
 #endif
-        /// <summary>This type specifies the amount of time elapsed and the threshold associated with a transaction.</summary>
+        /// <summary>This container indicates if the time since the item was bought on eBay is less than, more than, or equal to 90 days</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.TransactionPeriod? TransactionPeriod { get; set; }

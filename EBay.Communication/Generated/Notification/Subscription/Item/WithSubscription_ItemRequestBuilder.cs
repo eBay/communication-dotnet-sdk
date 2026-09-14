@@ -76,6 +76,9 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -86,14 +89,23 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
         {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to retrieve subscription details for the specified subscription.&lt;br&gt;&lt;br&gt;Specify the subscription to retrieve using the &lt;strong&gt;subscription_id&lt;/strong&gt;. Use the &lt;strong&gt;getSubscriptions&lt;/strong&gt; method to browse all subscriptions if you do not know the &lt;strong&gt;subscription_id&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
+        /// This method allows applications to retrieve subscription details for the specified subscription.&lt;br&gt;&lt;br&gt;Specify the subscription to retrieve using the &lt;strong&gt;subscription_id&lt;/strong&gt;. Use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-getsubscriptions&quot;&gt;getSubscriptions&lt;/a&gt; method to browse all subscriptions if you do not know the &lt;strong&gt;subscription_id&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
         /// </summary>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.Subscription"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.Subscription?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -104,14 +116,24 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Subscription>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Subscription.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Subscription>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Subscription.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This call returns an error if an application is not authorized to subscribe to a topic.&lt;/span&gt;&lt;br&gt;&lt;br&gt;You can pause and restart a subscription. See the &lt;b&gt;disableSubscription&lt;/b&gt; and &lt;b&gt;enableSubscription&lt;/b&gt; methods.
+        /// This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This call returns an error if an application is not authorized to subscribe to a topic.&lt;/span&gt;&lt;br&gt;&lt;br&gt;You can pause and restart a subscription. See the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-disablesubscription&quot;&gt;disableSubscription&lt;/a&gt; and &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription&quot;&gt;enableSubscription&lt;/a&gt;methods.
         /// </summary>
-        /// <param name="body">A type that describes the details of the update subscription request.</param>
+        /// <param name="body">The create subscription request.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 409 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PutAsync(global::EBay.Communication.Generated.Notification.Models.UpdateSubscriptionRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -123,7 +145,14 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "409", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to delete a subscription. Subscriptions can be deleted regardless of status.
@@ -141,10 +170,11 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
 #endif
             var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>
-        /// This method allows applications to retrieve subscription details for the specified subscription.&lt;br&gt;&lt;br&gt;Specify the subscription to retrieve using the &lt;strong&gt;subscription_id&lt;/strong&gt;. Use the &lt;strong&gt;getSubscriptions&lt;/strong&gt; method to browse all subscriptions if you do not know the &lt;strong&gt;subscription_id&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
+        /// This method allows applications to retrieve subscription details for the specified subscription.&lt;br&gt;&lt;br&gt;Specify the subscription to retrieve using the &lt;strong&gt;subscription_id&lt;/strong&gt;. Use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-getsubscriptions&quot;&gt;getSubscriptions&lt;/a&gt; method to browse all subscriptions if you do not know the &lt;strong&gt;subscription_id&lt;/strong&gt;.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -163,10 +193,10 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
             return requestInfo;
         }
         /// <summary>
-        /// This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This call returns an error if an application is not authorized to subscribe to a topic.&lt;/span&gt;&lt;br&gt;&lt;br&gt;You can pause and restart a subscription. See the &lt;b&gt;disableSubscription&lt;/b&gt; and &lt;b&gt;enableSubscription&lt;/b&gt; methods.
+        /// This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; This call returns an error if an application is not authorized to subscribe to a topic.&lt;/span&gt;&lt;br&gt;&lt;br&gt;You can pause and restart a subscription. See the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-disablesubscription&quot;&gt;disableSubscription&lt;/a&gt; and &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription&quot;&gt;enableSubscription&lt;/a&gt;methods.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">A type that describes the details of the update subscription request.</param>
+        /// <param name="body">The create subscription request.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -180,6 +210,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

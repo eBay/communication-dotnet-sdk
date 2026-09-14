@@ -29,19 +29,13 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>If the returned value is &lt;code&gt;true&lt;/code&gt;, feedback was generated and added automatically by eBay. If a seller has a feedback score 10 or less, eBay automatically leaves feedback. The buyer can choose to override the eBay feedback and leave feedback normally. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Detailed Seller Ratings (DSRs) are not provided by ebay, only a predefined comment and a positive rating.&lt;/span&gt;&lt;/p&gt;</summary>
+        /// <summary>If the returned value is &lt;code&gt;true&lt;/code&gt;, feedback was generated and added automatically by eBay. If a seller has a feedback score 10 or less, eBay automatically leaves feedback. The buyer can choose to override the eBay feedback and leave feedback of their own. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Detailed Seller Ratings (DSRs) are not provided by eBay, only a predefined comment and a positive rating.&lt;/span&gt;&lt;/p&gt;</summary>
         public bool? AutomatedFeedback { get; set; }
-        /// <summary>This enumerated value indicates the type of feedback: &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Sellers can only leave positive feedback for buyers.&lt;/span&gt;&lt;/p&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingValuesEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CommentType { get; set; }
-#nullable restore
-#else
-        public string CommentType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the type of feedback: &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Sellers can only leave positive feedback for buyers.&lt;/span&gt;&lt;/p&gt;</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum? CommentType { get; set; }
         /// <summary>This boolean indicates whether the feedback is eligible for revision. If returned as &lt;code&gt;true&lt;/code&gt;, it means the feedback can be modified. Feedback that is older than 30 days or has already been revised once cannot be erased or further revised.</summary>
         public bool? EligibleForRevision { get; set; }
-        /// <summary>This type provides the details of the feedback comment left by the user.</summary>
+        /// <summary>This container provides the feedback comment left by a user when submitting feedback for a seller or buyer.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Comment? FeedbackComment { get; set; }
@@ -57,7 +51,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string FeedbackEnteredDate { get; set; }
 #endif
-        /// <summary>This type specifies the amount of time elapsed associated with a feedback entry.</summary>
+        /// <summary>This container represents the duration since feedback was entered, expressed as a numeric value and a unit of time in days.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.FeedbackEnteredPeriod? FeedbackEnteredPeriod { get; set; }
@@ -83,15 +77,9 @@ namespace EBay.Communication.Generated.Feedback.Models
 #endif
         /// <summary>The feedback receiver&apos;s feedback score after receiving this specific feedback.</summary>
         public int? FeedbackScore { get; set; }
-        /// <summary>This enumerated value indicates the current state of the feedback entry (for example, &lt;code&gt;ENTERED&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackStateEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? FeedbackState { get; set; }
-#nullable restore
-#else
-        public string FeedbackState { get; set; }
-#endif
-        /// <summary>This type provides the details of the feedback comment left by the user.</summary>
+        /// <summary>This enumerated value indicates the current state of the feedback entry (for example, &lt;code&gt;ENTERED&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackStateEnum? FeedbackState { get; set; }
+        /// <summary>This container provides the details of any follow-up comment left. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;A buyer leaves follow-up comments and a seller leaves reply comments.&lt;/span&gt;&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Comment? FollowupComment { get; set; }
@@ -109,7 +97,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.Image> Images { get; set; }
 #endif
-        /// <summary>This type provides fields for a summary of the line item related to feedback.</summary>
+        /// <summary>This container provides a summary of the line item associated with the feedback entry. &lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Certain fields within this container are returned only when the request uses the &lt;strong&gt;Authorization code grant flow&lt;/strong&gt; (user access token) and the &lt;strong&gt;user_id&lt;/strong&gt; matches the authenticated user. These fields are not returned when accessing a different &lt;strong&gt;user_id&lt;/strong&gt; or when using the &lt;strong&gt;Client credentials grant flow&lt;/strong&gt; (application access token). See &lt;a href=&quot;#h3-oauth-scope&quot;&gt;OAuth scope&lt;/a&gt; for details on the flows and required permissions.&lt;/span&gt;&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.OrderLineItemSummary? OrderLineItemSummary { get; set; }
@@ -117,7 +105,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.OrderLineItemSummary OrderLineItemSummary { get; set; }
 #endif
-        /// <summary>This type provides the details of the user who provided the feedback of a &lt;b&gt;getFeedback&lt;/b&gt; response.</summary>
+        /// <summary>This container details the attributes of the user who provided the feedback.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetail? ProviderUserDetail { get; set; }
@@ -125,9 +113,9 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetail ProviderUserDetail { get; set; }
 #endif
-        /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, this boolean indicates the feedback reply was given by the seller before the follow-up comment was given buy the buyer.</summary>
+        /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, this boolean indicates the feedback reply was given by the seller before the follow-up comment was given by the buyer.</summary>
         public bool? RepliedBeforeFollowup { get; set; }
-        /// <summary>This type provides the details of the feedback comment left by the user.</summary>
+        /// <summary>This container provides the details of any reply to the feedback.&lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;A buyer leaves follow-up comments and a seller leaves reply comments.&lt;/span&gt;&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Comment? ReplyComment { get; set; }
@@ -135,7 +123,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.Comment ReplyComment { get; set; }
 #endif
-        /// <summary>This array provides descriptions of AI-generated insights related to a feedback entry for the specified &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#uri.filter&quot; &gt;filter&lt;/a&gt; topic. The feedback provided is considered relevant to the requested &lt;b&gt;topic&lt;/b&gt;. For example, when using the request parameter filter of &lt;code&gt;topics:product-satisfaction&lt;/code&gt;, the returned array might be: &lt;p&gt;&lt;pre&gt;{&lt;br&gt;  &quot;coarseTopic&quot; : &quot;product-satisfaction&quot;,&lt;br&gt;  &quot;highlightedTexts&quot; : [&lt;br&gt;    &quot;This machine is amazing&quot;,&lt;br&gt;    &quot;Very happy with this purchase&quot;&lt;br&gt;    ],&lt;br&gt;  &quot;sentiment&quot; : &quot;Positive&quot;&lt;br&gt;}&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;If no topics exist for that feedback, an empty array is returned.&lt;/p&gt;</summary>
+        /// <summary>This array provides descriptions of AI-generated insights related to a feedback entry for the specified &lt;strong&gt;filter&lt;/strong&gt; topic. The feedback provided is considered relevant to the requested &lt;strong&gt;topic&lt;/strong&gt;. For example, when using the request parameter filter of &lt;code&gt;topics:product-satisfaction&lt;/code&gt;, the returned array might be: &lt;p&gt;&lt;pre&gt;{&lt;br&gt;  &quot;coarseTopic&quot; : &quot;product-satisfaction&quot;,&lt;br&gt;  &quot;highlightedTexts&quot; : [&lt;br&gt;    &quot;This machine is amazing&quot;,&lt;br&gt;    &quot;Very happy with this purchase&quot;&lt;br&gt;    ],&lt;br&gt;  &quot;sentiment&quot; : &quot;Positive&quot;&lt;br&gt;}&lt;/pre&gt;&lt;/p&gt;&lt;p&gt;If no topics exist for that feedback, an empty array is returned.&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Feedback.Models.Topic>? Topics { get; set; }
@@ -169,7 +157,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "automatedFeedback", n => { AutomatedFeedback = n.GetBoolValue(); } },
-                { "commentType", n => { CommentType = n.GetStringValue(); } },
+                { "commentType", n => { CommentType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum>(); } },
                 { "eligibleForRevision", n => { EligibleForRevision = n.GetBoolValue(); } },
                 { "feedbackComment", n => { FeedbackComment = n.GetObjectValue<global::EBay.Communication.Generated.Feedback.Models.Comment>(global::EBay.Communication.Generated.Feedback.Models.Comment.CreateFromDiscriminatorValue); } },
                 { "feedbackEnteredDate", n => { FeedbackEnteredDate = n.GetStringValue(); } },
@@ -177,7 +165,7 @@ namespace EBay.Communication.Generated.Feedback.Models
                 { "feedbackId", n => { FeedbackId = n.GetStringValue(); } },
                 { "feedbackRatings", n => { FeedbackRatings = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackRating>(global::EBay.Communication.Generated.Feedback.Models.FeedbackRating.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "feedbackScore", n => { FeedbackScore = n.GetIntValue(); } },
-                { "feedbackState", n => { FeedbackState = n.GetStringValue(); } },
+                { "feedbackState", n => { FeedbackState = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackStateEnum>(); } },
                 { "followupComment", n => { FollowupComment = n.GetObjectValue<global::EBay.Communication.Generated.Feedback.Models.Comment>(global::EBay.Communication.Generated.Feedback.Models.Comment.CreateFromDiscriminatorValue); } },
                 { "hasImages", n => { HasImages = n.GetBoolValue(); } },
                 { "images", n => { Images = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.Image>(global::EBay.Communication.Generated.Feedback.Models.Image.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -196,7 +184,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("automatedFeedback", AutomatedFeedback);
-            writer.WriteStringValue("commentType", CommentType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum>("commentType", CommentType);
             writer.WriteBoolValue("eligibleForRevision", EligibleForRevision);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Feedback.Models.Comment>("feedbackComment", FeedbackComment);
             writer.WriteStringValue("feedbackEnteredDate", FeedbackEnteredDate);
@@ -204,7 +192,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             writer.WriteStringValue("feedbackId", FeedbackId);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.FeedbackRating>("feedbackRatings", FeedbackRatings);
             writer.WriteIntValue("feedbackScore", FeedbackScore);
-            writer.WriteStringValue("feedbackState", FeedbackState);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackStateEnum>("feedbackState", FeedbackState);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Feedback.Models.Comment>("followupComment", FollowupComment);
             writer.WriteBoolValue("hasImages", HasImages);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.Image>("images", Images);

@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type provides fields for available values for use in a particular rating, and whether the value is enabled.
+    /// This type provides fields for available values for use in a particular rating and whether the value is enabled.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class FeedbackRatingAcceptableValue : IAdditionalDataHolder, IParsable
@@ -31,7 +31,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>If &lt;code&gt;true&lt;/code&gt;, this boolean indicates that this value is enabled and selectable.</summary>
         public bool? Enabled { get; set; }
-        /// <summary>The value that can be selected for feedback. For most &lt;b&gt;ratingType&lt;/b&gt; values, this is &lt;code&gt;1&lt;/code&gt; through &lt;code&gt;5&lt;/code&gt;, with &lt;code&gt;1&lt;/code&gt; representing the lowest rating and &lt;code&gt;5&lt;/code&gt; representing the highest rating. For &lt;b&gt;ratingType&lt;/b&gt; of &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt;, this can be &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;, and &lt;code&gt;NEUTRAL&lt;/code&gt;. These are the same values as used with the &lt;b&gt;leaveFeedback&lt;/b&gt; methods.</summary>
+        /// <summary>The value that can be selected for feedback. For most &lt;strong&gt;ratingType&lt;/strong&gt; values, this is &lt;code&gt;1&lt;/code&gt; through &lt;code&gt;5&lt;/code&gt;, with &lt;code&gt;1&lt;/code&gt; representing the lowest rating and &lt;code&gt;5&lt;/code&gt; representing the highest rating. For &lt;strong&gt;ratingType&lt;/strong&gt; of &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt;, this can be &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;, and &lt;code&gt;NEUTRAL&lt;/code&gt;. These are the same values as used with the &lt;strong&gt;leaveFeedback&lt;/strong&gt; methods.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Value { get; set; }
@@ -39,7 +39,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Value { get; set; }
 #endif
-        /// <summary>This field provides information about the corresponding &lt;b&gt;value&lt;/b&gt;.</summary>
+        /// <summary>This field provides information about the corresponding &lt;strong&gt;value&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ValueLabel { get; set; }

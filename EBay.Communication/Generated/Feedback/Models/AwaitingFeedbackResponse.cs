@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines the fields for the &lt;b&gt;getItemsAwaitingFeedback&lt;/b&gt; response.
+    /// This type defines the fields for the &lt;strong&gt;getItemsAwaitingFeedback&lt;/strong&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class AwaitingFeedbackResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type returns the number of line items awaiting feedback.</summary>
+        /// <summary>This container returns the number of line items awaiting feedback. The &lt;strong&gt;asSeller&lt;/strong&gt; and &lt;strong&gt;asBuyer&lt;/strong&gt; fields return the total count of items awaiting feedback as seller and buyer and are not affected by the &lt;strong&gt;userRole&lt;/strong&gt; filter.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.ItemsAwaitingFeedbackCount? ItemsAwaitingFeedbackCount { get; set; }
@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.AwaitingFeedback> LineItems { get; set; }
 #endif
-        /// <summary>This type provides pagination information for the returned line items.</summary>
+        /// <summary>This container provides pagination information for the returned line items awaiting feedback (as filtered).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Pagination? Pagination { get; set; }

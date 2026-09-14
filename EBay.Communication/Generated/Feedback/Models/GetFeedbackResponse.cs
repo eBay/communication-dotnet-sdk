@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines the fields for the &lt;b&gt;getFeedback&lt;/b&gt; response.
+    /// This type defines the fields for the &lt;strong&gt;getFeedback&lt;/strong&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GetFeedbackResponse : IAdditionalDataHolder, IParsable
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.FeedbackDetail> FeedbackEntries { get; set; }
 #endif
-        /// <summary>This type provides pagination information for the returned line items.</summary>
+        /// <summary>This container provides pagination information for the returned feedback response (as filtered).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Pagination? Pagination { get; set; }

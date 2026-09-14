@@ -22,31 +22,19 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type provides the details of the user who provided the feedback of a &lt;b&gt;getFeedback&lt;/b&gt; response.
+    /// This type provides the details of the user who provided the feedback of a &lt;strong&gt;getFeedback&lt;/strong&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProviderUserDetail : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This integer indicates the feedback score of the feedback provider at the time of providing this specific feedback.</summary>
+        /// <summary>This integer indicates the feedback score of the feedback provider at the time the specific feedback was left.</summary>
         public int? FeedbackScore { get; set; }
-        /// <summary>This enumerated value provides the visual star representation of the feedback score (for example, &lt;code&gt;YELLOW_STAR&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackStarTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? FeedbackStar { get; set; }
-#nullable restore
-#else
-        public string FeedbackStar { get; set; }
-#endif
-        /// <summary>This enumerated value indicates the user&apos;s role in the transaction (&lt;code&gt;BUYER&lt;/code&gt; or &lt;code&gt;SELLER&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:UserRoleEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Role { get; set; }
-#nullable restore
-#else
-        public string Role { get; set; }
-#endif
+        /// <summary>This enumerated value provides the visual star representation of the feedback score (for example, &lt;code&gt;YELLOW_STAR&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackStarTypeEnum? FeedbackStar { get; set; }
+        /// <summary>This enumerated value indicates the user&apos;s role in the transaction (&lt;code&gt;BUYER&lt;/code&gt; or &lt;code&gt;SELLER&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum? Role { get; set; }
         /// <summary>This array lists additional attributes that relate to the user (such as verification status).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -55,7 +43,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetailUserAttributes> UserAttributes { get; set; }
 #endif
-        /// <summary>This field indicates the unique identifier of the user who gave the feedback.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Select developers will not receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
+        /// <summary>This field indicates the unique identifier of the user who gave the feedback.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Select developers will not receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? UserId { get; set; }
@@ -89,8 +77,8 @@ namespace EBay.Communication.Generated.Feedback.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "feedbackScore", n => { FeedbackScore = n.GetIntValue(); } },
-                { "feedbackStar", n => { FeedbackStar = n.GetStringValue(); } },
-                { "role", n => { Role = n.GetStringValue(); } },
+                { "feedbackStar", n => { FeedbackStar = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackStarTypeEnum>(); } },
+                { "role", n => { Role = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum>(); } },
                 { "userAttributes", n => { UserAttributes = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetailUserAttributes>(global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetailUserAttributes.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "userId", n => { UserId = n.GetStringValue(); } },
             };
@@ -103,8 +91,8 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteIntValue("feedbackScore", FeedbackScore);
-            writer.WriteStringValue("feedbackStar", FeedbackStar);
-            writer.WriteStringValue("role", Role);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackStarTypeEnum>("feedbackStar", FeedbackStar);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserRoleEnum>("role", Role);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.ProviderUserDetailUserAttributes>("userAttributes", UserAttributes);
             writer.WriteStringValue("userId", UserId);
             writer.WriteAdditionalData(AdditionalData);

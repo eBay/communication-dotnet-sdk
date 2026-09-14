@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use the &lt;b&gt;getDestinations&lt;/b&gt; method to retrieve destination IDs.</summary>
+        /// <summary>The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-destination-getdestinations&quot;&gt;getDestinations&lt;/a&gt;  method to retrieve destination IDs.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? DestinationId { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public string DestinationId { get; set; }
 #endif
-        /// <summary>A type that describes the details of the subscription payload.</summary>
+        /// <summary>The payload associated with the notification topic. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; or &lt;a href=&quot;/api-docs/commerce/notification/resources/topic/methods/getTopic&quot;&gt;getTopic&lt;/a&gt; to get the supported payload for the topic.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail? Payload { get; set; }
@@ -45,15 +45,9 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail Payload { get; set; }
 #endif
-        /// <summary>Set the status of the subscription to &lt;code&gt;ENABLED&lt;/code&gt; or &lt;code&gt;DISABLED&lt;/code&gt;. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
-#endif
-        /// <summary>The unique identifier of the notification topic to subscribe to. Use &lt;b&gt;getTopics&lt;/b&gt; to get topic IDs.</summary>
+        /// <summary>Set the status of the subscription to &lt;code&gt;ENABLED&lt;/code&gt; or &lt;code&gt;DISABLED&lt;/code&gt;.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum? Status { get; set; }
+        /// <summary>The unique identifier of the notification topic to subscribe to. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; to get topic IDs.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? TopicId { get; set; }
@@ -88,7 +82,7 @@ namespace EBay.Communication.Generated.Notification.Models
             {
                 { "destinationId", n => { DestinationId = n.GetStringValue(); } },
                 { "payload", n => { Payload = n.GetObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>(global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetStringValue(); } },
+                { "status", n => { Status = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>(); } },
                 { "topicId", n => { TopicId = n.GetStringValue(); } },
             };
         }
@@ -101,7 +95,7 @@ namespace EBay.Communication.Generated.Notification.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("destinationId", DestinationId);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>("payload", Payload);
-            writer.WriteStringValue("status", Status);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>("status", Status);
             writer.WriteStringValue("topicId", TopicId);
             writer.WriteAdditionalData(AdditionalData);
         }

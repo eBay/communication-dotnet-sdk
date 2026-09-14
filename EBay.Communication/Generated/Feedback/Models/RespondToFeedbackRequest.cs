@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// The type that defines the fields for the &lt;b&gt;respondToFeedback&lt;/b&gt; request.
+    /// The type that defines the fields for the &lt;strong&gt;respondToFeedback&lt;/strong&gt; request.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class RespondToFeedbackRequest : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Use this field to provide the unique identifier for the feedback being responded to, used to specify the feedback entry associated with the feedback response. This value can be returned using the &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback&quot;  target=&quot;_blank&quot;&gt;getFeedback&lt;/a&gt; method (&lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.feedbackId&quot;  target=&quot;_blank&quot;&gt;feedbackId&lt;/a&gt; field).</summary>
+        /// <summary>Use this field to provide the unique identifier for the feedback being responded to. It is used to specify the feedback entry associated with the feedback response. This value can be returned using the &lt;strong&gt;getFeedback&lt;/strong&gt; method (strong&gt;feedbackId&lt;/strong&gt; field).</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? FeedbackId { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string FeedbackId { get; set; }
 #endif
-        /// <summary>Use this field to provide the identifier of the user who provided the original feedback. This value can be returned using the &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback&quot;  target=&quot;_blank&quot;&gt;getFeedback&lt;/a&gt; method (&lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.providerUserDetail.userId&quot;  target=&quot;_blank&quot;&gt;userId&lt;/a&gt; field).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Both usernames and public user IDs will be accepted in this field. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
+        /// <summary>Use this field to provide the identifier of the user who provided the original feedback. This value can be returned using the &lt;strong&gt;getFeedback&lt;/strong&gt; method (&lt;strong&gt;userId&lt;/strong&gt; field).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Both usernames and public user IDs will be accepted in this field. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RecipientUserId { get; set; }
@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string RecipientUserId { get; set; }
 #endif
-        /// <summary>Use this field to provide the text content of the response. This field is used to provide additional context or address the feedback given by the order partner. No HTML formatting or personal information (such as phone numbers) is permitted.&lt;br&gt;&lt;br&gt;&lt;b&gt;Maximum length:&lt;/b&gt; 500 characters.</summary>
+        /// <summary>Use this field to provide the text content of the response. This field is used to provide additional context or address the feedback given by the order partner. No HTML formatting or personal information (such as phone numbers) is permitted.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Maximum length:&lt;/strong&gt; 500 characters.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ResponseText { get; set; }
@@ -53,14 +53,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string ResponseText { get; set; }
 #endif
-        /// <summary>Set this enumerated value to describe the type of response being submitted (for example, a &lt;code&gt;REPLY&lt;/code&gt; or a &lt;code&gt;FOLLOW_UP&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/api:ResponseTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ResponseType { get; set; }
-#nullable restore
-#else
-        public string ResponseType { get; set; }
-#endif
+        /// <summary>Set this enumerated value to describe the type of response being submitted (for example, a &lt;code&gt;REPLY&lt;/code&gt; or a &lt;code&gt;FOLLOW_UP&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.ResponseTypeEnum? ResponseType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.RespondToFeedbackRequest"/> and sets the default values.
         /// </summary>
@@ -89,7 +83,7 @@ namespace EBay.Communication.Generated.Feedback.Models
                 { "feedbackId", n => { FeedbackId = n.GetStringValue(); } },
                 { "recipientUserId", n => { RecipientUserId = n.GetStringValue(); } },
                 { "responseText", n => { ResponseText = n.GetStringValue(); } },
-                { "responseType", n => { ResponseType = n.GetStringValue(); } },
+                { "responseType", n => { ResponseType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.ResponseTypeEnum>(); } },
             };
         }
         /// <summary>
@@ -102,7 +96,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             writer.WriteStringValue("feedbackId", FeedbackId);
             writer.WriteStringValue("recipientUserId", RecipientUserId);
             writer.WriteStringValue("responseText", ResponseText);
-            writer.WriteStringValue("responseType", ResponseType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.ResponseTypeEnum>("responseType", ResponseType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

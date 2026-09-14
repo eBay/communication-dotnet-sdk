@@ -29,23 +29,17 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The supported delivery protocols. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? DeliveryProtocol { get; set; }
-#nullable restore
-#else
-        public string DeliveryProtocol { get; set; }
-#endif
+        /// <summary>The supported delivery protocols.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.ProtocolEnum? DeliveryProtocol { get; set; }
         /// <summary>A deprecation indicator.</summary>
         public bool? Deprecated { get; set; }
         /// <summary>The supported format. Presently, &lt;code&gt;JSON&lt;/code&gt; is the only supported format.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public List<string>? Format { get; set; }
+        public List<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum?>? Format { get; set; }
 #nullable restore
 #else
-        public List<string> Format { get; set; }
+        public List<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum?> Format { get; set; }
 #endif
         /// <summary>The supported schema version.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -80,9 +74,9 @@ namespace EBay.Communication.Generated.Notification.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "deliveryProtocol", n => { DeliveryProtocol = n.GetStringValue(); } },
+                { "deliveryProtocol", n => { DeliveryProtocol = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.ProtocolEnum>(); } },
                 { "deprecated", n => { Deprecated = n.GetBoolValue(); } },
-                { "format", n => { Format = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
+                { "format", n => { Format = n.GetCollectionOfEnumValues<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum>()?.AsList(); } },
                 { "schemaVersion", n => { SchemaVersion = n.GetStringValue(); } },
             };
         }
@@ -93,9 +87,9 @@ namespace EBay.Communication.Generated.Notification.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("deliveryProtocol", DeliveryProtocol);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.ProtocolEnum>("deliveryProtocol", DeliveryProtocol);
             writer.WriteBoolValue("deprecated", Deprecated);
-            writer.WriteCollectionOfPrimitiveValues<string>("format", Format);
+            writer.WriteCollectionOfEnumValues<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum>("format", Format);
             writer.WriteStringValue("schemaVersion", SchemaVersion);
             writer.WriteAdditionalData(AdditionalData);
         }

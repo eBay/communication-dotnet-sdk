@@ -37,14 +37,8 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public List<string> AuthorizationScopes { get; set; }
 #endif
-        /// <summary>The business context associated with this topic. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:ContextEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Context { get; set; }
-#nullable restore
-#else
-        public string Context { get; set; }
-#endif
+        /// <summary>The business context associated with this topic.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.ContextEnum? Context { get; set; }
         /// <summary>The description of the topic.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -55,22 +49,10 @@ namespace EBay.Communication.Generated.Notification.Models
 #endif
         /// <summary>The indicator of whether this topic is filterable or not.</summary>
         public bool? Filterable { get; set; }
-        /// <summary>The scope of this topic. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:ScopeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Scope { get; set; }
-#nullable restore
-#else
-        public string Scope { get; set; }
-#endif
-        /// <summary>The status of this topic. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:StatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
-#endif
+        /// <summary>The scope of this topic.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.ScopeEnum? Scope { get; set; }
+        /// <summary>The status of this topic.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.StatusEnum? Status { get; set; }
         /// <summary>The supported payloads for this topic.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -113,11 +95,11 @@ namespace EBay.Communication.Generated.Notification.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "authorizationScopes", n => { AuthorizationScopes = n.GetCollectionOfPrimitiveValues<string>()?.AsList(); } },
-                { "context", n => { Context = n.GetStringValue(); } },
+                { "context", n => { Context = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.ContextEnum>(); } },
                 { "description", n => { Description = n.GetStringValue(); } },
                 { "filterable", n => { Filterable = n.GetBoolValue(); } },
-                { "scope", n => { Scope = n.GetStringValue(); } },
-                { "status", n => { Status = n.GetStringValue(); } },
+                { "scope", n => { Scope = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.ScopeEnum>(); } },
+                { "status", n => { Status = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.StatusEnum>(); } },
                 { "supportedPayloads", n => { SupportedPayloads = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Notification.Models.PayloadDetail>(global::EBay.Communication.Generated.Notification.Models.PayloadDetail.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "topicId", n => { TopicId = n.GetStringValue(); } },
             };
@@ -130,11 +112,11 @@ namespace EBay.Communication.Generated.Notification.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<string>("authorizationScopes", AuthorizationScopes);
-            writer.WriteStringValue("context", Context);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.ContextEnum>("context", Context);
             writer.WriteStringValue("description", Description);
             writer.WriteBoolValue("filterable", Filterable);
-            writer.WriteStringValue("scope", Scope);
-            writer.WriteStringValue("status", Status);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.ScopeEnum>("scope", Scope);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.StatusEnum>("status", Status);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Notification.Models.PayloadDetail>("supportedPayloads", SupportedPayloads);
             writer.WriteStringValue("topicId", TopicId);
             writer.WriteAdditionalData(AdditionalData);

@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This value denotes the percentage that the listing in the offer will be discounted from its original listed price.  &lt;br&gt;&lt;br&gt;The seller can specify either the exact price of the discounted items with the &lt;b&gt;price&lt;/b&gt; field or they can use this field to specify the percentage that the listing will be discounted, but not both.  &lt;br&gt;&lt;br&gt;&lt;b&gt;Minimum:&lt;/b&gt; &lt;code&gt;5&lt;/code&gt;  &lt;br&gt;&lt;br&gt;&lt;i&gt;Required if&lt;/i&gt; you do not specify a &lt;b&gt;price&lt;/b&gt; value.</summary>
+        /// <summary>This value denotes the percentage (as either a whole number or decimal value) that the listing in the offer will be discounted from its original listed price.&lt;br&gt;&lt;br&gt;The seller can specify either the exact price of the discounted items with the &lt;b&gt;price&lt;/b&gt; field or they can use this field to specify the percentage that the listing will be discounted, but not both.&lt;br&gt;&lt;br&gt;&lt;b&gt;Minimum:&lt;/b&gt; &lt;code&gt;5.0&lt;/code&gt;  &lt;br&gt;&lt;br&gt;This field is &lt;i&gt;required&lt;/i&gt; if you do not specify a &lt;b&gt;price&lt;/b&gt; value.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? DiscountPercentage { get; set; }

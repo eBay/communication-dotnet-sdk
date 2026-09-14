@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type provides fields available to leave feedback in the &lt;b&gt;leaveFeedback&lt;/b&gt; request.
+    /// This type provides fields available to leave feedback in the &lt;strong&gt;leaveFeedback&lt;/strong&gt; request.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class LeaveFeedbackRequest : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Use this field to provide the feedback left by the user, describing their experience with the line item of the transaction. No HTML formatting or personal information (such as phone numbers) is permitted.&lt;br&gt;&lt;p&gt;&lt;b&gt;Maximum length:&lt;/b&gt; 500 characters&lt;/p&gt;</summary>
+        /// <summary>Use this field to provide the feedback left by the user, describing their experience with the line item of the transaction. No HTML formatting or personal information (such as phone numbers) is permitted.&lt;br&gt;&lt;p&gt;&lt;strong&gt;Maximum length:&lt;/strong&gt; 500 characters&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CommentText { get; set; }
@@ -37,14 +37,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string CommentText { get; set; }
 #endif
-        /// <summary>Set this enumerated value to indicate the overall rating of the transaction: &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, or &lt;code&gt;NEGATIVE&lt;/code&gt;.&lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Sellers can only provide positive feedback.&lt;/span&gt;&lt;/p&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingValuesEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? CommentType { get; set; }
-#nullable restore
-#else
-        public string CommentType { get; set; }
-#endif
+        /// <summary>Set this enumerated value to indicate the overall rating of the transaction: &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, or &lt;code&gt;NEGATIVE&lt;/code&gt;.&lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Sellers can only provide positive feedback.&lt;/span&gt;&lt;/p&gt;</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum? CommentType { get; set; }
         /// <summary>Use this array to optionally list up to 5 images attached to the feedback.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -111,7 +105,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "commentText", n => { CommentText = n.GetStringValue(); } },
-                { "commentType", n => { CommentType = n.GetStringValue(); } },
+                { "commentType", n => { CommentType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum>(); } },
                 { "images", n => { Images = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.Image>(global::EBay.Communication.Generated.Feedback.Models.Image.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "listingId", n => { ListingId = n.GetStringValue(); } },
                 { "orderLineItemId", n => { OrderLineItemId = n.GetStringValue(); } },
@@ -127,7 +121,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("commentText", CommentText);
-            writer.WriteStringValue("commentType", CommentType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValuesEnum>("commentType", CommentType);
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.Image>("images", Images);
             writer.WriteStringValue("listingId", ListingId);
             writer.WriteStringValue("orderLineItemId", OrderLineItemId);

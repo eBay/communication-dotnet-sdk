@@ -33,7 +33,7 @@ namespace EBay.Communication.Generated.Notification.Topic
     public partial class TopicRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.topic.item collection</summary>
-        /// <param name="position">The unique identifier of the notification topic for which the details are retrieved. Use &lt;b&gt;getTopics&lt;/b&gt; to retrieve the topic ID.</param>
+        /// <param name="position">The unique identifier of the notification topic for which the details are retrieved. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; to retrieve the topic ID.</param>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Topic.Item.WithTopic_ItemRequestBuilder"/></returns>
         public global::EBay.Communication.Generated.Notification.Topic.Item.WithTopic_ItemRequestBuilder this[string position]
         {
@@ -66,6 +66,8 @@ namespace EBay.Communication.Generated.Notification.Topic
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse?> GetAsync(Action<RequestConfiguration<global::EBay.Communication.Generated.Notification.Topic.TopicRequestBuilder.TopicRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -76,7 +78,12 @@ namespace EBay.Communication.Generated.Notification.Topic
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.TopicSearchResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).

@@ -48,11 +48,14 @@ namespace EBay.Communication.Generated.Notification.Topic.Item
         {
         }
         /// <summary>
-        /// This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).&lt;br&gt;&lt;br&gt;Specify the topic to retrieve using the &lt;b&gt;topic_id&lt;/b&gt; URI parameter.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Use the &lt;a href=&quot;/api-docs/commerce/notification/resources/topic/methods/getTopics&quot;&gt;getTopics&lt;/a&gt; method to find a topic if you do not know the topic ID.&lt;/span&gt;
+        /// This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).&lt;br&gt;&lt;br&gt;Specify the topic to retrieve using the &lt;b&gt;topic_id&lt;/b&gt; URI parameter.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; method to find a topic if you do not know the topic ID.&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.Topic"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.Topic?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,10 +66,16 @@ namespace EBay.Communication.Generated.Notification.Topic.Item
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Topic>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Topic.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Topic>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Topic.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).&lt;br&gt;&lt;br&gt;Specify the topic to retrieve using the &lt;b&gt;topic_id&lt;/b&gt; URI parameter.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Use the &lt;a href=&quot;/api-docs/commerce/notification/resources/topic/methods/getTopics&quot;&gt;getTopics&lt;/a&gt; method to find a topic if you do not know the topic ID.&lt;/span&gt;
+        /// This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).&lt;br&gt;&lt;br&gt;Specify the topic to retrieve using the &lt;b&gt;topic_id&lt;/b&gt; URI parameter.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; method to find a topic if you do not know the topic ID.&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>

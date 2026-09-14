@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The masked user name is a user name that has certain characters hidden for privacy of the user.&lt;!-- This field is populated only when the full user name cannot be used.--&gt;</summary>
+        /// <summary>The masked user name is a user name that has certain characters hidden for privacy of the user.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt; &lt;!-- This field is populated only when the full user name cannot be used.--&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? MaskedUsername { get; set; }

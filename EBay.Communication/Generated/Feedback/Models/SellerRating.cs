@@ -29,15 +29,9 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The enumerated value of the category being rated, such as delivery timeliness (&lt;code&gt;ON_TIME_DELIVERY&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/api:KeyEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Key { get; set; }
-#nullable restore
-#else
-        public string Key { get; set; }
-#endif
-        /// <summary>The value assigned for the selected category. Use a value of &lt;code&gt;1&lt;/code&gt; through &lt;code&gt;5&lt;/code&gt;, with the &lt;code&gt;1&lt;/code&gt; being the lowest rating and &lt;code&gt;5&lt;/code&gt; being the highest.</summary>
+        /// <summary>The enumerated value of the category being rated, such as delivery timeliness (&lt;code&gt;ON_TIME_DELIVERY&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.KeyEnum? Key { get; set; }
+        /// <summary>The value assigned for the selected category. Use a value of &lt;code&gt;1&lt;/code&gt; through &lt;code&gt;5&lt;/code&gt;, with &lt;code&gt;1&lt;/code&gt; being the lowest rating and &lt;code&gt;5&lt;/code&gt; being the highest.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Value { get; set; }
@@ -70,7 +64,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "key", n => { Key = n.GetStringValue(); } },
+                { "key", n => { Key = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.KeyEnum>(); } },
                 { "value", n => { Value = n.GetStringValue(); } },
             };
         }
@@ -81,7 +75,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("key", Key);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.KeyEnum>("key", Key);
             writer.WriteStringValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }

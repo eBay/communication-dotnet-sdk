@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines the fields for the &lt;b&gt;getFeedbackRatingSummary&lt;/b&gt; response.
+    /// This type defines the fields for the &lt;strong&gt;getFeedbackRatingSummary&lt;/strong&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GetFeedbackRatingSummaryResponse : IAdditionalDataHolder, IParsable

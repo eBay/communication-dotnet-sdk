@@ -29,23 +29,11 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The supported delivery protocol of the notification topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; &lt;code&gt;HTTPS&lt;/code&gt; is currently the only supported delivery protocol of all notification topics. &lt;/span&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? DeliveryProtocol { get; set; }
-#nullable restore
-#else
-        public string DeliveryProtocol { get; set; }
-#endif
-        /// <summary>The supported data format of the payload.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; JSON is currently the only supported format for all notification topics.&lt;/span&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Format { get; set; }
-#nullable restore
-#else
-        public string Format { get; set; }
-#endif
-        /// <summary>The supported schema version for the notification topic. See the &lt;b&gt;supportedPayloads.schemaVersion&lt;/b&gt; field for the topic in &lt;b&gt;getTopics&lt;/b&gt; or &lt;b&gt;getTopic&lt;/b&gt; response.</summary>
+        /// <summary>The supported delivery protocol of the notification topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; &lt;code&gt;HTTPS&lt;/code&gt; is currently the only supported delivery protocol of all notification topics. &lt;/span&gt;</summary>
+        public global::EBay.Communication.Generated.Notification.Models.ProtocolEnum? DeliveryProtocol { get; set; }
+        /// <summary>The supported data format of the payload.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; JSON is currently the only supported format for all notification topics.&lt;/span&gt;</summary>
+        public global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum? Format { get; set; }
+        /// <summary>The supported schema version for the notification topic. See the &lt;b&gt;supportedPayloads.schemaVersion&lt;/b&gt; field for the topic in &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-topic-gettopics&quot;&gt;getTopics&lt;/a&gt; or &lt;a href=&quot;/api-docs/commerce/notification/resources/topic/methods/getTopic&quot;&gt;getTopic&lt;/a&gt; response.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SchemaVersion { get; set; }
@@ -78,8 +66,8 @@ namespace EBay.Communication.Generated.Notification.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "deliveryProtocol", n => { DeliveryProtocol = n.GetStringValue(); } },
-                { "format", n => { Format = n.GetStringValue(); } },
+                { "deliveryProtocol", n => { DeliveryProtocol = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.ProtocolEnum>(); } },
+                { "format", n => { Format = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum>(); } },
                 { "schemaVersion", n => { SchemaVersion = n.GetStringValue(); } },
             };
         }
@@ -90,8 +78,8 @@ namespace EBay.Communication.Generated.Notification.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("deliveryProtocol", DeliveryProtocol);
-            writer.WriteStringValue("format", Format);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.ProtocolEnum>("deliveryProtocol", DeliveryProtocol);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.FormatTypeEnum>("format", Format);
             writer.WriteStringValue("schemaVersion", SchemaVersion);
             writer.WriteAdditionalData(AdditionalData);
         }

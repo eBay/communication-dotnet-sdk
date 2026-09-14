@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>Unit of time for the &lt;b&gt;value&lt;/b&gt;. Supported values: &lt;code&gt;DAY&lt;/code&gt;, or &lt;code&gt;YEAR&lt;/code&gt;.</summary>
+        /// <summary>Unit of time for the &lt;strong&gt;value&lt;/strong&gt;. Supported values: &lt;code&gt;DAY&lt;/code&gt; or &lt;code&gt;YEAR&lt;/code&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Unit { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Unit { get; set; }
 #endif
-        /// <summary>Value of the time period expressed in the period contained in the &lt;b&gt;unit&lt;/b&gt;. Supported values: &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;60&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt;. &lt;p&gt;See the &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.feedbackComment.commentPeriod&quot;&gt;commentPeriod&lt;/a&gt; container for more information.&lt;/p&gt;</summary>
+        /// <summary>Value of the time period expressed in the period contained in the &lt;strong&gt;unit&lt;/strong&gt;. Supported values are &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;60&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt;. &lt;p&gt;See the &lt;strong&gt;commentPeriod&lt;/strong&gt; container for more information.&lt;/p&gt;</summary>
         public int? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod"/> and sets the default values.

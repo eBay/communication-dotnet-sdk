@@ -48,10 +48,14 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
         {
         }
         /// <summary>
-        /// This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Subscription filters in &lt;strong&gt;PENDING&lt;/strong&gt; status can not be disabled. However, a new filter can be created instead with the &lt;strong&gt;createSubscriptionFilter&lt;/strong&gt; method and this new filter will override the &lt;strong&gt;PENDING&lt;/strong&gt; filter.&lt;/span&gt;
+        /// This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Subscription filters in &lt;code&gt;PENDING&lt;/code&gt; status can not be disabled. However, a new filter can be created instead with the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-createsubscriptionfilter&quot;&gt;createSubscriptionFilter&lt;/a&gt;  method and this new filter will override the &lt;code&gt;PENDING&lt;/code&gt; filter.&lt;/span&gt;
         /// </summary>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 403 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task DeleteAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -62,7 +66,14 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
         {
 #endif
             var requestInfo = ToDeleteRequestInformation(requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "403", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to retrieve the filter details for the specified subscription filter.&lt;br&gt;&lt;br&gt;Specify the subscription filter to retrieve by using the &lt;strong&gt;subscription_id&lt;/strong&gt; and the &lt;strong&gt;filter_id&lt;/strong&gt; associated with the subscription filter. The &lt;strong&gt;filter_id&lt;/strong&gt; can be found in the response body for the &lt;strong&gt;getSubscription&lt;/strong&gt; method, if there is a filter applied on the subscription.&lt;br&gt;&lt;br&gt;Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.
@@ -70,6 +81,10 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 403 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -80,10 +95,17 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter>(requestInfo, global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "403", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter>(requestInfo, global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Subscription filters in &lt;strong&gt;PENDING&lt;/strong&gt; status can not be disabled. However, a new filter can be created instead with the &lt;strong&gt;createSubscriptionFilter&lt;/strong&gt; method and this new filter will override the &lt;strong&gt;PENDING&lt;/strong&gt; filter.&lt;/span&gt;
+        /// This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; Subscription filters in &lt;code&gt;PENDING&lt;/code&gt; status can not be disabled. However, a new filter can be created instead with the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-createsubscriptionfilter&quot;&gt;createSubscriptionFilter&lt;/a&gt;  method and this new filter will override the &lt;code&gt;PENDING&lt;/code&gt; filter.&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -98,6 +120,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
 #endif
             var requestInfo = new RequestInformation(Method.DELETE, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             return requestInfo;
         }
         /// <summary>

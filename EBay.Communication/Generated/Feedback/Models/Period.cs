@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The unit of the period&apos;s &lt;b&gt;value&lt;/b&gt;. Supported value: &lt;code&gt;DAY&lt;/code&gt;.</summary>
+        /// <summary>The unit of the period&apos;s &lt;strong&gt;value&lt;/strong&gt;. Supported value: &lt;code&gt;DAY&lt;/code&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Unit { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Unit { get; set; }
 #endif
-        /// <summary>The value for the feedback period, specified in units of &lt;b&gt;unit&lt;/b&gt;. Supported value: &lt;code&gt;90&lt;/code&gt;.</summary>
+        /// <summary>The value for the feedback period, specified in units of &lt;strong&gt;unit&lt;/strong&gt;. Supported value: &lt;code&gt;90&lt;/code&gt;.</summary>
         public int? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.Period"/> and sets the default values.

@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type provides fields for the time period on which the feedback summary is calculated.</summary>
+        /// <summary>This container indicates if the time since the item was bought on eBay is less than, more than, or equal to 90 days.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.Period? Period { get; set; }
@@ -37,14 +37,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.Period Period { get; set; }
 #endif
-        /// <summary>This enumerated value indicates whether a transaction &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#response.feedbackEntries.orderLineItemSummary.transactionPeriod.period&quot; &gt;period&lt;/a&gt; exceeds, falls short, or matches the threshold. You can use this field to trigger specific logic or actions based on whether a transaction period exceeds, falls short, or matches the threshold. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:ThresholdTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? ThresholdType { get; set; }
-#nullable restore
-#else
-        public string ThresholdType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates whether a transaction &lt;strong&gt;period&lt;/strong&gt; exceeds, falls short, or matches the threshold. You can use this field to trigger specific logic or actions based on whether a transaction period exceeds, falls short, or matches the threshold.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.ThresholdTypeEnum? ThresholdType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.TransactionPeriod"/> and sets the default values.
         /// </summary>
@@ -71,7 +65,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "period", n => { Period = n.GetObjectValue<global::EBay.Communication.Generated.Feedback.Models.Period>(global::EBay.Communication.Generated.Feedback.Models.Period.CreateFromDiscriminatorValue); } },
-                { "thresholdType", n => { ThresholdType = n.GetStringValue(); } },
+                { "thresholdType", n => { ThresholdType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.ThresholdTypeEnum>(); } },
             };
         }
         /// <summary>
@@ -82,7 +76,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteObjectValue<global::EBay.Communication.Generated.Feedback.Models.Period>("period", Period);
-            writer.WriteStringValue("thresholdType", ThresholdType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.ThresholdTypeEnum>("thresholdType", ThresholdType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

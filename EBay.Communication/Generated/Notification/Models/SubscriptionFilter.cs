@@ -21,10 +21,11 @@ using System.IO;
 using System;
 namespace EBay.Communication.Generated.Notification.Models
 {
+    /// <summary>
+    /// This type defines filter details for the specified subscription filter.
+    /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    #pragma warning disable CS1591
     public partial class SubscriptionFilter : IAdditionalDataHolder, IParsable
-    #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
@@ -52,14 +53,8 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter_filterSchema FilterSchema { get; set; }
 #endif
-        /// <summary>The status of this subscription filter. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionFilterStatus&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? FilterStatus { get; set; }
-#nullable restore
-#else
-        public string FilterStatus { get; set; }
-#endif
+        /// <summary>The status of this subscription filter.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.SubscriptionFilterStatus? FilterStatus { get; set; }
         /// <summary>The unique identifier for the subscription.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -96,7 +91,7 @@ namespace EBay.Communication.Generated.Notification.Models
                 { "creationDate", n => { CreationDate = n.GetStringValue(); } },
                 { "filterId", n => { FilterId = n.GetStringValue(); } },
                 { "filterSchema", n => { FilterSchema = n.GetObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter_filterSchema>(global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter_filterSchema.CreateFromDiscriminatorValue); } },
-                { "filterStatus", n => { FilterStatus = n.GetStringValue(); } },
+                { "filterStatus", n => { FilterStatus = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilterStatus>(); } },
                 { "subscriptionId", n => { SubscriptionId = n.GetStringValue(); } },
             };
         }
@@ -110,7 +105,7 @@ namespace EBay.Communication.Generated.Notification.Models
             writer.WriteStringValue("creationDate", CreationDate);
             writer.WriteStringValue("filterId", FilterId);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilter_filterSchema>("filterSchema", FilterSchema);
-            writer.WriteStringValue("filterStatus", FilterStatus);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionFilterStatus>("filterStatus", FilterStatus);
             writer.WriteStringValue("subscriptionId", SubscriptionId);
             writer.WriteAdditionalData(AdditionalData);
         }

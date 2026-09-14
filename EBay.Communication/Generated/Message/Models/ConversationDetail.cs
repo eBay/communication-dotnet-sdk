@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string ConversationId { get; set; }
 #endif
-        /// <summary>This value indicates the current status of the conversation, such as &lt;code&gt;ACTIVE&lt;/code&gt; or &lt;code&gt;ARCHIVE&lt;/code&gt;.</summary>
+        /// <summary>This value indicates the current status of the conversation, such as &lt;code&gt;ACTIVE&lt;/code&gt; or &lt;code&gt;ARCHIVED&lt;/code&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ConversationStatus { get; set; }
@@ -45,7 +45,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string ConversationStatus { get; set; }
 #endif
-        /// <summary>The title of the conversation.</summary>
+        /// <summary>This value indicates the title of the conversation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ConversationTitle { get; set; }
@@ -61,7 +61,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string ConversationType { get; set; }
 #endif
-        /// <summary>This value indicates the date, in ISO 8601 format, the conversation was created.</summary>
+        /// <summary>This value indicates the date the conversation was created in ISO 8601 format.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CreatedDate { get; set; }
@@ -69,7 +69,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string CreatedDate { get; set; }
 #endif
-        /// <summary>This type defines message details for a conversation.</summary>
+        /// <summary>This container returns the latest message in the conversation and its details.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Message.Models.MessageDetail? LatestMessage { get; set; }
@@ -77,7 +77,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public global::EBay.Communication.Generated.Message.Models.MessageDetail LatestMessage { get; set; }
 #endif
-        /// <summary>This value indicates the reference ID associated with the corresponding &lt;b&gt;referenceType&lt;/b&gt; value.&lt;br&gt;&lt;br&gt;In the case of a &lt;code&gt;LISTING&lt;/code&gt; &lt;b&gt;referenceType&lt;/b&gt;, this value will be the item ID value of the associated listing.</summary>
+        /// <summary>This value indicates the reference ID associated with the corresponding &lt;strong&gt;referenceType&lt;/strong&gt; value.&lt;br&gt;&lt;br&gt;In the case of a &lt;code&gt;LISTING&lt;/code&gt; &lt;strong&gt;referenceType&lt;/strong&gt;, this value will be the item ID value of the associated listing.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ReferenceId { get; set; }
@@ -85,7 +85,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string ReferenceId { get; set; }
 #endif
-        /// <summary>This value indicates the reference type, if applicable, associated with the conversation.&lt;br&gt;&lt;br&gt;The reference type is used to specify what the conversation is in reference to. For example, a value of &lt;code&gt;LISTING&lt;/code&gt; specifies that the conversation is associated with a specific listing. The item ID associated with this listing will then be returned in the &lt;b&gt;referenceId&lt;/b&gt; field.&lt;br&gt;&lt;br&gt;Currently, only &lt;code&gt;LISTING&lt;/code&gt; will be returned.</summary>
+        /// <summary>This value indicates the reference type, if applicable, associated with the conversation.&lt;br&gt;&lt;br&gt;The reference type is used to specify what the conversation is in reference to. For example, a value of &lt;code&gt;LISTING&lt;/code&gt; specifies that the conversation is associated with a specific listing. The item ID associated with this listing will then be returned in the &lt;strong&gt;referenceId&lt;/strong&gt; field.&lt;br&gt;&lt;br&gt;Currently, only the &lt;code&gt;LISTING&lt;/code&gt; reference type is supported.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ReferenceType { get; set; }
@@ -93,7 +93,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string ReferenceType { get; set; }
 #endif
-        /// <summary>This value indicates the amount of unread messages in the conversation.</summary>
+        /// <summary>This value indicates the number of unread messages in the conversation.</summary>
         public int? UnreadCount { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Message.Models.ConversationDetail"/> and sets the default values.

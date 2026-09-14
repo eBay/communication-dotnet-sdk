@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Message.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The total amount of conversations being updated.</summary>
+        /// <summary>The total number of conversations being updated.</summary>
         public int? TotalConversationsCount { get; set; }
         /// <summary>The number of conversations in which the specified update failed.</summary>
         public int? UpdateFailureCount { get; set; }
