@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// A listing that is eligible for a seller-initiated offer to a buyer.  &lt;br&gt;&lt;br&gt;Listings are identified by a &lt;b&gt;listingId&lt;/b&gt; value that is generated and assigned by eBay when a seller lists an item using the Trading API.  &lt;br&gt;&lt;br&gt;&lt;b&gt;Note:&lt;/b&gt; The Negotiation API does not currently support listings that are managed with the Inventory API.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class EligibleItem : IAdditionalDataHolder, IParsable
+    public partial class EligibleItem : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

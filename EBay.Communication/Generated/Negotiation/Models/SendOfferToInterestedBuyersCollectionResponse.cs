@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// The response object returned from a &lt;b&gt;SendOfferToInterestedBuyers&lt;/b&gt; request.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class SendOfferToInterestedBuyersCollectionResponse : IAdditionalDataHolder, IParsable
+    public partial class SendOfferToInterestedBuyersCollectionResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

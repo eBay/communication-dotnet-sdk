@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Notification.Models
     /// A type that contains information about the destination.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Destination : IAdditionalDataHolder, IParsable
+    public partial class Destination : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

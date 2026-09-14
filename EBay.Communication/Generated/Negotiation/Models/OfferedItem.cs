@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// A complex type that defines the offer being made to an &quot;interested&quot; buyer.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class OfferedItem : IAdditionalDataHolder, IParsable
+    public partial class OfferedItem : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

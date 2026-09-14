@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// A complex type that describes the value of a monetary amount as represented by a global currency.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Amount : IAdditionalDataHolder, IParsable
+    public partial class Amount : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

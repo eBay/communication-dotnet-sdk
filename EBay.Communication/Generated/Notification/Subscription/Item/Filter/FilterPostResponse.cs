@@ -23,7 +23,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    internal partial class FilterPostResponse : IAdditionalDataHolder, IParsable
+    public partial class FilterPostResponse : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

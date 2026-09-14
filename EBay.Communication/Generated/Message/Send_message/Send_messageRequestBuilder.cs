@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Message.Send_message
     /// Builds and executes requests for operations under \send_message
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Send_messageRequestBuilder : BaseRequestBuilder
+    public partial class Send_messageRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Message.Send_message.Send_messageRequestBuilder"/> and sets the default values.

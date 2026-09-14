@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// This complex type defines a collection of listings that are eligible for an offer to a buyer.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class PagedEligibleItemCollection : IAdditionalDataHolder, IParsable
+    public partial class PagedEligibleItemCollection : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Message.Models
     /// This type defines the metadata, such as successes and failures, associated with a bulk conversation status update.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class ConversationsMetadata : IAdditionalDataHolder, IParsable
+    public partial class ConversationsMetadata : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

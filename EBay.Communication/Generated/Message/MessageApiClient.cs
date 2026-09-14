@@ -34,7 +34,7 @@ namespace EBay.Communication.Generated.Message
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class MessageApiClient : BaseRequestBuilder
+    public partial class MessageApiClient : BaseRequestBuilder
     {
         /// <summary>The bulk_update_conversation property</summary>
         public global::EBay.Communication.Generated.Message.Bulk_update_conversation.Bulk_update_conversationRequestBuilder Bulk_update_conversation

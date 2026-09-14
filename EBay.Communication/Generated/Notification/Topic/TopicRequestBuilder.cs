@@ -30,7 +30,7 @@ namespace EBay.Communication.Generated.Notification.Topic
     /// Builds and executes requests for operations under \topic
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class TopicRequestBuilder : BaseRequestBuilder
+    public partial class TopicRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.topic.item collection</summary>
         /// <param name="position">The unique identifier of the notification topic for which the details are retrieved. Use &lt;b&gt;getTopics&lt;/b&gt; to retrieve the topic ID.</param>
@@ -110,7 +110,7 @@ namespace EBay.Communication.Generated.Notification.Topic
         /// This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.&lt;br&gt;&lt;br&gt;Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.&lt;br&gt;&lt;br&gt;A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class TopicRequestBuilderGetQueryParameters 
+        public partial class TopicRequestBuilderGetQueryParameters 
         {
             /// <summary>This string value can be used to return the next page in the result set. The string to use here is returned in the &lt;b&gt;next&lt;/b&gt; field of the current page of results.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

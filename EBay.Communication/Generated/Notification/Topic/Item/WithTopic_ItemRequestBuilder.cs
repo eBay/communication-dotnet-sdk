@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Topic.Item
     /// Builds and executes requests for operations under \topic\{topic_id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class WithTopic_ItemRequestBuilder : BaseRequestBuilder
+    public partial class WithTopic_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Topic.Item.WithTopic_ItemRequestBuilder"/> and sets the default values.

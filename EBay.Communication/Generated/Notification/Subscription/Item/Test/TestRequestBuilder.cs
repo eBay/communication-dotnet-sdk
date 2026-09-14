@@ -28,7 +28,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Test
     /// Builds and executes requests for operations under \subscription\{subscription_id}\test
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class TestRequestBuilder : BaseRequestBuilder
+    public partial class TestRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Subscription.Item.Test.TestRequestBuilder"/> and sets the default values.

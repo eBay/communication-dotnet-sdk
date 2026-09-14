@@ -28,7 +28,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Disable
     /// Builds and executes requests for operations under \subscription\{subscription_id}\disable
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class DisableRequestBuilder : BaseRequestBuilder
+    public partial class DisableRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Subscription.Item.Disable.DisableRequestBuilder"/> and sets the default values.

@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Awaiting_feedback
     /// Builds and executes requests for operations under \awaiting_feedback
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Awaiting_feedbackRequestBuilder : BaseRequestBuilder
+    public partial class Awaiting_feedbackRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Awaiting_feedback.Awaiting_feedbackRequestBuilder"/> and sets the default values.
@@ -97,7 +97,7 @@ namespace EBay.Communication.Generated.Feedback.Awaiting_feedback
         /// This method retrieves line items awaiting feedback from the user&apos;s order partner. You can refine the results using optional filter query parameters, such as item ID, user name, or user role in the transaction. Sorting and pagination features help organize and navigate returned items efficiently.&lt;p&gt;For sellers, only sold items that have not yet received feedback are included. For buyers, only purchased items for which feedback is still pending are included. If the user is both a buyer and a seller, this API returns items awaiting feedback for transactions where the user acted as either. Applying filters can limit results to either buyer-only or seller-only transactions. &lt;/p&gt;&lt;p&gt;The response provides an overview of feedback yet to be left for completed transactions (as filtered), with counts for both the buyer and seller roles. It includes an array of line items, each containing the listing ID, title, price (with currency and value). For each line item, the response offers feedback templates specifying which ratings are available.&lt;/p&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Detailed seller ratings are for sellers only, and are created from buyer feedback.&lt;/span&gt;&lt;/p&gt;
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class Awaiting_feedbackRequestBuilderGetQueryParameters 
+        public partial class Awaiting_feedbackRequestBuilderGetQueryParameters 
         {
             /// <summary>Use this parameter to limit the response based on the specified filter parameters. Supported filter parameters include:&lt;br&gt;&lt;p&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;listingId&lt;/b&gt;: Filter results by the specific listing ID&lt;/li&gt;&lt;li&gt;&lt;b&gt;receiverName&lt;/b&gt;: Filter results by the user&apos;s order partner name involved in the transaction&lt;/li&gt;&lt;li&gt;&lt;b&gt;userRole&lt;/b&gt;: Use this filter to only retrieve feedback due from the user in role as a seller or a buyer. If this filter is not used, all feedback due in both user roles is retrieved (&lt;code&gt;BUYER&lt;/code&gt; or &lt;code&gt;SELLER&lt;/code&gt;)&lt;/li&gt;&lt;/ul&gt;&lt;/p&gt;&lt;p&gt;Send the filter as a query parameter in a comma-separated &lt;em&gt;name&lt;/em&gt;:&lt;em&gt;value&lt;/em&gt; list. For example: &lt;br&gt;&lt;code&gt;filter=listingId:123,receiverName:user,userRole:BUYER&lt;/code&gt;&lt;p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

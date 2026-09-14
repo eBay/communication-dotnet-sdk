@@ -32,7 +32,7 @@ namespace EBay.Communication.Generated.Negotiation
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class NegotiationApiClient : BaseRequestBuilder
+    public partial class NegotiationApiClient : BaseRequestBuilder
     {
         /// <summary>The find_eligible_items property</summary>
         public global::EBay.Communication.Generated.Negotiation.Find_eligible_items.Find_eligible_itemsRequestBuilder Find_eligible_items

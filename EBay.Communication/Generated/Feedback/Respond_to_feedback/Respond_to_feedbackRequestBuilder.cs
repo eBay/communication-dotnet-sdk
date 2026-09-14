@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Respond_to_feedback
     /// Builds and executes requests for operations under \respond_to_feedback
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Respond_to_feedbackRequestBuilder : BaseRequestBuilder
+    public partial class Respond_to_feedbackRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Respond_to_feedback.Respond_to_feedbackRequestBuilder"/> and sets the default values.

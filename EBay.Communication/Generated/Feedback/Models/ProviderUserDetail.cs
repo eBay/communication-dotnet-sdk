@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     /// This type provides the details of the user who provided the feedback of a &lt;b&gt;getFeedback&lt;/b&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class ProviderUserDetail : IAdditionalDataHolder, IParsable
+    public partial class ProviderUserDetail : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

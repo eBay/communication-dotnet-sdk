@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Destination.Item
     /// Builds and executes requests for operations under \destination\{destination_id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class WithDestination_ItemRequestBuilder : BaseRequestBuilder
+    public partial class WithDestination_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Destination.Item.WithDestination_ItemRequestBuilder"/> and sets the default values.

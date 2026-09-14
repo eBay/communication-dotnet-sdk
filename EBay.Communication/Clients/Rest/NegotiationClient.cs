@@ -12,86 +12,76 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using System.Net;
-using EBay.Communication.Generated.Negotiation;
-using EBay.Communication.Generated.Negotiation.Models;
 using EBay.Communication.Configuration;
-using EBay.Communication.Exceptions;
+using EBay.Communication.Generated.Negotiation.Models;
+using EBay.Communication.Generated.Negotiation;
 using Microsoft.Kiota.Abstractions;
 
 namespace EBay.Communication.Clients.Rest;
 
-/// <summary>
-/// Client for Negotiation API operations
-/// </summary>
 public sealed class NegotiationClient
 {
     private readonly NegotiationApiClient _kiota;
     private readonly CommunicationConfiguration _config;
     private readonly ITokenContext _tokenContext;
+    private readonly IRequestAdapter _adapter;
 
-    internal NegotiationClient(NegotiationApiClient kiota, CommunicationConfiguration config, ITokenContext tokenContext)
+    internal NegotiationClient(NegotiationApiClient kiota, CommunicationConfiguration config, ITokenContext tokenContext, IRequestAdapter adapter)
     {
         _kiota = kiota;
         _config = config;
         _tokenContext = tokenContext;
-    }
-
-    private void ApplyHeaders(RequestHeaders headers, RequestOptions? callOptions)
-    {
-        foreach (var (k, v) in _config.DefaultRequestOptions.Headers)
-            headers.TryAdd(k, v);
-        if (callOptions is null) return;
-        foreach (var (k, v) in callOptions.Headers)
-            headers[k] = new[] { v };
+        _adapter = adapter;
     }
 
     /// <summary>
-    /// Finds items eligible for sending offers to interested buyers
+    /// This method evaluates a seller's current listings and returns the set of IDs that are eligible for a seller-initiated discount offer to a buyer.
+    /// A listing ID is returned only when one or more buyers have shown an "interest" in the listing.
+    /// If any buyers have shown interest in a listing, the seller can initiate a "negotiation" with them by calling <see href="/api-docs/sell/negotiation/resources/offer/methods/sendOfferToInterestedBuyers">sendOfferToInterestedBuyers</see>, which sends all interested buyers a message that offers the listing at a discount.
+    /// For details about how to create seller offers to buyers, see <see href="/api-docs/sell/static/marketing/offers-to-buyers.html">Sending offers to buyers</see>.
     /// </summary>
-    public async Task<string?> FindEligibleItemsAsync(
+    public Task<PagedEligibleItemCollection?> FindEligibleItemsAsync(
+        string xEBAYCMARKETPLACEID,
+        string? limit = null,
+        string? offset = null,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Find_eligible_items.GetAsync(cfg =>
         {
-            return await _tokenContext.RunAsync(accessToken, async () =>
+            if (limit is not null)
             {
-                var result = await _kiota.Find_eligible_items.GetAsync(cfg =>
-                    ApplyHeaders(cfg.Headers, requestOptions), cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
+                cfg.QueryParameters.Limit = limit;
+            }
+            if (offset is not null)
+            {
+                cfg.QueryParameters.Offset = offset;
+            }
+            cfg.Headers.TryAdd("X-EBAY-C-MARKETPLACE-ID", xEBAYCMARKETPLACEID);
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Sends an offer to interested buyers
+    /// This method sends eligible buyers offers to purchase items in a listing at a discount.
+    /// When a buyer has shown <i>interest</i> in a listing, they become "eligible" to receive a seller-initiated offer to purchase the item(s).
+    /// Sellers use <see href="/api-docs/sell/negotiation/resources/offer/methods/findEligibleItems">findEligibleItems</see> to get the set of listings that have interested buyers. If a listing has interested buyers, sellers can use this method (<b>sendOfferToInterestedBuyers</b>) to send an offer to the buyers who are interested in the listing. The offer gives buyers the ability to purchase the associated listings at a discounted price.
+    /// For details about how to create seller offers to buyers, see <see href="/api-docs/sell/static/marketing/offers-to-buyers.html">Sending offers to buyers</see>.
     /// </summary>
-    public async Task<string?> SendOfferToInterestedBuyersAsync(
-        string offerJson,
+    public Task<SendOfferToInterestedBuyersCollectionResponse?> SendOfferToInterestedBuyersAsync(
+        string xEBAYCMARKETPLACEID,
+        CreateOffersRequest body,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Send_offer_to_interested_buyers.PostAsync(body, cfg =>
         {
-            return await _tokenContext.RunAsync(accessToken, async () =>
-            {
-                var body = System.Text.Json.JsonSerializer.Deserialize<CreateOffersRequest>(offerJson);
-                var result = await _kiota.Send_offer_to_interested_buyers.PostAsync(body, cfg =>
-                    ApplyHeaders(cfg.Headers, requestOptions), cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
+            cfg.Headers.TryAdd("X-EBAY-C-MARKETPLACE-ID", xEBAYCMARKETPLACEID);
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 }

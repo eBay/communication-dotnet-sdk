@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     /// This type provides fields for an array containing a summary of feedback ratings. Each element provides detailed metrics and distributions for specific rating types.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class FeedbackRatingSummary : IAdditionalDataHolder, IParsable
+    public partial class FeedbackRatingSummary : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

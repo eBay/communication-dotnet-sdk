@@ -35,7 +35,7 @@ namespace EBay.Communication.Generated.Notification
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class NotificationApiClient : BaseRequestBuilder
+    public partial class NotificationApiClient : BaseRequestBuilder
     {
         /// <summary>The config property</summary>
         public global::EBay.Communication.Generated.Notification.Config.ConfigRequestBuilder Config

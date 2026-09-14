@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Config
     /// Builds and executes requests for operations under \config
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class ConfigRequestBuilder : BaseRequestBuilder
+    public partial class ConfigRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Config.ConfigRequestBuilder"/> and sets the default values.
