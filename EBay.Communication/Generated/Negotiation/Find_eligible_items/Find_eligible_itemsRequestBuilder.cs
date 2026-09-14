@@ -100,25 +100,11 @@ namespace EBay.Communication.Generated.Negotiation.Find_eligible_items
         public partial class Find_eligible_itemsRequestBuilderGetQueryParameters 
         {
             /// <summary>This query parameter specifies the maximum number of items to return from the result set on a page in the paginated response.&lt;br&gt;&lt;br&gt;&lt;b&gt;Minimum:&lt;/b&gt; 1&lt;br&gt;&lt;br&gt;&lt;b&gt;Maximum:&lt;/b&gt; 200&lt;br&gt;&lt;br&gt;&lt;b&gt;Default: &lt;/b&gt;10</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("limit")]
-            public string? Limit { get; set; }
-#nullable restore
-#else
-            [QueryParameter("limit")]
-            public string Limit { get; set; }
-#endif
+            public int? Limit { get; set; }
             /// <summary>This query parameter specifies the number of results to skip in the result set before returning the first result in the paginated response.  &lt;br&gt;&lt;br&gt;Combine &lt;b&gt;offset&lt;/b&gt; with the &lt;b&gt;limit&lt;/b&gt; query parameter to control the items returned in the response. For example, if you supply an &lt;b&gt;offset&lt;/b&gt; of &lt;code&gt;0&lt;/code&gt; and a &lt;b&gt;limit&lt;/b&gt; of &lt;code&gt;10&lt;/code&gt;, the first page of the response contains the first 10 results from the complete list of items retrieved by the call. If &lt;b&gt;offset&lt;/b&gt; is &lt;code&gt;10&lt;/code&gt; and &lt;b&gt;limit&lt;/b&gt; is &lt;code&gt;20&lt;/code&gt;, the first page of the response contains items 11-30 from the complete result set. &lt;br&gt;&lt;br&gt;&lt;b&gt;Default:&lt;/b&gt; 0</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             [QueryParameter("offset")]
-            public string? Offset { get; set; }
-#nullable restore
-#else
-            [QueryParameter("offset")]
-            public string Offset { get; set; }
-#endif
+            public int? Offset { get; set; }
         }
     }
 }

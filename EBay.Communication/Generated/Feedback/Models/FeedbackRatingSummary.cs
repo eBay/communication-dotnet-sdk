@@ -37,14 +37,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public List<global::EBay.Communication.Generated.Feedback.Models.RatingSummaryByRatingType> RatingSummaryByRatingType { get; set; }
 #endif
-        /// <summary>This enumerated value indicates the type of rating being summarized. For example, &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; indicates the rating applies to the overall transaction experience. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? RatingType { get; set; }
-#nullable restore
-#else
-        public string RatingType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the type of rating being summarized. For example, &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; indicates the rating applies to the overall transaction experience.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum? RatingType { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingSummary"/> and sets the default values.
         /// </summary>
@@ -71,7 +65,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "ratingSummaryByRatingType", n => { RatingSummaryByRatingType = n.GetCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.RatingSummaryByRatingType>(global::EBay.Communication.Generated.Feedback.Models.RatingSummaryByRatingType.CreateFromDiscriminatorValue)?.AsList(); } },
-                { "ratingType", n => { RatingType = n.GetStringValue(); } },
+                { "ratingType", n => { RatingType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>(); } },
             };
         }
         /// <summary>
@@ -82,7 +76,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfObjectValues<global::EBay.Communication.Generated.Feedback.Models.RatingSummaryByRatingType>("ratingSummaryByRatingType", RatingSummaryByRatingType);
-            writer.WriteStringValue("ratingType", RatingType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>("ratingType", RatingType);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

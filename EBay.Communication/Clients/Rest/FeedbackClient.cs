@@ -35,10 +35,10 @@ public sealed class FeedbackClient
     }
 
     /// <summary>
-    /// This method retrieves line items awaiting feedback from the user's order partner. You can refine the results using optional filter query parameters, such as item ID, user name, or user role in the transaction. Sorting and pagination features help organize and navigate returned items efficiently.
+    /// This method retrieves line items awaiting feedback from the user's order partner. You can refine the results using optional filter query parameters, such as item ID, username, or user role in the transaction. Sorting and pagination features help organize and navigate returned items efficiently.
     /// For sellers, only sold items that have not yet received feedback are included. For buyers, only purchased items for which feedback is still pending are included. If the user is both a buyer and a seller, this API returns items awaiting feedback for transactions where the user acted as either. Applying filters can limit results to either buyer-only or seller-only transactions.
-    /// The response provides an overview of feedback yet to be left for completed transactions (as filtered), with counts for both the buyer and seller roles. It includes an array of line items, each containing the listing ID, title, price (with currency and value). For each line item, the response offers feedback templates specifying which ratings are available.
-    /// <b>Note: </b>Detailed seller ratings are for sellers only, and are created from buyer feedback.
+    /// The response provides an overview of feedback yet to be left for completed transactions (as filtered) with counts for both the buyer and seller roles. It includes an array of line items, each containing the listing ID, title, and price (with currency and value). For each line item, the response offers feedback templates specifying which ratings are available.
+    /// <b>Note: </b>Detailed seller ratings are for sellers only and are created from buyer feedback.
     /// </summary>
     public Task<AwaitingFeedbackResponse?> GetItemsAwaitingFeedbackAsync(
         string? filter = null,
@@ -73,10 +73,10 @@ public sealed class FeedbackClient
         }, ct));
 
     /// <summary>
-    /// This method enables users to retrieve feedback for any specified user ID and feedback type (sent or received). You can refine the results using optional query parameters such as its feedback ID, listing ID, or order line item ID, or applying one or more filters.
+    /// This method enables users to retrieve feedback for any specified user ID and feedback type (sent or received). You can refine the results using optional query parameters such as its feedback ID, listing ID, or order line item ID or by applying one or more filters.
     /// Applying filters can narrow results using criteria such as comment type, photos, or topics identified through AI-based analysis. When filtering for feedback with photos (<c>filterImage:true</c>), only entries with images (entries that include image URLs) are returned. Additionally, feedback can be refined for the number of days to look back, the role of the user providing the feedback, and whether to include automated feedback entries left by eBay.
     /// Sorting and pagination features help organize and navigate returned items efficiently.
-    /// Returned data includes feedback details (such as comment text and type), feedback ratings (covering criteria like overall experience, and for sellers item description, shipping time, and communication), role and attributes of the feedback giver, line item and transaction summaries, images, and any available topics. See <see href="/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#uri.filter">filter</see> for additional information. Privacy is safeguarded by restricting the amount of detail visible to users, depending on their context. When accessing another user's feedback without logging in, buyer names are masked and seller names are shown. Logged-in users viewing their own feedback see all names, while those viewing other users' feedback will encounter some masking.
+    /// Returned data includes feedback details (such as comment text and type), feedback ratings (covering criteria like overall experience and, for sellers, item description, shipping time, and communication), role and attributes of the feedback giver, line item and transaction summaries, images, and any available topics. See the <b>filter</b> query parameter for additional information. Privacy is safeguarded by restricting the amount of detail visible to users, depending on their context. When accessing another user's feedback without logging in, buyer names are masked and seller names are shown. Logged-in users viewing their own feedback see all names, while those viewing other users' feedback will encounter some masking.
     /// </summary>
     public Task<GetFeedbackResponse?> GetFeedbackAsync(
         string feedbackType,
@@ -136,7 +136,7 @@ public sealed class FeedbackClient
 
     /// <summary>
     /// This method creates and submits feedback to the user's order partner for a line item in the order. For each order, the order partner is the other participant in the transaction, either the buyer or seller, depending on the eBay user associated with the user token. This method allows users to provide detailed information about the transaction, including the feedback rating, comments, and seller delivery. You can also add images to your feedback.
-    /// <b>Note: </b>A seller can only provide a comment for a buyer, but a buyer can provide a comment plus provides ratings on a number of metrics for a seller.
+    /// <b>Note: </b>A seller can only provide a comment for a buyer, but a buyer can provide a comment plus provide ratings on a number of metrics for a seller.
     /// <b>Note: </b>The feedback must adhere to community guidelines and be relevant to the transaction.
     /// When leaving feedback, keep the following in mind:
     /// - Your feedback score is not affected when you leave feedback
@@ -184,7 +184,7 @@ public sealed class FeedbackClient
     /// This method allows users to respond to feedback provided by the order partner for a specific line item in an order. For each order, the order partner is the other participant in the transaction, either the buyer or seller, depending on the eBay user associated with the user token. This method allows the user to provide additional context or address the order partner's feedback.
     /// <b>Note: </b>The feedback response must adhere to community guidelines and be relevant to the transaction.
     /// You can only use this method if feedback has been provided by the order partner and you have not yet responded to it.
-    /// When responding to feedback, your feedback score is not affected when you respond to feedback.
+    /// When responding to feedback, your feedback score is not affected when you respond.
     /// For additional information on leaving feedback, see the following:
     /// - <see href="https://www.ebay.com/help/buying/leaving-feedback-sellers/leaving-feedback-sellers?id=4007">Leaving feedback for sellers</see>
     /// - <see href="https://www.ebay.com/help/selling/leaving-feedback-buyers/leaving-feedback-buyers?id=4078">Leaving feedback for buyers</see>

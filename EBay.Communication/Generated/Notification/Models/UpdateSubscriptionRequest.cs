@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use &lt;b&gt;getDestinations&lt;/b&gt; to retrieve destination IDs.</summary>
+        /// <summary>The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-destination-getdestinations&quot;&gt;getDestinations&lt;/a&gt; to retrieve destination IDs.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? DestinationId { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public string DestinationId { get; set; }
 #endif
-        /// <summary>A type that describes the details of the subscription payload.</summary>
+        /// <summary>The payload associated with this subscription.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail? Payload { get; set; }
@@ -45,14 +45,8 @@ namespace EBay.Communication.Generated.Notification.Models
 #else
         public global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail Payload { get; set; }
 #endif
-        /// <summary>Set the status of the subscription being updated to ENABLED or DISABLED. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Status { get; set; }
-#nullable restore
-#else
-        public string Status { get; set; }
-#endif
+        /// <summary>Set the status of the subscription being updated to &lt;code&gt;ENABLED&lt;/code&gt; or &lt;code&gt;DISABLED&lt;/code&gt;.</summary>
+        public global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum? Status { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Models.UpdateSubscriptionRequest"/> and sets the default values.
         /// </summary>
@@ -80,7 +74,7 @@ namespace EBay.Communication.Generated.Notification.Models
             {
                 { "destinationId", n => { DestinationId = n.GetStringValue(); } },
                 { "payload", n => { Payload = n.GetObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>(global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail.CreateFromDiscriminatorValue); } },
-                { "status", n => { Status = n.GetStringValue(); } },
+                { "status", n => { Status = n.GetEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>(); } },
             };
         }
         /// <summary>
@@ -92,7 +86,7 @@ namespace EBay.Communication.Generated.Notification.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("destinationId", DestinationId);
             writer.WriteObjectValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionPayloadDetail>("payload", Payload);
-            writer.WriteStringValue("status", Status);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Notification.Models.SubscriptionStatusEnum>("status", Status);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

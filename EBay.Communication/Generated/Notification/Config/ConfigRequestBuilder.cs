@@ -53,6 +53,8 @@ namespace EBay.Communication.Generated.Notification.Config
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.Config"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 404 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.Config?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -63,14 +65,21 @@ namespace EBay.Communication.Generated.Notification.Config
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Config>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Config.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "404", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.Config>(requestInfo, global::EBay.Communication.Generated.Notification.Models.Config.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to create a new configuration or update an existing configuration. This app-level configuration allows developers to set up alerts.
         /// </summary>
-        /// <param name="body">The type that defines the fields for the &lt;b&gt;alertEmail&lt;/b&gt; field.</param>
+        /// <param name="body">The configurations for this application.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task PutAsync(global::EBay.Communication.Generated.Notification.Models.Config body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -82,7 +91,12 @@ namespace EBay.Communication.Generated.Notification.Config
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
-            await RequestAdapter.SendNoContentAsync(requestInfo, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            await RequestAdapter.SendNoContentAsync(requestInfo, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to retrieve a previously created configuration.
@@ -107,7 +121,7 @@ namespace EBay.Communication.Generated.Notification.Config
         /// This method allows applications to create a new configuration or update an existing configuration. This app-level configuration allows developers to set up alerts.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">The type that defines the fields for the &lt;b&gt;alertEmail&lt;/b&gt; field.</param>
+        /// <param name="body">The configurations for this application.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -121,6 +135,7 @@ namespace EBay.Communication.Generated.Notification.Config
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
+            requestInfo.Headers.TryAdd("Accept", "application/json");
             requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }

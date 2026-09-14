@@ -29,14 +29,8 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This enumerated value indicates the type of rating (for example, &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt;, &lt;code&gt;DSR_ITEM_AS_DESCRIBED&lt;/code&gt;). For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? RatingType { get; set; }
-#nullable restore
-#else
-        public string RatingType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the type of rating (for example, &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt;, &lt;code&gt;DSR_ITEM_AS_DESCRIBED&lt;/code&gt;).</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum? RatingType { get; set; }
         /// <summary>The value assigned to the rating, specified as a string representing a number from &lt;code&gt;1&lt;/code&gt; to &lt;code&gt;5&lt;/code&gt;, with &lt;code&gt;1&lt;/code&gt; representing the lowest rating and &lt;code&gt;5&lt;/code&gt; representing the highest rating.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -70,7 +64,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "ratingType", n => { RatingType = n.GetStringValue(); } },
+                { "ratingType", n => { RatingType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>(); } },
                 { "value", n => { Value = n.GetStringValue(); } },
             };
         }
@@ -81,7 +75,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("ratingType", RatingType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>("ratingType", RatingType);
             writer.WriteStringValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }

@@ -31,7 +31,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>This value indicates the number of feedback entries on the current response page.</summary>
         public int? Count { get; set; }
-        /// <summary>The value of the &lt;b&gt;limit&lt;/b&gt; parameter submitted in the request. This is the maximum number of line items, as filtered, awaiting feedback to return per page from the result set. This field indicates the number of line items returned per page of data. &lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;If this is the last or only page of the result set, the page may contain fewer line items than the &lt;b&gt;limit&lt;/b&gt; value. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;If a &lt;b&gt;limit&lt;/b&gt; parameter was not included in the request, this value will default to &lt;code&gt;25&lt;/code&gt;, returning up to 25 line items on each page.&lt;/p&gt;&lt;p&gt;&lt;b&gt;Default: &lt;/b&gt;25&lt;/p&gt;</summary>
+        /// <summary>The value of the &lt;strong&gt;limit&lt;/strong&gt; parameter submitted in the request. This is the maximum number of line items awaiting feedback, as filtered, to return per page from the result set. This field indicates the number of line items returned per page of data. &lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;If this is the last or only page of the result set, the page may contain fewer line items than the &lt;strong&gt;limit&lt;/strong&gt; value. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;If a &lt;strong&gt;limit&lt;/strong&gt; parameter was not included in the request, this value will default to &lt;code&gt;25&lt;/code&gt;, returning up to 25 line items on each page.&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Default: &lt;/strong&gt;25&lt;/p&gt;</summary>
         public int? Limit { get; set; }
         /// <summary>The relative URI for the next page of results starting with the resource name. This URI is returned if there is an additional page of results in the result set.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -41,7 +41,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Next { get; set; }
 #endif
-        /// <summary>The value of the &lt;b&gt;offset&lt;/b&gt; parameter submitted in the request. This field indicates how many results were skipped in the response. If an &lt;b&gt;offset&lt;/b&gt; parameter was not included in the request, this value will default to &lt;code&gt;0&lt;/code&gt;, returning the first page of results.&lt;p&gt;&lt;b&gt;Default: &lt;/b&gt;0&lt;/p&gt;</summary>
+        /// <summary>The value of the &lt;strong&gt;offset&lt;/strong&gt; parameter submitted in the request. This field indicates how many results were skipped in the response. If an &lt;strong&gt;offset&lt;/strong&gt; parameter was not included in the request, this value will default to &lt;code&gt;0&lt;/code&gt;, returning the first page of results.&lt;p&gt;&lt;strong&gt;Default: &lt;/strong&gt;0&lt;/p&gt;</summary>
         public int? Offset { get; set; }
         /// <summary>The relative URI for the previous page of results starting with the resource name. This URI is returned if there is a previous page of results in the result set.&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This is the unique identifier for the listing associated with the line item. It is used to reference the specific listing for which feedback is being awaited.</summary>
+        /// <summary>This is the unique identifier for the listing associated with the line item. It is used to reference the specific listing that is awaiting feedback.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ListingId { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string ListingId { get; set; }
 #endif
-        /// <summary>This type provides details about the price of the listing awaiting feedback.</summary>
+        /// <summary>This container shows the sale price of the listing.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.ListingPrice? ListingPrice { get; set; }
@@ -53,7 +53,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string ListingTitle { get; set; }
 #endif
-        /// <summary>The unique identifier for the eBay order line item associated with the listing. It is used to pinpoint the exact line item for which feedback is being awaited.</summary>
+        /// <summary>The unique identifier for the eBay order line item associated with the listing. It is used to pinpoint the exact line item awaiting feedback.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? OrderLineItemId { get; set; }
@@ -61,7 +61,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string OrderLineItemId { get; set; }
 #endif
-        /// <summary>This array contains a list of available values for use in a particular rating, and whether the value is enabled. This is dependent on what seller ratings the buyer&apos;s order partner qualifies.&lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Rating templates should only be returned to the user in their role as a buyer; only sellers have Detailed Seller Ratings (DSRs). &lt;/span&gt;&lt;/p&gt;&lt;p&gt;Use the metadata returned here when leaving DSR ratings through the &lt;b&gt;leaveFeedback&lt;/b&gt; method. The key field in this container is the &lt;b&gt;ratingKey&lt;/b&gt; field. See &lt;a href=&quot;/api-docs/commerce/feedback/types/fdb:FeedbackRatingTypeEnum&quot; &gt;FeedbackRatingTypeEnum&lt;/a&gt; for its values. The other metadata returned in this container apply to each &lt;b&gt;ratingKey&lt;/b&gt; value that is returned.&lt;/p&gt;</summary>
+        /// <summary>This array contains a list of available values for use in a particular rating as well as whether the value is enabled. This is dependent on what seller ratings the buyer&apos;s order partner qualifies.&lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;Rating templates should only be returned to the user in their role as a buyer; only sellers have Detailed Seller Ratings (DSRs). &lt;/span&gt;&lt;/p&gt;&lt;p&gt;Use the metadata returned here when leaving DSR ratings through the &lt;strong&gt;leaveFeedback&lt;/strong&gt; method. The key field in this container is the &lt;strong&gt;ratingKey&lt;/strong&gt; field. See &lt;strong&gt;FeedbackRatingTypeEnum&lt;/strong&gt; for its values. The other metadata returned in this container apply to each &lt;strong&gt;ratingKey&lt;/strong&gt; value that is returned.&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTemplateType>? RatingTemplates { get; set; }

@@ -1,5 +1,11 @@
 # ChangeLog
 
+## 2.0.0 (09/14/2026)
+
+**Breaking changes**
+- The following operations changed signature on `NegotiationClient`:
+  - `FindEligibleItemsAsync`: `(string, string?, string?, string?, RequestOptions?, CancellationToken)` → `(string, int?, int?, string?, RequestOptions?, CancellationToken)`
+
 ## 1.0.0 (09/14/2026)
 
 **Breaking changes**

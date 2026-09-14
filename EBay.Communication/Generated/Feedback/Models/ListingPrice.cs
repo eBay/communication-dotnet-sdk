@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field provides the three-letter &lt;a href=&quot;https://www.iso.org/iso-4217-currency-codes.html&quot;  target=&quot;_blank&quot;&gt;ISO 4217&lt;/a&gt; code that represents the currency of the amount in the value field. Both the &lt;b&gt;value&lt;/b&gt; and &lt;b&gt;currency&lt;/b&gt; fields are always returned when expressing prices.</summary>
+        /// <summary>This field provides the three-letter &lt;a href=&quot;https://www.iso.org/iso-4217-currency-codes.html&quot;  target=&quot;_blank&quot;&gt;ISO 4217&lt;/a&gt; code that represents the currency of the amount in the value field. Both the &lt;strong&gt;value&lt;/strong&gt; and &lt;strong&gt;currency&lt;/strong&gt; fields are always returned when expressing prices.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Currency { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Currency { get; set; }
 #endif
-        /// <summary>This field contains the numerical value of the listing price in the currency specified in the &lt;b&gt;currency&lt;/b&gt; field. Both the &lt;b&gt;value&lt;/b&gt; and &lt;b&gt;currency&lt;/b&gt; fields are always returned when expressing prices.</summary>
+        /// <summary>This field contains the numerical value of the listing price in the currency specified in the &lt;strong&gt;currency&lt;/strong&gt; field. Both the &lt;strong&gt;value&lt;/strong&gt; and &lt;strong&gt;currency&lt;/strong&gt; fields are always returned when expressing prices.</summary>
         public double? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.ListingPrice"/> and sets the default values.

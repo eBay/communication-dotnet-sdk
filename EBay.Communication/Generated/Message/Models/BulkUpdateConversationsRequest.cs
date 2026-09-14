@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines the request body of the &lt;b&gt;bulkUpdateConversation&lt;/b&gt; method.
+    /// This type defines the request body of the &lt;strong&gt;bulkUpdateConversation&lt;/strong&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BulkUpdateConversationsRequest : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This array specifies the list of conversations to update and the updated &lt;b&gt;conversationStatus&lt;/b&gt; for each.</summary>
+        /// <summary>This array specifies the list of conversations to update and the updated &lt;strong&gt;conversationStatus&lt;/strong&gt; for each.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Message.Models.BulkConversation>? Conversations { get; set; }

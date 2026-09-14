@@ -22,12 +22,12 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines fields for user feedback collection, including acceptable values, a default preselection value, and an early feedback message. It also provides fields to enable the template, and limits and options for freetext character, multi-value rating, and other similar features.
+    /// This type defines fields for user feedback collection, including acceptable values, a default preselection value, and an early feedback message. It also provides fields to enable the template as well as limits and options for freetext characters, multi-value rating, and other similar features.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class FeedbackRatingTemplateType : IAdditionalDataHolder, IParsable
     {
-        /// <summary>This array contains a list of available values for use in a particular rating, and whether the value is enabled. Provided if &lt;b&gt;ratingValueType&lt;/b&gt; is &lt;code&gt;RANGE&lt;/code&gt; or &lt;code&gt;PREDEFINED&lt;/code&gt;.&lt;p&gt;The following is an example of a predefined list:&lt;pre&gt;[&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;POSITIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Positive&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEUTRAL&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Neutral&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEGATIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Negative&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  }&lt;/br&gt;]&lt;/pre&gt;For other examples, see the &lt;a href=&quot;/develop/guides-v2/communications/sell-communications-guide#using-rating-templates&quot;  target=&quot;_blank&quot;&gt;Using rating templates&lt;/a&gt;.</summary>
+        /// <summary>This array contains a list of available values for use in a particular rating and whether the value is enabled. This is provided if &lt;strong&gt;ratingValueType&lt;/strong&gt; is &lt;code&gt;RANGE&lt;/code&gt; or &lt;code&gt;PREDEFINED&lt;/code&gt;.&lt;p&gt;The following is an example of a predefined list:&lt;pre&gt;[&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;POSITIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Positive&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEUTRAL&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Neutral&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEGATIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Negative&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  }&lt;/br&gt;]&lt;/pre&gt;For other examples, see the &lt;a href=&quot;/develop/guides-v2/communications/sell-communications-guide#using-rating-templates&quot;  target=&quot;_blank&quot;&gt;Using rating templates&lt;/a&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingAcceptableValue>? AcceptableValues { get; set; }
@@ -55,19 +55,13 @@ namespace EBay.Communication.Generated.Feedback.Models
 #endif
         /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, this boolean indicates that the corresponding feedback rating template is enabled for the user to provide feedback for this line item. This value will generally be &lt;code&gt;true&lt;/code&gt; when the user role is a buyer, but &lt;code&gt;false&lt;/code&gt; when the user role is a seller because buyers do not have Detailed Seller Ratings (DSRs).</summary>
         public bool? Enabled { get; set; }
-        /// <summary>The maximum number of characters allowed to be used for a rating that uses free text. It is only applicable for a rating whose &lt;b&gt;ratingValueType&lt;/b&gt; is &lt;code&gt;FREETEXT&lt;/code&gt;. &lt;p&gt;&lt;b&gt;Maximum: &lt;/b&gt;500&lt;/p&gt;</summary>
+        /// <summary>The maximum number of characters allowed to be used for a rating that uses freetext. It is only applicable for a rating whose &lt;strong&gt;ratingValueType&lt;/strong&gt; is &lt;code&gt;FREETEXT&lt;/code&gt;. &lt;p&gt;&lt;strong&gt;Maximum: &lt;/strong&gt;500&lt;/p&gt;</summary>
         public int? MaximumCharactersAllowed { get; set; }
         /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, multiple values can be specified for the rating.</summary>
         public bool? MultiValueRating { get; set; }
-        /// <summary>This enumerated value indicates the type of rating that is tracked for the seller. All of the metadata returned under each node for the &lt;b&gt;ratingTemplates&lt;/b&gt; array will apply to this rating type. For example, the value &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; indicates the rating is for the overall transaction experience. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? RatingKey { get; set; }
-#nullable restore
-#else
-        public string RatingKey { get; set; }
-#endif
-        /// <summary>This field provides more details about and/or provides guidance on the corresponding rating type. For example, the rating label of &lt;b&gt;Rate this transaction&lt;/b&gt; describes the feedback for the user to enter for an &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; &lt;b&gt;ratingKey&lt;/b&gt;.</summary>
+        /// <summary>This enumerated value indicates the type of rating that is tracked for the seller. All of the metadata returned under each node for the &lt;strong&gt;ratingTemplates&lt;/strong&gt; array will apply to this rating type. For example, the value &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; indicates the rating is for the overall transaction experience.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum? RatingKey { get; set; }
+        /// <summary>This field provides more details about and/or provides guidance on the corresponding rating type. For example, the rating label of &lt;strong&gt;Rate this transaction&lt;/strong&gt; describes the feedback for the user to enter for an &lt;code&gt;OVERALL_EXPERIENCE&lt;/code&gt; &lt;strong&gt;ratingKey&lt;/strong&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RatingLabel { get; set; }
@@ -75,14 +69,8 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string RatingLabel { get; set; }
 #endif
-        /// <summary>This enumerated value indicates the type of data used to provide the specific feedback rating.&lt;br&gt;&lt;p&gt;If set to &lt;code&gt;PREDEFINED&lt;/code&gt; or &lt;code&gt;RANGE&lt;/code&gt;, is returned here, more information on the supported values will be returned under the &lt;b&gt;acceptableValues&lt;/b&gt; array. If &lt;code&gt;FREETEXT&lt;/code&gt; is returned here, the maximum number of characters supported can be seen in the &lt;b&gt;maximumCharactersAllowed&lt;/b&gt; field.&lt;/p&gt; For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackRatingValueTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? RatingValueType { get; set; }
-#nullable restore
-#else
-        public string RatingValueType { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the type of data used to provide the specific feedback rating.&lt;br&gt;&lt;p&gt;If &lt;code&gt;PREDEFINED&lt;/code&gt; or &lt;code&gt;RANGE&lt;/code&gt; is returned, more information on the supported values will be returned under the &lt;strong&gt;acceptableValues&lt;/strong&gt; array. If &lt;code&gt;FREETEXT&lt;/code&gt; is returned, the maximum number of characters supported can be seen in the &lt;strong&gt;maximumCharactersAllowed&lt;/strong&gt; field.&lt;/p&gt;</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueTypeEnum? RatingValueType { get; set; }
         /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, this rating type is required when leaving feedback.</summary>
         public bool? Required { get; set; }
         /// <summary>
@@ -116,9 +104,9 @@ namespace EBay.Communication.Generated.Feedback.Models
                 { "enabled", n => { Enabled = n.GetBoolValue(); } },
                 { "maximumCharactersAllowed", n => { MaximumCharactersAllowed = n.GetIntValue(); } },
                 { "multiValueRating", n => { MultiValueRating = n.GetBoolValue(); } },
-                { "ratingKey", n => { RatingKey = n.GetStringValue(); } },
+                { "ratingKey", n => { RatingKey = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>(); } },
                 { "ratingLabel", n => { RatingLabel = n.GetStringValue(); } },
-                { "ratingValueType", n => { RatingValueType = n.GetStringValue(); } },
+                { "ratingValueType", n => { RatingValueType = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueTypeEnum>(); } },
                 { "required", n => { Required = n.GetBoolValue(); } },
             };
         }
@@ -135,9 +123,9 @@ namespace EBay.Communication.Generated.Feedback.Models
             writer.WriteBoolValue("enabled", Enabled);
             writer.WriteIntValue("maximumCharactersAllowed", MaximumCharactersAllowed);
             writer.WriteBoolValue("multiValueRating", MultiValueRating);
-            writer.WriteStringValue("ratingKey", RatingKey);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingTypeEnum>("ratingKey", RatingKey);
             writer.WriteStringValue("ratingLabel", RatingLabel);
-            writer.WriteStringValue("ratingValueType", RatingValueType);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackRatingValueTypeEnum>("ratingValueType", RatingValueType);
             writer.WriteBoolValue("required", Required);
             writer.WriteAdditionalData(AdditionalData);
         }

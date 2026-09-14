@@ -33,7 +33,7 @@ namespace EBay.Communication.Generated.Notification.Destination
     public partial class DestinationRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.destination.item collection</summary>
-        /// <param name="position">The unique identifier of the destination to retrieve. Use &lt;b&gt;getDestinations&lt;/b&gt; to retrieve destination IDs.</param>
+        /// <param name="position">The unique identifier of the destination to retrieve. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-destination-getdestinations&quot;&gt;getDestinations&lt;/a&gt; to retrieve destination IDs.</param>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Destination.Item.WithDestination_ItemRequestBuilder"/></returns>
         public global::EBay.Communication.Generated.Notification.Destination.Item.WithDestination_ItemRequestBuilder this[string position]
         {
@@ -66,6 +66,8 @@ namespace EBay.Communication.Generated.Notification.Destination
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse?> GetAsync(Action<RequestConfiguration<global::EBay.Communication.Generated.Notification.Destination.DestinationRequestBuilder.DestinationRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -76,15 +78,23 @@ namespace EBay.Communication.Generated.Notification.Destination
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.DestinationSearchResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.&lt;br&gt;&lt;br&gt;A single destination for all topics is valid, as is individual destinations for each topic.&lt;br&gt;&lt;br&gt;To update a destination, use the &lt;strong&gt;updateDestination&lt;/strong&gt; call.&lt;br&gt;&lt;br&gt;The destination created will need to be referenced while creating or updating a subscription to a topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The destination should be created and ready to respond with the expected &lt;b&gt;challengeResponse&lt;/b&gt; for the endpoint to be registered successfully. Refer to the &lt;a href=&quot;/api-docs/commerce/notification/overview.html&quot;&gt;Notification API overview&lt;/a&gt; for more information.&lt;/span&gt;
+        /// This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.&lt;br&gt;&lt;br&gt;A single destination for all topics is valid, as is individual destinations for each topic.&lt;br&gt;&lt;br&gt;To update a destination, use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-destination-updatedestination&quot;&gt;updateDestination&lt;/a&gt; call.&lt;br&gt;&lt;br&gt;The destination created will need to be referenced while creating or updating a subscription to a topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The destination should be created and ready to respond with the expected &lt;b&gt;challengeResponse&lt;/b&gt; for the endpoint to be registered successfully. See the &lt;a href=&quot;/develop/guides/sell/sell-communications-guide#retrievingeBaynotifications&quot;&gt;Communications Guide&lt;/a&gt; for more information.
         /// </summary>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse"/></returns>
-        /// <param name="body">A type that contains information about the destination request.</param>
+        /// <param name="body">The create destination request.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 409 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse?> PostAsync(global::EBay.Communication.Generated.Notification.Models.DestinationRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -96,7 +106,13 @@ namespace EBay.Communication.Generated.Notification.Destination
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "409", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Destination.DestinationPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to retrieve a paginated collection of destination resources and related details. The details include the destination names, statuses, and configurations, including the endpoints and verification tokens.
@@ -118,10 +134,10 @@ namespace EBay.Communication.Generated.Notification.Destination
             return requestInfo;
         }
         /// <summary>
-        /// This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.&lt;br&gt;&lt;br&gt;A single destination for all topics is valid, as is individual destinations for each topic.&lt;br&gt;&lt;br&gt;To update a destination, use the &lt;strong&gt;updateDestination&lt;/strong&gt; call.&lt;br&gt;&lt;br&gt;The destination created will need to be referenced while creating or updating a subscription to a topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The destination should be created and ready to respond with the expected &lt;b&gt;challengeResponse&lt;/b&gt; for the endpoint to be registered successfully. Refer to the &lt;a href=&quot;/api-docs/commerce/notification/overview.html&quot;&gt;Notification API overview&lt;/a&gt; for more information.&lt;/span&gt;
+        /// This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.&lt;br&gt;&lt;br&gt;A single destination for all topics is valid, as is individual destinations for each topic.&lt;br&gt;&lt;br&gt;To update a destination, use the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-destination-updatedestination&quot;&gt;updateDestination&lt;/a&gt; call.&lt;br&gt;&lt;br&gt;The destination created will need to be referenced while creating or updating a subscription to a topic.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; The destination should be created and ready to respond with the expected &lt;b&gt;challengeResponse&lt;/b&gt; for the endpoint to be registered successfully. See the &lt;a href=&quot;/develop/guides/sell/sell-communications-guide#retrievingeBaynotifications&quot;&gt;Communications Guide&lt;/a&gt; for more information.
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">A type that contains information about the destination request.</param>
+        /// <param name="body">The create destination request.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines the response payload of the &lt;b&gt;bulkUpdateConversation&lt;/b&gt; method.
+    /// This type defines the response payload of the &lt;strong&gt;bulkUpdateConversation&lt;/strong&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class BulkUpdateConversationsResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type defines the metadata, such as successes and failures, associated with a bulk conversation status update.</summary>
+        /// <summary>This container returns metadata from the call, such as how many conversations were updated, how many succeeded, and how many failed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Message.Models.ConversationsMetadata? ConversationsMetadata { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public global::EBay.Communication.Generated.Message.Models.ConversationsMetadata ConversationsMetadata { get; set; }
 #endif
-        /// <summary>This array returns a list of each conversation specified in the request, and if the requested update was successful or failed.</summary>
+        /// <summary>This array returns a list of each conversation specified in the request and if the requested update was successful or failed.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Message.Models.ConversationsResponse>? ConversationsResponse { get; set; }

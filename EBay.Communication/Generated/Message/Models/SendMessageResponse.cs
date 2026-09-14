@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines the response payload of the &lt;b&gt;sendMessage&lt;/b&gt; method.
+    /// This type defines the response payload of the &lt;strong&gt;sendMessage&lt;/strong&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SendMessageResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The date, in ISO 8601 format, the message was sent.</summary>
+        /// <summary>The date the message was sent in ISO 8601 format.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CreatedDate { get; set; }
@@ -61,9 +61,9 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public List<global::EBay.Communication.Generated.Message.Models.MessageMedia> MessageMedia { get; set; }
 #endif
-        /// <summary>The read status of the message.&lt;br&gt;&lt;br&gt;If returned as &lt;code&gt;true&lt;/code&gt;, the message has been read by the recipient.</summary>
+        /// <summary>The read status of the message.&lt;br&gt;&lt;br&gt;If returned as &lt;code&gt;true&lt;/code&gt;, the message has been read. If returned as &lt;code&gt;false&lt;/code&gt;, the message has not been read.</summary>
         public bool? ReadStatus { get; set; }
-        /// <summary>The eBay username of the recipient.</summary>
+        /// <summary>The eBay username of the recipient.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RecipientUserName { get; set; }
@@ -71,7 +71,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string RecipientUserName { get; set; }
 #endif
-        /// <summary>The eBay username of the sender.</summary>
+        /// <summary>The eBay username of the sender.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SenderUserName { get; set; }

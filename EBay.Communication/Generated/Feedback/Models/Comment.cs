@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This type provides fields that descrbes timing associated with the comment.</summary>
+        /// <summary>This container indicates the timing of a feedback comment based on when it was left. It is only returned if a comment was provided. Possible values are 30 days, 90 days, 180 days, 365 days, or 5 years: &lt;br&gt;&lt;ul&gt;&lt;li&gt;Less than 30 days: 30 DAY&lt;/li&gt; &lt;li&gt;Over 30 but less than 90 days: 90 DAY&lt;/li&gt; &lt;li&gt;Over 90 but less than 180 days: 180 DAY&lt;/li&gt; &lt;li&gt;Over 180 but less than 365 days: 365 DAY&lt;/li&gt; &lt;li&gt;More than 365 days: 5 YEAR&lt;/li&gt;&lt;/ul&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod? CommentPeriod { get; set; }
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod CommentPeriod { get; set; }
 #endif
-        /// <summary>The text of the feedback comment, follow-up, or reply. HTML formatting and personal information (for example, phone numbers) are not allowed. This field is returned if a comment was provided for the feedback entry. If the comment was removed due to eBay policy, this field will contain &apos;&lt;code&gt;--&lt;/code&gt;&apos; and the &lt;b&gt;commentTextRemovedPerPolicy&lt;/b&gt; field will return &lt;code&gt;true&lt;/code&gt;.</summary>
+        /// <summary>The text of the feedback comment, follow-up, or reply. HTML formatting and personal information (for example, phone numbers) are not allowed. This field is returned if a comment was provided for the feedback entry. If the comment was removed due to eBay policy, this field will contain &apos;&lt;code&gt;--&lt;/code&gt;&apos; and the &lt;strong&gt;commentTextRemovedPerPolicy&lt;/strong&gt; field will return &lt;code&gt;true&lt;/code&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? CommentText { get; set; }
@@ -45,16 +45,10 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string CommentText { get; set; }
 #endif
-        /// <summary>If &lt;code&gt;true&lt;/code&gt;, this boolean indicates the feedback follow-up or reply comment text was removed per eBay policy.  This field is only returned when a &lt;b&gt;followupComment&lt;/b&gt; container is returned.</summary>
+        /// <summary>If &lt;code&gt;true&lt;/code&gt;, this boolean indicates the feedback follow-up or reply comment text was removed per eBay policy.  This field is only returned when a &lt;strong&gt;followupComment&lt;/strong&gt; container is returned.</summary>
         public bool? CommentTextRemovedPerPolicy { get; set; }
-        /// <summary>This enumerated value indicates the state of the feedback (for example, &lt;code&gt;ENTERED&lt;/code&gt;). This can be the state of the feedback comment, the follow-up comment, or the reply comment. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackCommentStateEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? State { get; set; }
-#nullable restore
-#else
-        public string State { get; set; }
-#endif
+        /// <summary>This enumerated value indicates the state of the feedback (for example, &lt;code&gt;ENTERED&lt;/code&gt;). This can be the state of the feedback comment, the follow-up comment, or the reply comment.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackCommentStateEnum? State { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.Comment"/> and sets the default values.
         /// </summary>
@@ -83,7 +77,7 @@ namespace EBay.Communication.Generated.Feedback.Models
                 { "commentPeriod", n => { CommentPeriod = n.GetObjectValue<global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod>(global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod.CreateFromDiscriminatorValue); } },
                 { "commentText", n => { CommentText = n.GetStringValue(); } },
                 { "commentTextRemovedPerPolicy", n => { CommentTextRemovedPerPolicy = n.GetBoolValue(); } },
-                { "state", n => { State = n.GetStringValue(); } },
+                { "state", n => { State = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackCommentStateEnum>(); } },
             };
         }
         /// <summary>
@@ -96,7 +90,7 @@ namespace EBay.Communication.Generated.Feedback.Models
             writer.WriteObjectValue<global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod>("commentPeriod", CommentPeriod);
             writer.WriteStringValue("commentText", CommentText);
             writer.WriteBoolValue("commentTextRemovedPerPolicy", CommentTextRemovedPerPolicy);
-            writer.WriteStringValue("state", State);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackCommentStateEnum>("state", State);
             writer.WriteAdditionalData(AdditionalData);
         }
     }

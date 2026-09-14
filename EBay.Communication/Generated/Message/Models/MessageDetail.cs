@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines message details for a conversation.
+    /// This type defines the message details for a conversation.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MessageDetail : IAdditionalDataHolder, IParsable
@@ -63,7 +63,7 @@ namespace EBay.Communication.Generated.Message.Models
 #endif
         /// <summary>This boolean indicates if the message has been viewed by the recipient.&lt;br&gt;&lt;br&gt;If this boolean is returned as &lt;code&gt;true&lt;/code&gt;, the message has been read. If this boolean is returned as &lt;code&gt;false&lt;/code&gt;, the message has not been read.</summary>
         public bool? ReadStatus { get; set; }
-        /// <summary>The eBay username of the message recipient.</summary>
+        /// <summary>The eBay username of the message recipient.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? RecipientUsername { get; set; }
@@ -71,7 +71,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string RecipientUsername { get; set; }
 #endif
-        /// <summary>The eBay username of the message sender.</summary>
+        /// <summary>The eBay username of the message sender.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? SenderUsername { get; set; }

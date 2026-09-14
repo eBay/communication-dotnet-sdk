@@ -37,7 +37,7 @@ public sealed class MessageClient
     /// <summary>
     /// This method can be used to update the <b>conversationStatus</b> of up to 10 conversations.
     /// The <b>conversationId</b>, existing <b>conversationType</b>, and updated <b>conversationStatus</b> for each conversation to modify are required in the <b>conversations</b> array.
-    /// Important! </b>"&gt;<b>Important!</b> Though it cannot be updated, the <b>conversationType</b> field is required for each conversation being updated.
+    /// Important! </b>"&gt;<b>Important!</b> Although it cannot be updated, the <b>conversationType</b> field is required for each conversation being updated.
     /// If the updates were successful, the <b>conversationId</b> of each conversation will be returned with an associated <b>updateStatus</b> value of <c>SUCCESSFUL</c>.
     /// </summary>
     public Task<BulkUpdateConversationsResponse?> BulkUpdateConversationAsync(
@@ -55,7 +55,7 @@ public sealed class MessageClient
 
     /// <summary>
     /// This method can be used to retrieve messages within a specific conversation.
-    /// The <b>conversation_id</b> of the conversation for which to retrieve messages is required as path parameters, and the and <b>conversation_type</b> of the conversation is required as a query parameter.
+    /// The <b>conversation_id</b> of the conversation for which to retrieve messages is required as a path parameter and the <b>conversation_type</b> of the conversation is required as a query parameter.
     /// </summary>
     public Task<GetMessagesByConversationIdResponse?> GetConversationAsync(
         string conversationId,
@@ -143,7 +143,7 @@ public sealed class MessageClient
 
     /// <summary>
     /// This method can be used to start a conversation with another user or send a message in an existing conversation with another user based on the information provided in the request.
-    /// To send a message, one of the <b>conversationId</b> or <b>otherPartyUsername</b> request fields are required. The <b>conversationId</b> must be used when sending a message in an existing conversation and specifies the conversation for which to send the message. For a new conversation, the <b>otherPartyUsername</b> field must be used to send the message to a specific user. In addition, the <b>messageText</b> field is required as it contains the body text of the message.
+    /// To send a message, one of the <b>conversationId</b> or <b>otherPartyUsername</b> request fields is required. The <b>conversationId</b> must be used when sending a message in an existing conversation and specifies the conversation for which to send the message. For a new conversation, the <b>otherPartyUsername</b> field must be used to send the message to a specific user. In addition, the <b>messageText</b> field is required as it contains the body text of the message.
     /// Optionally, media (such as images or documents) can be attached to the message using the <b>messageMedia</b> container. The <b>reference</b> container can also be used to associate a message with a listing.
     /// </summary>
     public Task<SendMessageResponse?> SendMessageAsync(
@@ -162,9 +162,9 @@ public sealed class MessageClient
     /// <summary>
     /// This method can be used to update the <b>conversationStatus</b> or the <b>read</b> status of a specified conversation.
     /// <b>Note:</b> Only one of these statuses can be updated at a time using this method. If both fields are included, only the <b>read</b> status of the specified conversation will be updated and the <b>conversationStatus</b> field will be ignored.
-    /// The <b>conversationId</b> of the conversation to modify, as well as the existing <b>conversationType</b> of the specified conversation are required as part of the request payload.
-    /// Important! </b>"&gt;<b>Important!</b> Though it cannot be updated, the existing <b>conversationType</b> of the specified conversation to be updated is required in the request payload. If this value is not provided, an error will occur.
-    /// To update a conversation's status (for example, updating an <c>ACTIVE</c> conversation to <c>ARCHIVE</c>), include the <b>conversationStatus</b> field in the request with the updated value. To update a conversation's read status (for example, updating an <c>UNREAD</c> conversation to <c>READ</c>), include the <b>read</b> boolean in the request with the updated value.
+    /// Both the <b>conversationId</b> of the conversation to modify and the existing <b>conversationType</b> of the specified conversation are required as part of the request payload.
+    /// Important! </b>"&gt;<b>Important!</b> Although it cannot be updated, the existing <b>conversationType</b> of the specified conversation to be updated is required in the request payload. If this value is not provided, an error will occur.
+    /// To update a conversation's status (e.g., updating an <c>ACTIVE</c> conversation to <c>ARCHIVE</c>), include the <b>conversationStatus</b> field in the request with the updated value. To update a conversation's read status (e.g., updating an <c>UNREAD</c> conversation to <c>READ</c>), include the <b>read</b> boolean in the request with the updated value.
     /// </summary>
     public Task UpdateConversationAsync(
         UpdateConversationRequest body,

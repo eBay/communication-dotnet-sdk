@@ -22,16 +22,16 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type provides field for an array listing the distribution values of the feedback ratings.
+    /// This type provides fields for an array listing the distribution values of the feedback ratings.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class FeedbackRatingValueDistribution : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>An integer representing the number of occurrences for a specific feedback rating &lt;b&gt;value&lt;/b&gt;. For example, for the &lt;code&gt;POSITIVE&lt;/code&gt; &lt;b&gt;value&lt;/b&gt;, a &lt;code&gt;3&lt;/code&gt; returned as the &lt;b&gt;count&lt;/b&gt; represents three positive ratings were returned.</summary>
+        /// <summary>An integer representing the number of occurrences for a specific feedback rating &lt;strong&gt;value&lt;/strong&gt;. For example, for the &lt;code&gt;POSITIVE&lt;/code&gt; &lt;strong&gt;value&lt;/strong&gt;, a &lt;code&gt;3&lt;/code&gt; returned as the &lt;strong&gt;count&lt;/strong&gt; represents three positive ratings were returned.</summary>
         public int? Count { get; set; }
-        /// <summary>A string indicating the specific feedback rating value. Supported values include: &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt;, &lt;code&gt;2&lt;/code&gt;, &lt;code&gt;3&lt;/code&gt;, &lt;code&gt;4&lt;/code&gt;, and &lt;code&gt;5&lt;/code&gt;.</summary>
+        /// <summary>A string indicating the specific feedback rating value. Supported values include &lt;code&gt;POSITIVE&lt;/code&gt;, &lt;code&gt;NEUTRAL&lt;/code&gt;, &lt;code&gt;NEGATIVE&lt;/code&gt;, &lt;code&gt;1&lt;/code&gt;, &lt;code&gt;2&lt;/code&gt;, &lt;code&gt;3&lt;/code&gt;, &lt;code&gt;4&lt;/code&gt;, and &lt;code&gt;5&lt;/code&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Value { get; set; }

@@ -22,14 +22,14 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines the request payload of the &lt;b&gt;sendMessage&lt;/b&gt; method.
+    /// This type defines the request payload of the &lt;strong&gt;sendMessage&lt;/strong&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class SendMessageRequest : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This field specifies the unique identifier of the conversation in which to send the message.&lt;br&gt;&lt;br&gt;Use the &lt;a href=&quot;/api-docs/commerce/message/resources/conversation/methods/getConversations&quot; target=&quot;_blank&quot;&gt;getConversations&lt;/a&gt; method to retrieve conversation ID values.&lt;br&gt;&lt;br&gt;This field is required if sending a message in an existing conversation.</summary>
+        /// <summary>This field specifies the unique identifier of the conversation in which to send the message.&lt;br&gt;&lt;br&gt;Use the &lt;a href=&quot;/develop/api/sell/message_api#sell-message_api-conversation-getconversations&quot;&gt;getConversations&lt;/a&gt; method to retrieve conversation ID values.&lt;br&gt;&lt;br&gt;This field is required if sending a message in an existing conversation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ConversationId { get; set; }
@@ -39,7 +39,7 @@ namespace EBay.Communication.Generated.Message.Models
 #endif
         /// <summary>This boolean indicates whether a copy of the message should be emailed to the sender.&lt;br&gt;&lt;br&gt;If this boolean is input as &lt;code&gt;true&lt;/code&gt;, a copy of the message will be emailed to the sender.</summary>
         public bool? EmailCopyToSender { get; set; }
-        /// <summary>This array lists the individual forms of media, if any, to be attached to the message.&lt;br&gt;&lt;br&gt;Up to five individual forms of media may be be sent per message. If more than five are specified in this array, an error will occur and the call will fail.</summary>
+        /// <summary>This array lists the individual forms of media, if any, to be attached to the message.&lt;br&gt;&lt;br&gt;Up to five individual forms of media may be sent per message. If more than five are specified in this array, an error will occur and the call will fail.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::EBay.Communication.Generated.Message.Models.MessageMedia>? MessageMedia { get; set; }
@@ -47,7 +47,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public List<global::EBay.Communication.Generated.Message.Models.MessageMedia> MessageMedia { get; set; }
 #endif
-        /// <summary>The text of the message.&lt;br&gt;&lt;br&gt;&lt;b&gt;Max length:&lt;/b&gt; 2000 characters</summary>
+        /// <summary>The text of the message.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Maximum length:&lt;/strong&gt; 2000 characters</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? MessageText { get; set; }
@@ -55,7 +55,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string MessageText { get; set; }
 #endif
-        /// <summary>This field specifies the eBay username of the entity for which to send the message.&lt;br&gt;&lt;br&gt;This field is required if starting a new conversation with another eBay user.</summary>
+        /// <summary>This field specifies the eBay username of the entity to whom to send the message.&lt;br&gt;&lt;br&gt;This field is required if starting a new conversation with another eBay user.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;strong&gt;Note:&lt;/strong&gt; Effective September 26, 2025, select developers will no longer receive username data for U.S. users through this field. Instead, an immutable user ID will be returned in its place. For more information, please refer to &lt;a href=&quot;/api-docs/static/data-handling-update.html&quot; target=&quot;_blank&quot;&gt;Data Handling Compliance&lt;/a&gt;.&lt;/span&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? OtherPartyUsername { get; set; }
@@ -63,7 +63,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string OtherPartyUsername { get; set; }
 #endif
-        /// <summary>This type specifies the reference type and associated reference ID associated with a message.</summary>
+        /// <summary>This container should be used if the new or existing conversation is related to a specific eBay listing.&lt;br&gt;&lt;br&gt;For example, a &lt;strong&gt;referenceType&lt;/strong&gt; of &lt;code&gt;LISTING&lt;/code&gt; and an associated &lt;strong&gt;referenceId&lt;/strong&gt; will specify the item ID value of the listing associated with the message.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::EBay.Communication.Generated.Message.Models.Reference? Reference { get; set; }

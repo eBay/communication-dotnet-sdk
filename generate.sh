@@ -16,6 +16,9 @@
 
 set -euo pipefail
 
+echo "Pinning Kiota to 1.35.0..."
+dotnet tool update microsoft.openapi.kiota --local --version 1.35.0 --allow-downgrade
+
 echo "Restoring tools..."
 dotnet tool restore
 
@@ -24,7 +27,7 @@ rm -rf ./EBay.Communication/Generated
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/feedback.yaml \
+  -d specs/openapi/feedback.json \
   -c FeedbackApiClient \
   -n EBay.Communication.Generated.Feedback \
   -o EBay.Communication/Generated/Feedback \
@@ -32,7 +35,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/message.yaml \
+  -d specs/openapi/message.json \
   -c MessageApiClient \
   -n EBay.Communication.Generated.Message \
   -o EBay.Communication/Generated/Message \
@@ -40,7 +43,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/negotiation.yaml \
+  -d specs/openapi/negotiation.json \
   -c NegotiationApiClient \
   -n EBay.Communication.Generated.Negotiation \
   -o EBay.Communication/Generated/Negotiation \
@@ -48,7 +51,7 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/notification.yaml \
+  -d specs/openapi/notification.json \
   -c NotificationApiClient \
   -n EBay.Communication.Generated.Notification \
   -o EBay.Communication/Generated/Notification \

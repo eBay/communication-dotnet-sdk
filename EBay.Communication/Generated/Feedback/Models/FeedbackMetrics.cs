@@ -29,15 +29,9 @@ namespace EBay.Communication.Generated.Feedback.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This enumerated value specifies the type of feedback aggregation. For example, &lt;code&gt;AVG&lt;/code&gt; would indicate the feedback returned represents the average value of the feedback. See &lt;b&gt;metricValue&lt;/b&gt; for the value of the returned feedback. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:FeedbackAggregationTypeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? MetricName { get; set; }
-#nullable restore
-#else
-        public string MetricName { get; set; }
-#endif
-        /// <summary>The decimal value of the specified metric. For example, 55.8 would represent a value associated with the &lt;b&gt;metricName&lt;/b&gt; (see &lt;b&gt;metricName&lt;/b&gt; for interpretation and units).</summary>
+        /// <summary>This enumerated value specifies the type of feedback aggregation. For example, &lt;code&gt;AVG&lt;/code&gt; would indicate the feedback returned represents the average value of the feedback. See &lt;strong&gt;metricValue&lt;/strong&gt; for the value of the returned feedback.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.FeedbackAggregationTypeEnum? MetricName { get; set; }
+        /// <summary>The decimal value of the specified metric. For example, 55.8 would represent a value associated with the &lt;strong&gt;metricName&lt;/strong&gt; (see &lt;strong&gt;metricName&lt;/strong&gt; for interpretation and units).</summary>
         public double? MetricValue { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.FeedbackMetrics"/> and sets the default values.
@@ -64,7 +58,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "metricName", n => { MetricName = n.GetStringValue(); } },
+                { "metricName", n => { MetricName = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackAggregationTypeEnum>(); } },
                 { "metricValue", n => { MetricValue = n.GetDoubleValue(); } },
             };
         }
@@ -75,7 +69,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("metricName", MetricName);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.FeedbackAggregationTypeEnum>("metricName", MetricName);
             writer.WriteDoubleValue("metricValue", MetricValue);
             writer.WriteAdditionalData(AdditionalData);
         }

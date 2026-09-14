@@ -33,7 +33,7 @@ namespace EBay.Communication.Generated.Notification.Subscription
     public partial class SubscriptionRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.subscription.item collection</summary>
-        /// <param name="position">The unique identifier of the subscription to retrieve. Use &lt;b&gt;getSubscriptions&lt;/b&gt; to retrieve subscription IDs.</param>
+        /// <param name="position">The unique identifier of the subscription to retrieve. Use &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-getsubscriptions&quot;&gt;getSubscriptions&lt;/a&gt; to retrieve subscription IDs.</param>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Subscription.Item.WithSubscription_ItemRequestBuilder"/></returns>
         public global::EBay.Communication.Generated.Notification.Subscription.Item.WithSubscription_ItemRequestBuilder this[string position]
         {
@@ -66,6 +66,8 @@ namespace EBay.Communication.Generated.Notification.Subscription
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse"/></returns>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse?> GetAsync(Action<RequestConfiguration<global::EBay.Communication.Generated.Notification.Subscription.SubscriptionRequestBuilder.SubscriptionRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -76,15 +78,24 @@ namespace EBay.Communication.Generated.Notification.Subscription
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Models.SubscriptionSearchResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
-        /// This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.&lt;br&gt;&lt;br&gt;You can create the subscription in disabled mode, test it (see the &lt;b&gt;test&lt;/b&gt; method), and when everything is ready, you can enable the subscription (see the &lt;b&gt;enableSubscription&lt;/b&gt; method).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.&lt;/span&gt;
+        /// This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.&lt;br&gt;&lt;br&gt;You can create the subscription in disabled mode, test it (see the &lt;b&gt;test&lt;/b&gt; method), and when everything is ready, you can enable the subscription (see the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription&quot;&gt;enableSubscription&lt;/a&gt; method).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse"/></returns>
-        /// <param name="body">This type contains information about a subscription request.</param>
+        /// <param name="body">The create subscription request.</param>
         /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 400 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 403 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 409 status code</exception>
+        /// <exception cref="global::EBay.Communication.Generated.Notification.Models.Error">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse?> PostAsync(global::EBay.Communication.Generated.Notification.Models.CreateSubscriptionRequest body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -96,7 +107,14 @@ namespace EBay.Communication.Generated.Notification.Subscription
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse.CreateFromDiscriminatorValue, default, cancellationToken).ConfigureAwait(false);
+            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
+            {
+                { "400", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "403", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "409", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+                { "500", global::EBay.Communication.Generated.Notification.Models.Error.CreateFromDiscriminatorValue },
+            };
+            return await RequestAdapter.SendAsync<global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse>(requestInfo, global::EBay.Communication.Generated.Notification.Subscription.SubscriptionPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <summary>
         /// This method allows applications to retrieve a list of all subscriptions. The list returned is a paginated collection of subscription resources.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
@@ -118,10 +136,10 @@ namespace EBay.Communication.Generated.Notification.Subscription
             return requestInfo;
         }
         /// <summary>
-        /// This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.&lt;br&gt;&lt;br&gt;You can create the subscription in disabled mode, test it (see the &lt;b&gt;test&lt;/b&gt; method), and when everything is ready, you can enable the subscription (see the &lt;b&gt;enableSubscription&lt;/b&gt; method).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.&lt;/span&gt;
+        /// This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.&lt;br&gt;&lt;br&gt;Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.&lt;br&gt;&lt;br&gt;You can create the subscription in disabled mode, test it (see the &lt;b&gt;test&lt;/b&gt; method), and when everything is ready, you can enable the subscription (see the &lt;a href=&quot;/develop/api/sell/notification_api#sell-notification_api-subscription-enablesubscription&quot;&gt;enableSubscription&lt;/a&gt; method).&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note:&lt;/b&gt; If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.&lt;/span&gt;
         /// </summary>
         /// <returns>A <see cref="RequestInformation"/></returns>
-        /// <param name="body">This type contains information about a subscription request.</param>
+        /// <param name="body">The create subscription request.</param>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable

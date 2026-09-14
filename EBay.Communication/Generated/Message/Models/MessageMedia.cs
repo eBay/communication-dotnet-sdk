@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type specifies the type of message media sent when sending a message.
+    /// This type specifies the format of media that was included when sending a message.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class MessageMedia : IAdditionalDataHolder, IParsable
@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string MediaName { get; set; }
 #endif
-        /// <summary>The type of media attached to the message.&lt;br&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;IMAGE&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;PDF&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;DOC&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;TXT&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
+        /// <summary>The type of media attached to the message.&lt;br&gt;&lt;br&gt;&lt;strong&gt;Valid values:&lt;/strong&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;IMAGE&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;PDF&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;DOC&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;TXT&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? MediaType { get; set; }

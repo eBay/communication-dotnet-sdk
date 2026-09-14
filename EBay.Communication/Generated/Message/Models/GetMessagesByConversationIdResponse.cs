@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Message.Models
 {
     /// <summary>
-    /// This type defines the response payload of the &lt;b&gt;getConversation&lt;/b&gt; method.
+    /// This type defines the response payload of the &lt;strong&gt;getConversation&lt;/strong&gt; method.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class GetMessagesByConversationIdResponse : IAdditionalDataHolder, IParsable
@@ -61,7 +61,7 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string Href { get; set; }
 #endif
-        /// <summary>The value of the &lt;b&gt;limit&lt;/b&gt; parameter submitted in the request.</summary>
+        /// <summary>The value of the &lt;strong&gt;limit&lt;/strong&gt; parameter submitted in the request.</summary>
         public int? Limit { get; set; }
         /// <summary>This array returns a list of messages from the specified conversation.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
@@ -79,9 +79,9 @@ namespace EBay.Communication.Generated.Message.Models
 #else
         public string Next { get; set; }
 #endif
-        /// <summary>The value of the &lt;b&gt;offset&lt;/b&gt; parameter submitted in the request.</summary>
+        /// <summary>The value of the &lt;strong&gt;offset&lt;/strong&gt; parameter submitted in the request.</summary>
         public int? Offset { get; set; }
-        /// <summary>The URI for the previous page of results.&lt;br&gt;&lt;br&gt;This is only retuned if there is a previous page of results in the result set.</summary>
+        /// <summary>The URI for the previous page of results.&lt;br&gt;&lt;br&gt;This value is only returned if there is a previous page of results in the result set.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Prev { get; set; }

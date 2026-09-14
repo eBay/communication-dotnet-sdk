@@ -29,14 +29,8 @@ namespace EBay.Communication.Generated.Negotiation.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>A time-measurement unit that specifies a singular period of time.  &lt;br&gt;&lt;br&gt;A span of time is defined when you apply the value specified in the &lt;b&gt;value&lt;/b&gt; field to the value specified for &lt;b&gt;unit&lt;/b&gt;.  &lt;br&gt;&lt;br&gt;Time-measurement units can be YEAR, MONTH, DAY, and so on. See &lt;b&gt;TimeDurationUnitEnum&lt;/b&gt; for a complete list of possible time-measurement units. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/sell/negotiation/types/bas:TimeDurationUnitEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Unit { get; set; }
-#nullable restore
-#else
-        public string Unit { get; set; }
-#endif
+        /// <summary>An enum value that specifies the time-measurement unit that&apos;s used to express a time span.</summary>
+        public global::EBay.Communication.Generated.Negotiation.Models.TimeDurationUnitEnum? Unit { get; set; }
         /// <summary>An integer that represents an amount of time, as measured by the time-measurement unit specified in the &lt;b&gt;unit&lt;/b&gt; field.</summary>
         public int? Value { get; set; }
         /// <summary>
@@ -64,7 +58,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "unit", n => { Unit = n.GetStringValue(); } },
+                { "unit", n => { Unit = n.GetEnumValue<global::EBay.Communication.Generated.Negotiation.Models.TimeDurationUnitEnum>(); } },
                 { "value", n => { Value = n.GetIntValue(); } },
             };
         }
@@ -75,7 +69,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("unit", Unit);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Negotiation.Models.TimeDurationUnitEnum>("unit", Unit);
             writer.WriteIntValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }

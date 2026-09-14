@@ -22,22 +22,16 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines the attributes of the user who provided the feedback of a &lt;b&gt;getFeedback&lt;/b&gt; response.
+    /// This type defines the attributes of the user who provided the feedback of a &lt;strong&gt;getFeedback&lt;/strong&gt; response.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class ProviderUserDetailUserAttributes : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>This enumerated value indicates an attribute of the user (for example, &lt;code&gt;USER_VERIFIED&lt;/code&gt;). The &lt;b&gt;value&lt;/b&gt; field indicates if the attribute applies. For implementation help, refer to &lt;a href=&apos;https://developer.ebay.com/api-docs/commerce/feedback/types/fdb:UserAttributeEnum&apos;&gt;eBay API documentation&lt;/a&gt;</summary>
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public string? Name { get; set; }
-#nullable restore
-#else
-        public string Name { get; set; }
-#endif
-        /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, the user attribute &lt;b&gt;name&lt;/b&gt; applies; if returned as &lt;code&gt;false&lt;/code&gt;, the attribute does not apply.</summary>
+        /// <summary>This enumerated value indicates an attribute of the user (for example, &lt;code&gt;USER_VERIFIED&lt;/code&gt;). The &lt;strong&gt;value&lt;/strong&gt; field indicates if the attribute applies.</summary>
+        public global::EBay.Communication.Generated.Feedback.Models.UserAttributeEnum? Name { get; set; }
+        /// <summary>If returned as &lt;code&gt;true&lt;/code&gt;, the user attribute &lt;strong&gt;name&lt;/strong&gt; applies; if returned as &lt;code&gt;false&lt;/code&gt;, the attribute does not apply.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Value { get; set; }
@@ -70,7 +64,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
-                { "name", n => { Name = n.GetStringValue(); } },
+                { "name", n => { Name = n.GetEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserAttributeEnum>(); } },
                 { "value", n => { Value = n.GetStringValue(); } },
             };
         }
@@ -81,7 +75,7 @@ namespace EBay.Communication.Generated.Feedback.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
-            writer.WriteStringValue("name", Name);
+            writer.WriteEnumValue<global::EBay.Communication.Generated.Feedback.Models.UserAttributeEnum>("name", Name);
             writer.WriteStringValue("value", Value);
             writer.WriteAdditionalData(AdditionalData);
         }

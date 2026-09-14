@@ -22,7 +22,7 @@ using System;
 namespace EBay.Communication.Generated.Feedback.Models
 {
     /// <summary>
-    /// This type defines the fields for the &lt;b&gt;leaveFeedback&lt;/b&gt; response for feedback that has been left.
+    /// This type defines the fields for the &lt;strong&gt;leaveFeedback&lt;/strong&gt; response for the feedback.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class LeaveFeedbackResponse : IAdditionalDataHolder, IParsable
