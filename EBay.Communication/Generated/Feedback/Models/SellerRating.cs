@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     /// This type provides fields for specific aspects of the seller&apos;s performance.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class SellerRating : IAdditionalDataHolder, IParsable
+    public partial class SellerRating : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

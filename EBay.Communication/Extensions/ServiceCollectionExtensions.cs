@@ -12,60 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using EBay.Communication.Clients.Rest;
+using EBay.Communication;
 using EBay.Communication.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace EBay.Communication.Extensions;
 
-/// <summary>
-/// Extension methods for registering Communication SDK with dependency injection
-/// </summary>
 public static class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// Registers the Communication SDK with the service collection
-    /// </summary>
     public static IServiceCollection AddCommunicationSdk(
         this IServiceCollection services,
         CommunicationConfiguration config)
     {
-        ArgumentNullException.ThrowIfNull(services);
-        ArgumentNullException.ThrowIfNull(config);
-
         services.AddSingleton(config);
         services.AddSingleton<ITokenContext, AsyncLocalTokenContext>();
 
-        services.AddHttpClient(nameof(CommunicationClient))
-            .ConfigureHttpClient(c => c.Timeout = config.HttpTimeout)
-            .AddHttpMessageHandler(sp => new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+        foreach (var endpoint in CommunicationClient.RestEndpointNames)
+        {
+            var id = endpoint.ApiId;
+            services.AddHttpClient(endpoint.HttpClientName, (sp, c) =>
+                    c.BaseAddress = new Uri(sp.GetRequiredService<CommunicationConfiguration>().RestBaseUrl(id)))
+                .ConfigureHttpClient((sp, c) =>
+                    c.Timeout = sp.GetRequiredService<CommunicationConfiguration>().HttpTimeout)
+                .AddHttpMessageHandler(sp =>
+                    new DiagnosticLoggingHandler(sp.GetRequiredService<CommunicationConfiguration>()));
+        }
+
         services.AddScoped<CommunicationClient>(sp =>
-            new CommunicationClient(
+        {
+            var factory = sp.GetRequiredService<IHttpClientFactory>();
+            return new CommunicationClient(
                 sp.GetRequiredService<CommunicationConfiguration>(),
-                sp.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(CommunicationClient)),
-                sp.GetRequiredService<ITokenContext>()));
+                factory,
+                sp.GetRequiredService<ITokenContext>());
+        });
 
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Feedback);
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Message);
-        services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Notification);
         services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Negotiation);
-
+        services.AddScoped(sp => sp.GetRequiredService<CommunicationClient>().Notification);
         return services;
-    }
-
-    /// <summary>
-    /// Registers the Communication SDK with a configuration builder
-    /// </summary>
-    public static IServiceCollection AddCommunicationSdk(
-        this IServiceCollection services,
-        Action<CommunicationConfiguration> configBuilder)
-    {
-        ArgumentNullException.ThrowIfNull(services);
-        ArgumentNullException.ThrowIfNull(configBuilder);
-
-        var config = new CommunicationConfiguration();
-        configBuilder(config);
-
-        return services.AddCommunicationSdk(config);
     }
 }

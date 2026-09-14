@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter.Ite
     /// Builds and executes requests for operations under \subscription\{subscription_id}\filter\{filter_id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class WithFilter_ItemRequestBuilder : BaseRequestBuilder
+    public partial class WithFilter_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Subscription.Item.Filter.Item.WithFilter_ItemRequestBuilder"/> and sets the default values.

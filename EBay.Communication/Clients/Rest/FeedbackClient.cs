@@ -12,166 +12,194 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using System.Net;
-using EBay.Communication.Generated.Feedback;
-using EBay.Communication.Generated.Feedback.Feedback;
-using EBay.Communication.Generated.Feedback.Models;
 using EBay.Communication.Configuration;
-using EBay.Communication.Exceptions;
+using EBay.Communication.Generated.Feedback.Models;
+using EBay.Communication.Generated.Feedback;
 using Microsoft.Kiota.Abstractions;
 
 namespace EBay.Communication.Clients.Rest;
 
-/// <summary>
-/// Client for Feedback API operations
-/// </summary>
 public sealed class FeedbackClient
 {
     private readonly FeedbackApiClient _kiota;
     private readonly CommunicationConfiguration _config;
     private readonly ITokenContext _tokenContext;
+    private readonly IRequestAdapter _adapter;
 
-    internal FeedbackClient(FeedbackApiClient kiota, CommunicationConfiguration config, ITokenContext tokenContext)
+    internal FeedbackClient(FeedbackApiClient kiota, CommunicationConfiguration config, ITokenContext tokenContext, IRequestAdapter adapter)
     {
         _kiota = kiota;
         _config = config;
         _tokenContext = tokenContext;
-    }
-
-    private void ApplyHeaders(RequestHeaders headers, RequestOptions? callOptions)
-    {
-        foreach (var (k, v) in _config.DefaultRequestOptions.Headers)
-            headers.TryAdd(k, v);
-        if (callOptions is null) return;
-        foreach (var (k, v) in callOptions.Headers)
-            headers[k] = new[] { v };
+        _adapter = adapter;
     }
 
     /// <summary>
-    /// Retrieves feedback for a specified user ID and feedback type.
+    /// This method retrieves line items awaiting feedback from the user's order partner. You can refine the results using optional filter query parameters, such as item ID, user name, or user role in the transaction. Sorting and pagination features help organize and navigate returned items efficiently.
+    /// For sellers, only sold items that have not yet received feedback are included. For buyers, only purchased items for which feedback is still pending are included. If the user is both a buyer and a seller, this API returns items awaiting feedback for transactions where the user acted as either. Applying filters can limit results to either buyer-only or seller-only transactions.
+    /// The response provides an overview of feedback yet to be left for completed transactions (as filtered), with counts for both the buyer and seller roles. It includes an array of line items, each containing the listing ID, title, price (with currency and value). For each line item, the response offers feedback templates specifying which ratings are available.
+    /// <b>Note: </b>Detailed seller ratings are for sellers only, and are created from buyer feedback.
     /// </summary>
-    public async Task<string?> GetFeedbackAsync(
-        string userId,
+    public Task<AwaitingFeedbackResponse?> GetItemsAwaitingFeedbackAsync(
+        string? filter = null,
+        string? limit = null,
+        string? offset = null,
+        string? sort = null,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Awaiting_feedback.GetAsync(cfg =>
+        {
+            if (filter is not null)
+            {
+                cfg.QueryParameters.Filter = filter;
+            }
+            if (limit is not null)
+            {
+                cfg.QueryParameters.Limit = limit;
+            }
+            if (offset is not null)
+            {
+                cfg.QueryParameters.Offset = offset;
+            }
+            if (sort is not null)
+            {
+                cfg.QueryParameters.Sort = sort;
+            }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
+
+    /// <summary>
+    /// This method enables users to retrieve feedback for any specified user ID and feedback type (sent or received). You can refine the results using optional query parameters such as its feedback ID, listing ID, or order line item ID, or applying one or more filters.
+    /// Applying filters can narrow results using criteria such as comment type, photos, or topics identified through AI-based analysis. When filtering for feedback with photos (<c>filterImage:true</c>), only entries with images (entries that include image URLs) are returned. Additionally, feedback can be refined for the number of days to look back, the role of the user providing the feedback, and whether to include automated feedback entries left by eBay.
+    /// Sorting and pagination features help organize and navigate returned items efficiently.
+    /// Returned data includes feedback details (such as comment text and type), feedback ratings (covering criteria like overall experience, and for sellers item description, shipping time, and communication), role and attributes of the feedback giver, line item and transaction summaries, images, and any available topics. See <see href="/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#uri.filter">filter</see> for additional information. Privacy is safeguarded by restricting the amount of detail visible to users, depending on their context. When accessing another user's feedback without logging in, buyer names are masked and seller names are shown. Logged-in users viewing their own feedback see all names, while those viewing other users' feedback will encounter some masking.
+    /// </summary>
+    public Task<GetFeedbackResponse?> GetFeedbackAsync(
         string feedbackType,
+        string userId,
+        string? feedbackId = null,
+        string? filter = null,
+        string? limit = null,
+        string? listingId = null,
+        string? offset = null,
+        string? orderLineItemId = null,
+        string? sort = null,
+        string? transactionId = null,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Feedback.GetAsync(cfg =>
         {
-            return await _tokenContext.RunAsync(accessToken, async () =>
+            cfg.QueryParameters.FeedbackType = feedbackType;
+            cfg.QueryParameters.UserId = userId;
+            if (feedbackId is not null)
             {
-                var result = await _kiota.Feedback.GetAsync(cfg =>
-                {
-                    cfg.QueryParameters.UserId = userId;
-                    cfg.QueryParameters.FeedbackType = feedbackType;
-                    ApplyHeaders(cfg.Headers, requestOptions);
-                }, cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
+                cfg.QueryParameters.FeedbackId = feedbackId;
+            }
+            if (filter is not null)
+            {
+                cfg.QueryParameters.Filter = filter;
+            }
+            if (limit is not null)
+            {
+                cfg.QueryParameters.Limit = limit;
+            }
+            if (listingId is not null)
+            {
+                cfg.QueryParameters.ListingId = listingId;
+            }
+            if (offset is not null)
+            {
+                cfg.QueryParameters.Offset = offset;
+            }
+            if (orderLineItemId is not null)
+            {
+                cfg.QueryParameters.OrderLineItemId = orderLineItemId;
+            }
+            if (sort is not null)
+            {
+                cfg.QueryParameters.Sort = sort;
+            }
+            if (transactionId is not null)
+            {
+                cfg.QueryParameters.TransactionId = transactionId;
+            }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Gets the feedback rating summary for a seller
+    /// This method creates and submits feedback to the user's order partner for a line item in the order. For each order, the order partner is the other participant in the transaction, either the buyer or seller, depending on the eBay user associated with the user token. This method allows users to provide detailed information about the transaction, including the feedback rating, comments, and seller delivery. You can also add images to your feedback.
+    /// <b>Note: </b>A seller can only provide a comment for a buyer, but a buyer can provide a comment plus provides ratings on a number of metrics for a seller.
+    /// <b>Note: </b>The feedback must adhere to community guidelines and be relevant to the transaction.
+    /// When leaving feedback, keep the following in mind:
+    /// - Your feedback score is not affected when you leave feedback
+    /// - Feedback can only be revised once after it is submitted
+    /// For additional information on leaving feedback, see the following:
+    /// - <see href="https://www.ebay.com/help/buying/leaving-feedback-sellers/leaving-feedback-sellers?id=4007">Leaving feedback for sellers</see>
+    /// - <see href="https://www.ebay.com/help/selling/leaving-feedback-buyers/leaving-feedback-buyers?id=4078">Leaving feedback for buyers</see>
+    /// A successful call to this method returns a feedback ID, which is a unique identifier for the newly created feedback and allows for reference and tracking.
     /// </summary>
-    public async Task<string?> GetFeedbackRatingSummaryAsync(
+    public Task<LeaveFeedbackResponse?> LeaveFeedbackAsync(
+        LeaveFeedbackRequest body,
+        string? accessToken = null,
+        RequestOptions? requestOptions = null,
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Feedback.PostAsync(body, cfg =>
+        {
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
+
+    /// <summary>
+    /// This method provides a detailed overview of feedback ratings associated with a user in the eBay marketplace. Specify a user ID and apply filters to retrieve summarized feedback data categorized by rating types and user roles. These returned metrics are aggregated, which offers insight into user experiences and performance.
+    /// <b>Tip:</b> You can use this method to help sellers and buyers understand their marketplace reputation and identify areas for improvement.
+    /// Returned data provides a summary of feedback ratings for a user by rating type (such as overall experience, communication, or delivery timeliness) for both buyer and seller roles. Each type of rating includes aggregated metrics like averages, counts, unique feedback givers, and the percentage of positive ratings (excluding neutrals). The response also details the distribution of specific rating values, their frequency, and time period (with period units like days or months) over which these metrics were calculated.
+    /// </summary>
+    public Task<GetFeedbackRatingSummaryResponse?> GetFeedbackRatingSummaryAsync(
+        string filter,
         string userId,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Feedback_rating_summary.GetAsync(cfg =>
         {
-            return await _tokenContext.RunAsync(accessToken, async () =>
-            {
-                var result = await _kiota.Feedback_rating_summary.GetAsync(cfg =>
-                {
-                    cfg.QueryParameters.UserId = userId;
-                    ApplyHeaders(cfg.Headers, requestOptions);
-                }, cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
+            cfg.QueryParameters.Filter = filter;
+            cfg.QueryParameters.UserId = userId;
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 
     /// <summary>
-    /// Gets items awaiting feedback from the seller
+    /// This method allows users to respond to feedback provided by the order partner for a specific line item in an order. For each order, the order partner is the other participant in the transaction, either the buyer or seller, depending on the eBay user associated with the user token. This method allows the user to provide additional context or address the order partner's feedback.
+    /// <b>Note: </b>The feedback response must adhere to community guidelines and be relevant to the transaction.
+    /// You can only use this method if feedback has been provided by the order partner and you have not yet responded to it.
+    /// When responding to feedback, your feedback score is not affected when you respond to feedback.
+    /// For additional information on leaving feedback, see the following:
+    /// - <see href="https://www.ebay.com/help/buying/leaving-feedback-sellers/leaving-feedback-sellers?id=4007">Leaving feedback for sellers</see>
+    /// - <see href="https://www.ebay.com/help/selling/leaving-feedback-buyers/leaving-feedback-buyers?id=4078">Leaving feedback for buyers</see>
+    /// A successful call returns an HTTP status of <b>200 Success</b>.
     /// </summary>
-    public async Task<string?> GetItemsAwaitingFeedbackAsync(
+    public Task RespondToFeedbackAsync(
+        RespondToFeedbackRequest body,
         string? accessToken = null,
         RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
+        CancellationToken ct = default)
+        => RestInvocation.CallAsync(
+            _tokenContext,
+            accessToken,
+            () => _kiota.Respond_to_feedback.PostAsync(body, cfg =>
         {
-            return await _tokenContext.RunAsync(accessToken, async () =>
-            {
-                var result = await _kiota.Awaiting_feedback.GetAsync(cfg =>
-                    ApplyHeaders(cfg.Headers, requestOptions), cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
-
-    /// <summary>
-    /// Leave feedback for a buyer or seller
-    /// </summary>
-    public async Task<string?> LeaveFeedbackAsync(
-        string feedbackJson,
-        string? accessToken = null,
-        RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return await _tokenContext.RunAsync(accessToken, async () =>
-            {
-                var body = System.Text.Json.JsonSerializer.Deserialize<LeaveFeedbackRequest>(feedbackJson);
-                var result = await _kiota.Feedback.PostAsync(body, cfg => ApplyHeaders(cfg.Headers, requestOptions), cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
-
-    /// <summary>
-    /// Respond to feedback left by a buyer
-    /// </summary>
-    public async Task<string?> RespondToFeedbackAsync(
-        string responseJson,
-        string? accessToken = null,
-        RequestOptions? requestOptions = null,
-        CancellationToken cancellationToken = default)
-    {
-        try
-        {
-            return await _tokenContext.RunAsync(accessToken, async () =>
-            {
-                var body = System.Text.Json.JsonSerializer.Deserialize<RespondToFeedbackRequest>(responseJson);
-                var result = await _kiota.Respond_to_feedback.PostAsync(body, cfg => ApplyHeaders(cfg.Headers, requestOptions), cancellationToken);
-                return result != null ? System.Text.Json.JsonSerializer.Serialize(result) : null;
-            });
-        }
-        catch (ApiException ex) when (ex.ResponseStatusCode == (int)HttpStatusCode.Unauthorized)
-        {
-            throw new UnauthorizedException(ex);
-        }
-    }
+            RestInvocation.ApplyHeaders(cfg.Headers, _config, requestOptions);
+        }, ct));
 }

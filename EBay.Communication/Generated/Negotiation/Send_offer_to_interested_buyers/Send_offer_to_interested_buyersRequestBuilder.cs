@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Negotiation.Send_offer_to_interested_buye
     /// Builds and executes requests for operations under \send_offer_to_interested_buyers
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Send_offer_to_interested_buyersRequestBuilder : BaseRequestBuilder
+    public partial class Send_offer_to_interested_buyersRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Negotiation.Send_offer_to_interested_buyers.Send_offer_to_interested_buyersRequestBuilder"/> and sets the default values.

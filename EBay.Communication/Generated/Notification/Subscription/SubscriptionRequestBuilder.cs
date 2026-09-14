@@ -30,7 +30,7 @@ namespace EBay.Communication.Generated.Notification.Subscription
     /// Builds and executes requests for operations under \subscription
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class SubscriptionRequestBuilder : BaseRequestBuilder
+    public partial class SubscriptionRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.subscription.item collection</summary>
         /// <param name="position">The unique identifier of the subscription to retrieve. Use &lt;b&gt;getSubscriptions&lt;/b&gt; to retrieve subscription IDs.</param>
@@ -152,7 +152,7 @@ namespace EBay.Communication.Generated.Notification.Subscription
         /// This method allows applications to retrieve a list of all subscriptions. The list returned is a paginated collection of subscription resources.&lt;br&gt;&lt;br&gt;Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class SubscriptionRequestBuilderGetQueryParameters 
+        public partial class SubscriptionRequestBuilderGetQueryParameters 
         {
             /// <summary>This string value can be used to return the next page in the result set. The string to use here is returned in the next field of the current page of results.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

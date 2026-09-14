@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Notification.Public_key.Item
     /// Builds and executes requests for operations under \public_key\{public_key_id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class WithPublic_key_ItemRequestBuilder : BaseRequestBuilder
+    public partial class WithPublic_key_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Public_key.Item.WithPublic_key_ItemRequestBuilder"/> and sets the default values.

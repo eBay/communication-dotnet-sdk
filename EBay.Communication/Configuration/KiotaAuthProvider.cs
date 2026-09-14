@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 using Microsoft.Kiota.Abstractions.Authentication;
 
 namespace EBay.Communication.Configuration;
@@ -26,9 +25,9 @@ internal sealed class KiotaAuthProvider : IAccessTokenProvider
 
     public KiotaAuthProvider(CommunicationConfiguration config, ITokenContext tokenContext)
     {
-        _config = config ?? throw new ArgumentNullException(nameof(config));
-        _tokenContext = tokenContext ?? throw new ArgumentNullException(nameof(tokenContext));
-        AllowedHostsValidator = new AllowedHostsValidator(CommunicationConfiguration.GetAllowedHosts());
+        _config = config;
+        _tokenContext = tokenContext;
+        AllowedHostsValidator = new AllowedHostsValidator(CommunicationConfiguration.AllowedHosts);
     }
 
     public Task<string> GetAuthorizationTokenAsync(

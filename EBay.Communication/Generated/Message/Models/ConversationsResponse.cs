@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Message.Models
     /// This type provides the updated information for a conversation that has been modified.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class ConversationsResponse : IAdditionalDataHolder, IParsable
+    public partial class ConversationsResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

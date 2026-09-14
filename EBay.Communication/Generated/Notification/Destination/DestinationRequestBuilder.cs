@@ -30,7 +30,7 @@ namespace EBay.Communication.Generated.Notification.Destination
     /// Builds and executes requests for operations under \destination
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class DestinationRequestBuilder : BaseRequestBuilder
+    public partial class DestinationRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.destination.item collection</summary>
         /// <param name="position">The unique identifier of the destination to retrieve. Use &lt;b&gt;getDestinations&lt;/b&gt; to retrieve destination IDs.</param>
@@ -152,7 +152,7 @@ namespace EBay.Communication.Generated.Notification.Destination
         /// This method allows applications to retrieve a paginated collection of destination resources and related details. The details include the destination names, statuses, and configurations, including the endpoints and verification tokens.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class DestinationRequestBuilderGetQueryParameters 
+        public partial class DestinationRequestBuilderGetQueryParameters 
         {
             /// <summary>This string value can be used to return the next page in the result set. The string to use here is returned in the &lt;b&gt;next&lt;/b&gt; field of the current page of results.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Message.Bulk_update_conversation
     /// Builds and executes requests for operations under \bulk_update_conversation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Bulk_update_conversationRequestBuilder : BaseRequestBuilder
+    public partial class Bulk_update_conversationRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Message.Bulk_update_conversation.Bulk_update_conversationRequestBuilder"/> and sets the default values.

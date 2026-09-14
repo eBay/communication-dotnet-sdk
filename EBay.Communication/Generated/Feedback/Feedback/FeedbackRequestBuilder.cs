@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Feedback.Feedback
     /// Builds and executes requests for operations under \feedback
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class FeedbackRequestBuilder : BaseRequestBuilder
+    public partial class FeedbackRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Feedback.FeedbackRequestBuilder"/> and sets the default values.
@@ -139,7 +139,7 @@ namespace EBay.Communication.Generated.Feedback.Feedback
         /// This method enables users to retrieve feedback for any specified user ID and feedback type (sent or received). You can refine the results using optional query parameters such as its feedback ID, listing ID, or order line item ID, or applying one or more filters.&lt;p&gt;Applying filters can narrow results using criteria such as comment type, photos, or topics identified through AI-based analysis. When filtering for feedback with photos (&lt;code&gt;filterImage:true&lt;/code&gt;), only entries with images (entries that include image URLs) are returned. Additionally, feedback can be refined for the number of days to look back, the role of the user providing the feedback, and whether to include automated feedback entries left by eBay.&lt;/p&gt;&lt;p&gt;Sorting and pagination features help organize and navigate returned items efficiently.&lt;/p&gt;&lt;p&gt;Returned data includes feedback details (such as comment text and type), feedback ratings (covering criteria like overall experience, and for sellers item description, shipping time, and communication), role and attributes of the feedback giver, line item and transaction summaries, images, and any available topics. See &lt;a href=&quot;/api-docs/commerce/feedback/resources/feedback/methods/getFeedback#uri.filter&quot; &gt;filter&lt;/a&gt; for additional information. Privacy is safeguarded by restricting the amount of detail visible to users, depending on their context. When accessing another user&apos;s feedback without logging in, buyer names are masked and seller names are shown. Logged-in users viewing their own feedback see all names, while those viewing other users&apos; feedback will encounter some masking.&lt;/p&gt;
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class FeedbackRequestBuilderGetQueryParameters 
+        public partial class FeedbackRequestBuilderGetQueryParameters 
         {
             /// <summary>Use this field to only return a specific feedback record by its feedback ID. &lt;br&gt;&lt;p&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;span style=&quot;color:#004680&quot;&gt;&lt;strong&gt;Note: &lt;/strong&gt;If this query parameter is used, no other filters will be applicable.&lt;/span&gt;&lt;/p&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

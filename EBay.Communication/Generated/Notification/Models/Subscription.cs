@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Notification.Models
     /// A type that describes the subscription.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Subscription : IAdditionalDataHolder, IParsable
+    public partial class Subscription : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

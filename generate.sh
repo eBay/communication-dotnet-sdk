@@ -16,64 +16,48 @@
 
 set -euo pipefail
 
-echo "========================================="
-echo "Communication SDK - Regeneration"
-echo "========================================="
-
-# Restore dotnet tools
-echo "Restoring .NET tools..."
+echo "Restoring tools..."
 dotnet tool restore
 
-# Regenerate Kiota clients
-echo ""
-echo "Regenerating Feedback API client..."
+echo "Regenerating REST clients via Kiota..."
+rm -rf ./EBay.Communication/Generated
+
 dotnet kiota generate \
   -l csharp \
   -d specs/openapi/feedback.yaml \
   -c FeedbackApiClient \
   -n EBay.Communication.Generated.Feedback \
   -o EBay.Communication/Generated/Feedback \
-  --ebc --tam internal --co
+  --ebc --co
 
-echo ""
-echo "Regenerating Message API client..."
 dotnet kiota generate \
   -l csharp \
   -d specs/openapi/message.yaml \
   -c MessageApiClient \
   -n EBay.Communication.Generated.Message \
   -o EBay.Communication/Generated/Message \
-  --ebc --tam internal --co
+  --ebc --co
 
-echo ""
-echo "Regenerating Notification API client..."
-dotnet kiota generate \
-  -l csharp \
-  -d specs/openapi/notification.yaml \
-  -c NotificationApiClient \
-  -n EBay.Communication.Generated.Notification \
-  -o EBay.Communication/Generated/Notification \
-  --ebc --tam internal --co
-
-echo ""
-echo "Regenerating Negotiation API client..."
 dotnet kiota generate \
   -l csharp \
   -d specs/openapi/negotiation.yaml \
   -c NegotiationApiClient \
   -n EBay.Communication.Generated.Negotiation \
   -o EBay.Communication/Generated/Negotiation \
-  --ebc --tam internal --co
+  --ebc --co
+
+dotnet kiota generate \
+  -l csharp \
+  -d specs/openapi/notification.yaml \
+  -c NotificationApiClient \
+  -n EBay.Communication.Generated.Notification \
+  -o EBay.Communication/Generated/Notification \
+  --ebc --co
 
 echo "Adding license headers to generated files..."
 ./add-license-headers.sh ./EBay.Communication/Generated
 
-# Build the project
-echo ""
-echo "Building the SDK..."
+echo "Building (triggers StrawberryShake GraphQL codegen)..."
 DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.Communication/EBay.Communication.csproj
 
-echo ""
-echo "========================================="
-echo "Done! SDK regenerated successfully."
-echo "========================================="
+echo "Done."

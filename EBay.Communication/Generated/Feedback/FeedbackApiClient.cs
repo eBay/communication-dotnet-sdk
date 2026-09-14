@@ -34,7 +34,7 @@ namespace EBay.Communication.Generated.Feedback
     /// The main entry point of the SDK, exposes the configuration and the fluent API.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class FeedbackApiClient : BaseRequestBuilder
+    public partial class FeedbackApiClient : BaseRequestBuilder
     {
         /// <summary>The awaiting_feedback property</summary>
         public global::EBay.Communication.Generated.Feedback.Awaiting_feedback.Awaiting_feedbackRequestBuilder Awaiting_feedback

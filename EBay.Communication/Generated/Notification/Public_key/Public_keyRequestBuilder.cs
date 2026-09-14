@@ -27,7 +27,7 @@ namespace EBay.Communication.Generated.Notification.Public_key
     /// Builds and executes requests for operations under \public_key
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Public_keyRequestBuilder : BaseRequestBuilder
+    public partial class Public_keyRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.public_key.item collection</summary>
         /// <param name="position">The unique key ID that is used to retrieve the public key.&lt;br&gt;&lt;br&gt;&lt;span class=&quot;tablenote&quot;&gt;&lt;b&gt;Note: &lt;/b&gt;This is retrieved from the &lt;b&gt;X-EBAY-SIGNATURE&lt;/b&gt; header that is included with the push notification.&lt;/span&gt;</param>

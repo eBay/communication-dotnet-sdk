@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Message.Conversation.Item
     /// Builds and executes requests for operations under \conversation\{conversation_id}
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class WithConversation_ItemRequestBuilder : BaseRequestBuilder
+    public partial class WithConversation_ItemRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Message.Conversation.Item.WithConversation_ItemRequestBuilder"/> and sets the default values.
@@ -97,7 +97,7 @@ namespace EBay.Communication.Generated.Message.Conversation.Item
         /// This method can be used to retrieve messages within a specific conversation.&lt;br&gt;&lt;br&gt;The &lt;b&gt;conversation_id&lt;/b&gt; of the conversation for which to retrieve messages is required as path parameters, and the and &lt;b&gt;conversation_type&lt;/b&gt; of the conversation is required as a query parameter.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class WithConversation_ItemRequestBuilderGetQueryParameters 
+        public partial class WithConversation_ItemRequestBuilderGetQueryParameters 
         {
             /// <summary>This query parameter specifies the type of the conversation being retrieved.&lt;br&gt;&lt;br&gt;This parameter is always required when using the this method.&lt;br&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;FROM_EBAY&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;FROM_MEMBERS&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

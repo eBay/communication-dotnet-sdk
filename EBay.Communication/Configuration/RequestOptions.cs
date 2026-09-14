@@ -12,21 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using System;
 using System.Collections.Generic;
 
 namespace EBay.Communication.Configuration;
 
-/// <summary>
-/// Per-call request options for custom headers and other request configuration.
-/// </summary>
 public sealed class RequestOptions
 {
-    /// <summary>
-    /// Custom HTTP headers to include with the request.
-    /// Headers set here override DefaultRequestOptions headers from the configuration.
-    /// </summary>
-    public IDictionary<string, string> Headers { get; } =
+    public IDictionary<string, string> Headers { get; init; } =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 }

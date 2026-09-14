@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     /// This type defines fields for user feedback collection, including acceptable values, a default preselection value, and an early feedback message. It also provides fields to enable the template, and limits and options for freetext character, multi-value rating, and other similar features.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class FeedbackRatingTemplateType : IAdditionalDataHolder, IParsable
+    public partial class FeedbackRatingTemplateType : IAdditionalDataHolder, IParsable
     {
         /// <summary>This array contains a list of available values for use in a particular rating, and whether the value is enabled. Provided if &lt;b&gt;ratingValueType&lt;/b&gt; is &lt;code&gt;RANGE&lt;/code&gt; or &lt;code&gt;PREDEFINED&lt;/code&gt;.&lt;p&gt;The following is an example of a predefined list:&lt;pre&gt;[&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;POSITIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Positive&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEUTRAL&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Neutral&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  },&lt;br&gt;  {&lt;br&gt;    &quot;value&quot;: &quot;NEGATIVE&quot;,&lt;br&gt;    &quot;valueLabel&quot;: &quot;Negative&quot;,&lt;br&gt;    &quot;enabled&quot;: true&lt;br&gt;  }&lt;/br&gt;]&lt;/pre&gt;For other examples, see the &lt;a href=&quot;/develop/guides-v2/communications/sell-communications-guide#using-rating-templates&quot;  target=&quot;_blank&quot;&gt;Using rating templates&lt;/a&gt;.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

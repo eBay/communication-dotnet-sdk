@@ -23,7 +23,7 @@ namespace EBay.Communication.Generated.Feedback.Respond_to_feedback
 {
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     #pragma warning disable CS1591
-    internal partial class Respond_to_feedbackPostResponse : IAdditionalDataHolder, IParsable
+    public partial class Respond_to_feedbackPostResponse : IAdditionalDataHolder, IParsable
     #pragma warning restore CS1591
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>

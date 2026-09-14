@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Feedback.Models
     /// This type defines the fields for the &lt;b&gt;leaveFeedback&lt;/b&gt; response for feedback that has been left.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class LeaveFeedbackResponse : IAdditionalDataHolder, IParsable
+    public partial class LeaveFeedbackResponse : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

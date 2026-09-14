@@ -28,7 +28,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Enable
     /// Builds and executes requests for operations under \subscription\{subscription_id}\enable
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class EnableRequestBuilder : BaseRequestBuilder
+    public partial class EnableRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Notification.Subscription.Item.Enable.EnableRequestBuilder"/> and sets the default values.

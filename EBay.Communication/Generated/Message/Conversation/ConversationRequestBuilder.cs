@@ -30,7 +30,7 @@ namespace EBay.Communication.Generated.Message.Conversation
     /// Builds and executes requests for operations under \conversation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class ConversationRequestBuilder : BaseRequestBuilder
+    public partial class ConversationRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Message.conversation.item collection</summary>
         /// <param name="position">This path parameters specifies the unique identifier of the conversation that is to be retrieved.&lt;br&gt;&lt;br&gt;Use the &lt;a href=&quot;/api-docs/commerce/message/resources/conversation/methods/getConversations&quot; target=&quot;_blank&quot;&gt;getConversations&lt;/a&gt; method to retrieve conversation ID values.</param>
@@ -110,7 +110,7 @@ namespace EBay.Communication.Generated.Message.Conversation
         /// This method can be used to retrieve one or more conversations associated with a user.&lt;br&gt;&lt;br&gt;The &lt;b&gt;conversation_type&lt;/b&gt; query parameter is required when using this method to specify if the retrieved conversations are from eBay or from members.&lt;br&gt;&lt;br&gt;The result set can also optionally be filtered by conversation status, reference, username, and/or time range. The &lt;b&gt;limit&lt;/b&gt; and &lt;b&gt;offset&lt;/b&gt; path parameters can be used to paginate the result set and control how many conversations are returned in the response.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class ConversationRequestBuilderGetQueryParameters 
+        public partial class ConversationRequestBuilderGetQueryParameters 
         {
             /// <summary>This query parameter specifies the status of the conversations being retrieved. Only conversations in the specified status will be returned.&lt;br&gt;&lt;br&gt;&lt;b&gt;Valid values:&lt;/b&gt;&lt;ul&gt;&lt;li&gt;&lt;code&gt;ACTIVE&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;ARCHIVE&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;DELETE&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;READ&lt;/code&gt;&lt;/li&gt;&lt;li&gt;&lt;code&gt;UNREAD&lt;/code&gt;&lt;/li&gt;&lt;/ul&gt;</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

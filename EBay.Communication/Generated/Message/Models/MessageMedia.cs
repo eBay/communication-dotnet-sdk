@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Message.Models
     /// This type specifies the type of message media sent when sending a message.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class MessageMedia : IAdditionalDataHolder, IParsable
+    public partial class MessageMedia : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

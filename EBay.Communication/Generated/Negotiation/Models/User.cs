@@ -25,7 +25,7 @@ namespace EBay.Communication.Generated.Negotiation.Models
     /// This complex type identifies an eBay user&lt;!-- by either their &lt;b&gt;maskedUsername&lt;/b&gt; or their full &lt;b&gt;username&lt;/b&gt;--&gt;.
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class User : IAdditionalDataHolder, IParsable
+    public partial class User : IAdditionalDataHolder, IParsable
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }

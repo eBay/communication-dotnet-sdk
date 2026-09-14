@@ -29,7 +29,7 @@ namespace EBay.Communication.Generated.Negotiation.Find_eligible_items
     /// Builds and executes requests for operations under \find_eligible_items
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class Find_eligible_itemsRequestBuilder : BaseRequestBuilder
+    public partial class Find_eligible_itemsRequestBuilder : BaseRequestBuilder
     {
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Negotiation.Find_eligible_items.Find_eligible_itemsRequestBuilder"/> and sets the default values.
@@ -97,7 +97,7 @@ namespace EBay.Communication.Generated.Negotiation.Find_eligible_items
         /// This method evaluates a seller&apos;s current listings and returns the set of IDs that are eligible for a seller-initiated discount offer to a buyer.  &lt;br&gt;&lt;br&gt;A listing ID is returned only when one or more buyers have shown an &quot;interest&quot; in the listing.  &lt;br&gt;&lt;br&gt;If any buyers have shown interest in a listing, the seller can initiate a &quot;negotiation&quot; with them by calling &lt;a href=&quot;/api-docs/sell/negotiation/resources/offer/methods/sendOfferToInterestedBuyers&quot;&gt;sendOfferToInterestedBuyers&lt;/a&gt;, which sends all interested buyers a message that offers the listing at a discount.  &lt;br&gt;&lt;br&gt;For details about how to create seller offers to buyers, see &lt;a href=&quot;/api-docs/sell/static/marketing/offers-to-buyers.html&quot; title=&quot;Selling Integration Guide&quot;&gt;Sending offers to buyers&lt;/a&gt;.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        internal partial class Find_eligible_itemsRequestBuilderGetQueryParameters 
+        public partial class Find_eligible_itemsRequestBuilderGetQueryParameters 
         {
             /// <summary>This query parameter specifies the maximum number of items to return from the result set on a page in the paginated response.&lt;br&gt;&lt;br&gt;&lt;b&gt;Minimum:&lt;/b&gt; 1&lt;br&gt;&lt;br&gt;&lt;b&gt;Maximum:&lt;/b&gt; 200&lt;br&gt;&lt;br&gt;&lt;b&gt;Default: &lt;/b&gt;10</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER

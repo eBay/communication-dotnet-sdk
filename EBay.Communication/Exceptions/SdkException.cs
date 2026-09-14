@@ -12,30 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-using System;
-
 namespace EBay.Communication.Exceptions;
 
-/// <summary>
-/// Base exception for SDK errors
-/// </summary>
 public class SdkException : Exception
 {
-    public SdkException(string message) : base(message)
-    {
-    }
-
-    public SdkException(string message, Exception innerException)
-        : base(message, innerException)
-    {
-    }
+    public SdkException(string message) : base(message) { }
+    public SdkException(string message, Exception inner) : base(message, inner) { }
 }
 
-/// <summary>
-/// Thrown when the server returns HTTP 401 Unauthorized.
-/// The caller should obtain a fresh access token and retry.
-/// </summary>
 public sealed class UnauthorizedException : SdkException
 {
     public UnauthorizedException()
@@ -43,4 +27,13 @@ public sealed class UnauthorizedException : SdkException
 
     public UnauthorizedException(Exception inner)
         : base("Access token is invalid or expired. Obtain a new token and retry.", inner) { }
+}
+
+public sealed class GraphQLException : SdkException
+{
+    public string[] Errors { get; }
+
+    public GraphQLException(string[] errors)
+        : base($"GraphQL errors: {string.Join("; ", errors)}")
+        => Errors = errors;
 }

@@ -30,7 +30,7 @@ namespace EBay.Communication.Generated.Notification.Subscription.Item.Filter
     /// Builds and executes requests for operations under \subscription\{subscription_id}\filter
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-    internal partial class FilterRequestBuilder : BaseRequestBuilder
+    public partial class FilterRequestBuilder : BaseRequestBuilder
     {
         /// <summary>Gets an item from the EBay.Communication.Generated.Notification.subscription.item.filter.item collection</summary>
         /// <param name="position">The unique identifier of the subscription filter.  Filter ID values, if configured for a subscription, will be shown in the &lt;b&gt;subscriptions.filterId&lt;/b&gt; field in &lt;b&gt;getSubscription&lt;/b&gt; and &lt;b&gt;getSubscription&lt;/b&gt; responses. The filter ID value is also returned in the Location response header when a filter is created with &lt;b&gt;createSubscriptionFilter&lt;/b&gt;.</param>
