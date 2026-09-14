@@ -87,7 +87,7 @@ public sealed class CommunicationConfiguration
     /// <summary>
     /// Gets all allowed hosts for the auth provider
     /// </summary>
-    internal IEnumerable<string> GetAllowedHosts() =>
+    internal static IEnumerable<string> GetAllowedHosts() =>
         ["api.ebay.com", "apim.ebay.com", "apiz.ebay.com"];
 
     private static string RequireHttps(string value, string paramName)
