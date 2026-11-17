@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Unit { get; set; }
 #endif
-        /// <summary>Value of the time period expressed in the period contained in the &lt;strong&gt;unit&lt;/strong&gt;. Supported values are &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;60&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt;. &lt;p&gt;See the &lt;strong&gt;commentPeriod&lt;/strong&gt; container for more information.&lt;/p&gt;</summary>
+        /// <summary>Value of the time period expressed in the period contained in the &lt;strong&gt;unit&lt;/strong&gt;. Supported values are &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;90&lt;/code&gt;, &lt;code&gt;180&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt; when the &lt;strong&gt;unit&lt;/strong&gt; is &lt;code&gt;DAY&lt;/code&gt;, or &lt;code&gt;5&lt;/code&gt; when the &lt;strong&gt;unit&lt;/strong&gt; is &lt;code&gt;YEAR&lt;/code&gt; (for older feedback). &lt;p&gt;See the &lt;strong&gt;commentPeriod&lt;/strong&gt; container for more information.&lt;/p&gt;</summary>
         public int? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.CommentCommentPeriod"/> and sets the default values.

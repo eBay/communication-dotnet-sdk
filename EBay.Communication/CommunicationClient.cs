@@ -16,7 +16,6 @@ using EBay.Communication.Clients.Rest;
 using EBay.Communication.Configuration;
 using EBay.Communication.Generated.Feedback;
 using EBay.Communication.Generated.Message;
-using EBay.Communication.Generated.Negotiation;
 using EBay.Communication.Generated.Notification;
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
@@ -26,70 +25,86 @@ using System.Net.Http;
 
 namespace EBay.Communication;
 
+/// <summary>
+/// Entry point for the Communication APIs. The client owns its HTTP connections:
+/// create one per application (or register it with <c>AddCommunicationSdk</c>, which adds it
+/// as a singleton) and dispose it on shutdown. Reach the individual APIs through its properties.
+/// </summary>
 public class CommunicationClient : IDisposable
 {
-    internal const string FeedbackClientName = "CommunicationClient.Feedback";
-    internal const string MessageClientName = "CommunicationClient.Message";
-    internal const string NegotiationClientName = "CommunicationClient.Negotiation";
-    internal const string NotificationClientName = "CommunicationClient.Notification";
-
     private readonly HttpClient[] _ownedClients;
 
     public FeedbackClient Feedback { get; private set; } = null!;
     public MessageClient Message { get; private set; } = null!;
-    public NegotiationClient Negotiation { get; private set; } = null!;
     public NotificationClient Notification { get; private set; } = null!;
 
-    /// <summary>
-    /// DI-friendly constructor. Named HttpClients come from <see cref="IHttpClientFactory"/>.
-    /// </summary>
-    internal CommunicationClient(
-        CommunicationConfiguration config,
-        IHttpClientFactory factory,
-        ITokenContext tokenContext)
+    /// <summary>Creates a client with its own HTTP connections.</summary>
+    public CommunicationClient(CommunicationConfiguration config)
+        : this(config, CreateDefaultPrimaryHandler, disposeHandlers: true)
     {
-        _ownedClients = [];
-        var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
-        InitializeRestClients(auth, config, tokenContext, endpoint => factory.CreateClient(endpoint.HttpClientName));
     }
 
     /// <summary>
-    /// Standalone constructor for use outside DI (tests, scripts).
-    /// Creates its own HttpClients with DiagnosticLoggingHandler.
+    /// Creates a client that sends every request through <paramref name="primaryHandler"/>, for example to
+    /// configure a proxy or client certificates, or to substitute a test double. The handler is shared by
+    /// all APIs and is not disposed by this client.
     /// </summary>
-    public CommunicationClient(CommunicationConfiguration config)
+    public CommunicationClient(CommunicationConfiguration config, HttpMessageHandler primaryHandler)
+        : this(config, RequireHandler(primaryHandler), disposeHandlers: false)
     {
+    }
+
+    private CommunicationClient(
+        CommunicationConfiguration config,
+        Func<HttpMessageHandler> primaryHandler,
+        bool disposeHandlers)
+    {
+        config.ValidateTrustedHosts();
         var tokenContext = new AsyncLocalTokenContext();
         var auth = new BaseBearerTokenAuthenticationProvider(new KiotaAuthProvider(config, tokenContext));
         var owned = new List<HttpClient>();
-        InitializeRestClients(auth, config, tokenContext, endpoint =>
+        HttpClient Build(DelegatingHandler logging, string baseUrl)
         {
-            var client = BuildStandaloneHttpClient(config, endpoint.BaseUrl);
+            logging.InnerHandler = primaryHandler();
+            var client = new HttpClient(logging, disposeHandlers)
+            {
+                BaseAddress = new Uri(baseUrl),
+                Timeout = config.HttpTimeout
+            };
             owned.Add(client);
             return client;
-        });
+        }
+        InitializeRestClients(auth, config, tokenContext, endpoint => Build(new DiagnosticLoggingHandler(config), endpoint.BaseUrl));
         _ownedClients = [.. owned];
     }
 
-    private static HttpClient BuildStandaloneHttpClient(CommunicationConfiguration config, string baseUrl)
+    private static HttpMessageHandler CreateDefaultPrimaryHandler() =>
+#if NETFRAMEWORK
+        // .NET Framework defaults to 2 connections per host outside ASP.NET.
+        new HttpClientHandler { MaxConnectionsPerServer = 64 };
+#else
+        new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) };
+#endif
+
+    private static Func<HttpMessageHandler> RequireHandler(HttpMessageHandler primaryHandler)
     {
-        var handler = new DiagnosticLoggingHandler(config)
+#if NETFRAMEWORK
+        if (primaryHandler is null)
         {
-            InnerHandler = new SocketsHttpHandler { PooledConnectionLifetime = TimeSpan.FromMinutes(2) }
-        };
-        return new HttpClient(handler) { BaseAddress = new Uri(baseUrl), Timeout = config.HttpTimeout };
+            throw new ArgumentNullException(nameof(primaryHandler));
+        }
+#else
+        ArgumentNullException.ThrowIfNull(primaryHandler);
+#endif
+        return () => primaryHandler;
     }
 
-    internal static IReadOnlyList<(string ApiId, string HttpClientName)> RestEndpointNames { get; } =
-    [
-        ("feedback", FeedbackClientName),
-        ("message", MessageClientName),
-        ("negotiation", NegotiationClientName),
-        ("notification", NotificationClientName)
-    ];
-
     internal static IReadOnlyList<RestEndpoint> RestEndpoints(CommunicationConfiguration config) =>
-        [.. RestEndpointNames.Select(name => new RestEndpoint(name.ApiId, name.HttpClientName, config.RestBaseUrl(name.ApiId)))];
+    [
+        new RestEndpoint("feedback", config.RestBaseUrl("feedback")),
+        new RestEndpoint("message", config.RestBaseUrl("message")),
+        new RestEndpoint("notification", config.RestBaseUrl("notification"))
+    ];
 
     private void InitializeRestClients(
         IAuthenticationProvider auth,
@@ -102,8 +117,6 @@ public class CommunicationClient : IDisposable
         Feedback = new FeedbackClient(new FeedbackApiClient(feedbackAdapter), config, tokenContext, feedbackAdapter);
         var messageAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "message")));
         Message = new MessageClient(new MessageApiClient(messageAdapter), config, tokenContext, messageAdapter);
-        var negotiationAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "negotiation")));
-        Negotiation = new NegotiationClient(new NegotiationApiClient(negotiationAdapter), config, tokenContext, negotiationAdapter);
         var notificationAdapter = new HttpClientRequestAdapter(auth, httpClient: httpClientFor(endpoints.First(endpoint => endpoint.ApiId == "notification")));
         Notification = new NotificationClient(new NotificationApiClient(notificationAdapter), config, tokenContext, notificationAdapter);
     }
@@ -118,6 +131,6 @@ public class CommunicationClient : IDisposable
     }
 }
 
-internal sealed record RestEndpoint(string ApiId, string HttpClientName, string BaseUrl);
+internal sealed record RestEndpoint(string ApiId, string BaseUrl);
 
 internal delegate HttpClient RestHttpClientProvider(RestEndpoint endpoint);
