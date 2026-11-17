@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="EBay.Communication/EBay.Communication.csproj" />
+  <Project Path="tests/EBay.Communication.CSharp73/EBay.Communication.CSharp73.csproj" />
+  <Project Path="tests/EBay.Communication.Tests/EBay.Communication.Tests.csproj" />
+</Solution>
