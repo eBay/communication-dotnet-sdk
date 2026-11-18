@@ -37,7 +37,7 @@ namespace EBay.Communication.Generated.Feedback.Models
 #else
         public string Unit { get; set; }
 #endif
-        /// <summary>The value for the feedback period, specified in units of &lt;strong&gt;unit&lt;/strong&gt;. Supported value: &lt;code&gt;90&lt;/code&gt;.</summary>
+        /// <summary>The value for the feedback period, specified in units of &lt;strong&gt;unit&lt;/strong&gt;. Supported values are &lt;code&gt;7&lt;/code&gt;, &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;180&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt;. If the &lt;strong&gt;period&lt;/strong&gt; filter is set (&lt;code&gt;30&lt;/code&gt;, &lt;code&gt;180&lt;/code&gt;, or &lt;code&gt;365&lt;/code&gt;), the returned value matches the filter. If the filter is omitted, entries for all periods (&lt;code&gt;7&lt;/code&gt;, &lt;code&gt;30&lt;/code&gt;, &lt;code&gt;180&lt;/code&gt;, and &lt;code&gt;365&lt;/code&gt;) are returned. If &lt;strong&gt;excludeRepeatFeedback&lt;/strong&gt; is &lt;code&gt;true&lt;/code&gt;, only &lt;code&gt;365&lt;/code&gt; is returned.</summary>
         public int? Value { get; set; }
         /// <summary>
         /// Instantiates a new <see cref="global::EBay.Communication.Generated.Feedback.Models.Period"/> and sets the default values.

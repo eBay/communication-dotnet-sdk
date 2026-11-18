@@ -1,13 +1,13 @@
 # Communication .NET SDK
 
-A production-ready .NET SDK for eBay Communication APIs, providing unified access to Feedback, Message (M2M), Notification, and Negotiation REST APIs plus GraphQL support.
+A production-ready .NET SDK for eBay Communication APIs, providing unified access to Feedback, Message (M2M) and Notification REST APIs plus GraphQL support.
 
 ## Features
 
+- **Target frameworks**: .NET Framework 4.7.2, .NET 8, .NET 9 and .NET 10
 - **Feedback API**: Seller feedback and rating management (5 operations)
 - **Message API (M2M)**: Member-to-member messaging and conversation management (5 operations)
 - **Notification API**: Event notification subscriptions and delivery (22 operations)
-- **Negotiation API**: Send offers to interested buyers (2 operations)
 - **GraphQL Support**: Dynamic client for arbitrary GraphQL queries
 - **OAuth Authentication**: Token refresh handler interface for seamless authentication
 - **Dependency Injection**: First-class support for ASP.NET Core DI
@@ -21,13 +21,11 @@ CommunicationSdk/
 │   ├── Feedback/
 │   ├── Message/
 │   ├── Notification/
-│   └── Negotiation/
 ├── Clients/
 │   ├── Rest/
 │   │   ├── FeedbackClient.cs    # REST client wrappers (public API)
 │   │   ├── MessageClient.cs
 │   │   ├── NotificationClient.cs
-│   │   └── NegotiationClient.cs
 │   └── GraphQL/
 │       └── DynamicGraphQLClient.cs  # GraphQL escape hatch
 ├── Configuration/                # SDK configuration and auth
@@ -113,7 +111,6 @@ var config = new CommunicationConfiguration
     FeedbackBaseUrl = "https://api.ebay.com/commerce/feedback/v1",
     MessageBaseUrl = "https://api.ebay.com/commerce/message/v1",
     NotificationBaseUrl = "https://api.ebay.com/commerce/notification/v1",
-    NegotiationBaseUrl = "https://api.ebay.com/sell/negotiation/v1",
     GraphQLBaseUrl = "https://api.ebay.com/graphql"
 };
 
@@ -135,9 +132,6 @@ var subscriptions = await client.Notification.GetSubscriptionsAsync();
 await client.Notification.CreateSubscriptionAsync(subscriptionJson);
 await client.Notification.EnableSubscriptionAsync(subscriptionId);
 
-// Use Negotiation API
-var eligibleItems = await client.Negotiation.FindEligibleItemsAsync();
-await client.Negotiation.SendOfferToInterestedBuyersAsync(offerJson);
 
 // Use GraphQL (escape hatch for arbitrary queries)
 var result = await client.GraphQL.ExecuteAsync(@"
@@ -155,52 +149,27 @@ var result = await client.GraphQL.ExecuteAsync(@"
 
 ### 3. Dependency Injection (ASP.NET Core)
 
+`AddCommunicationSdk` registers the configuration and one shared `CommunicationClient` (a singleton that owns its HTTP connections and is disposed with the container). Inject the client and use its properties for the individual APIs:
+
 ```csharp
-using Communication.Extensions;
-using Communication.Configuration;
+using EBay.Communication;
+using EBay.Communication.Configuration;
+using EBay.Communication.Extensions;
 
-// In Program.cs or Startup.cs
-builder.Services.AddSingleton<ITokenRefreshHandler, MyTokenRefreshHandler>();
-
-builder.Services.AddCommunicationSdk(config =>
+builder.Services.AddCommunicationSdk(new CommunicationConfiguration
 {
-    config.TokenRefreshHandler = sp.GetRequiredService<ITokenRefreshHandler>();
+    AccessToken = builder.Configuration["EBay:AccessToken"]
 });
 
-// Inject the SDK or sub-clients
-public class CommunicationController : ControllerBase
-{
-    private readonly CommunicationClient _sdk;
-    private readonly FeedbackClient _feedback;
-    private readonly MessageClient _message;
-
-    public CommunicationController(
-        CommunicationClient sdk,
-        FeedbackClient feedback,
-        MessageClient message)
-    {
-        _sdk = sdk;
-        _feedback = feedback;
-        _message = message;
-    }
-
-    [HttpGet("feedback")]
-    public async Task<IActionResult> GetFeedback()
-    {
-        var feedback = await _feedback.GetFeedbackAsync();
-        return Ok(feedback);
-    }
-
-    [HttpGet("conversations")]
-    public async Task<IActionResult> GetConversations()
-    {
-        var conversations = await _message.GetConversationsAsync();
-        return Ok(conversations);
-    }
-}
+app.MapGet("/example", async (CommunicationClient sdk) =>
+    Results.Ok(await sdk.Feedback.GetItemsAwaitingFeedbackAsync()));
 ```
 
+To route requests through your own handler (proxy, client certificates, a test double), pass it to the constructor: `new CommunicationClient(config, handler)`. The handler is shared by all APIs and is not disposed by the client.
+
 ## API Operations
+
+> The Negotiation API moved to the Offers and Leads SDK (`EBay.OffersAndLeads`, `client.Negotiation`) in 0.4.0.
 
 ### Feedback API (5 operations)
 
@@ -266,19 +235,6 @@ await client.Message.BulkUpdateConversationAsync(updateJson);
 ```
 Bulk updates multiple conversations.
 
-### Negotiation API (2 operations)
-
-#### Find Eligible Items
-```csharp
-var items = await client.Negotiation.FindEligibleItemsAsync();
-```
-Finds items eligible for sending offers to interested buyers.
-
-#### Send Offer to Interested Buyers
-```csharp
-await client.Negotiation.SendOfferToInterestedBuyersAsync(offerJson);
-```
-Sends an offer to interested buyers.
 
 ### Notification API (22 operations)
 
@@ -354,6 +310,25 @@ var data = result.RootElement.GetProperty("data");
 var auctions = data.GetProperty("userBiddingActivity").GetProperty("auctions");
 ```
 
+## Trusted hosts and sandbox
+
+The access token is only sent to trusted hosts: the eBay hosts in `CommunicationConfiguration.DefaultAllowedHosts` (production and their `*.sandbox.ebay.com` counterparts) plus any you add to `AllowedHosts`. The sandbox needs no extra configuration:
+
+```csharp
+var config = new CommunicationConfiguration
+{
+    AccessToken = "...",
+    FeedbackBaseUrl = "https://api.sandbox.ebay.com/commerce/feedback/v1",
+};
+```
+
+Any other host, for example a proxy, has to be added explicitly; the client constructor throws `InvalidOperationException` otherwise:
+
+```csharp
+config.FeedbackBaseUrl = "https://ebay-proxy.example.com/commerce/feedback/v1";
+config.AllowedHosts.Add("ebay-proxy.example.com");
+```
+
 ## Error Handling
 
 ```csharp
@@ -405,7 +380,6 @@ dotnet build CommunicationSdk/CommunicationSdk.csproj
 | `FeedbackBaseUrl` | `https://api.ebay.com/commerce/feedback/v1` | Feedback API base URL |
 | `MessageBaseUrl` | `https://api.ebay.com/commerce/message/v1` | Message API base URL |
 | `NotificationBaseUrl` | `https://api.ebay.com/commerce/notification/v1` | Notification API base URL |
-| `NegotiationBaseUrl` | `https://api.ebay.com/sell/negotiation/v1` | Negotiation API base URL |
 | `GraphQLBaseUrl` | `https://api.ebay.com/graphql` | GraphQL API endpoint |
 | `TokenRefreshHandler` | (required) | OAuth token refresh handler |
 
@@ -423,6 +397,7 @@ dotnet build CommunicationSdk/CommunicationSdk.csproj
 ### Prerequisites
 
 - .NET 10 SDK, plus the .NET 8 and .NET 9 SDKs so every target framework can build
+- `net472` builds on any OS (reference assemblies come from NuGet); its tests run on Windows only
 - Kiota CLI tool (auto-installed via dotnet tools)
 
 ### Building
@@ -439,9 +414,8 @@ dotnet pack CommunicationSdk/CommunicationSdk.csproj
 
 ## Dependencies
 
-- **Microsoft.Kiota.Bundle**: REST client generation and runtime
-- **Microsoft.Extensions.DependencyInjection.Abstractions**: DI support
-- **Microsoft.Extensions.Http**: HttpClient factory integration
+- **Microsoft.Kiota.Bundle** (>= 1.22.0): REST runtime
+- **Microsoft.Extensions.DependencyInjection.Abstractions** (>= 6.0.0): `AddCommunicationSdk` registration
 
 ## License
 

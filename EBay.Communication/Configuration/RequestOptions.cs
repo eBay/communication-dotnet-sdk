@@ -18,6 +18,6 @@ namespace EBay.Communication.Configuration;
 
 public sealed class RequestOptions
 {
-    public IDictionary<string, string> Headers { get; init; } =
+    public IDictionary<string, string> Headers { get; set; } =
         new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
 }

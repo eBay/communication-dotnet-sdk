@@ -43,14 +43,6 @@ dotnet kiota generate \
 
 dotnet kiota generate \
   -l csharp \
-  -d specs/openapi/negotiation.json \
-  -c NegotiationApiClient \
-  -n EBay.Communication.Generated.Negotiation \
-  -o EBay.Communication/Generated/Negotiation \
-  --ebc --co
-
-dotnet kiota generate \
-  -l csharp \
   -d specs/openapi/notification.json \
   -c NotificationApiClient \
   -n EBay.Communication.Generated.Notification \
@@ -60,7 +52,7 @@ dotnet kiota generate \
 echo "Adding license headers to generated files..."
 ./add-license-headers.sh ./EBay.Communication/Generated
 
-echo "Building (triggers StrawberryShake GraphQL codegen)..."
+echo "Building (compile check)..."
 DOTNET_ROLL_FORWARD=LatestMajor dotnet build EBay.Communication/EBay.Communication.csproj
 
 echo "Done."

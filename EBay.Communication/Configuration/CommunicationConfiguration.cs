@@ -18,7 +18,6 @@ public sealed class CommunicationConfiguration
 {
     private string _feedbackBaseUrl = "https://api.ebay.com/commerce/feedback/v1";
     private string _messageBaseUrl = "https://api.ebay.com/commerce/message/v1";
-    private string _negotiationBaseUrl = "https://api.ebay.com/sell/negotiation/v1";
     private string _notificationBaseUrl = "https://api.ebay.com/commerce/notification/v1";
 
     public string FeedbackBaseUrl
@@ -31,12 +30,6 @@ public sealed class CommunicationConfiguration
     {
         get => _messageBaseUrl;
         set => _messageBaseUrl = RequireHttps(value);
-    }
-
-    public string NegotiationBaseUrl
-    {
-        get => _negotiationBaseUrl;
-        set => _negotiationBaseUrl = RequireHttps(value);
     }
 
     public string NotificationBaseUrl
@@ -59,7 +52,7 @@ public sealed class CommunicationConfiguration
     public bool DiagnosticLogging { get; set; }
 
     /// <summary>Timeout applied to all HTTP requests. Defaults to 30 seconds.</summary>
-    public TimeSpan HttpTimeout { get; init; } = TimeSpan.FromSeconds(30);
+    public TimeSpan HttpTimeout { get; set; } = TimeSpan.FromSeconds(30);
 
     /// <summary>Default headers applied to every REST request. Per-call RequestOptions override these.</summary>
     public RequestOptions DefaultRequestOptions { get; set; } = new();
@@ -68,15 +61,50 @@ public sealed class CommunicationConfiguration
     {
         "feedback" => _feedbackBaseUrl,
         "message" => _messageBaseUrl,
-        "negotiation" => _negotiationBaseUrl,
         "notification" => _notificationBaseUrl,
         _ => throw new ArgumentOutOfRangeException(nameof(apiId), apiId, "Unknown REST API.")
     };
 
-    internal static IEnumerable<string> AllowedHosts =>
-    [
-        "api.ebay.com"
-    ];
+    /// <summary>eBay hosts that receive the access token by default.</summary>
+    public static IReadOnlyList<string> DefaultAllowedHosts { get; } = Array.AsReadOnly(new[]
+    {
+        "api.ebay.com",
+        "api.sandbox.ebay.com"
+    });
+
+    /// <summary>
+    /// Additional hosts the SDK trusts with the access token, for example <c>api.sandbox.ebay.com</c>.
+    /// Every configured base URL must use a host from <see cref="DefaultAllowedHosts"/> or this list;
+    /// the client constructor throws otherwise. Requests to any other host never carry the token.
+    /// </summary>
+    public IList<string> AllowedHosts { get; set; } = new List<string>();
+
+    internal ISet<string> TrustedHosts() =>
+        new HashSet<string>(DefaultAllowedHosts.Concat(AllowedHosts ?? new List<string>()), StringComparer.OrdinalIgnoreCase);
+
+    internal bool IsTrustedHost(Uri? uri) =>
+        uri is not null
+        && string.Equals(uri.Scheme, Uri.UriSchemeHttps, StringComparison.OrdinalIgnoreCase)
+        && TrustedHosts().Contains(uri.Host);
+
+    internal void ValidateTrustedHosts()
+    {
+        var trusted = TrustedHosts();
+        foreach (var (name, url) in new (string Name, string Url)[]
+        {
+            ("FeedbackBaseUrl", FeedbackBaseUrl),
+            ("MessageBaseUrl", MessageBaseUrl),
+            ("NotificationBaseUrl", NotificationBaseUrl)
+        })
+        {
+            var host = new Uri(url).Host;
+            if (!trusted.Contains(host))
+            {
+                throw new InvalidOperationException(
+                    $"{name} uses host '{host}', which is not trusted with the access token. Add it to CommunicationConfiguration.AllowedHosts.");
+            }
+        }
+    }
 
     private static string RequireHttps(string value)
     {
