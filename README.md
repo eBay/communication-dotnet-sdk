@@ -1,431 +1,241 @@
-# Communication .NET SDK
+# eBay Communication SDK for .NET
 
-A production-ready .NET SDK for eBay Communication APIs, providing unified access to Feedback, Message (M2M) and Notification REST APIs plus GraphQL support.
+Leave and respond to feedback, exchange messages with buyers, and subscribe to eBay notifications. This SDK wraps the eBay Feedback API, M2M Public API Service and Notification API behind one client, `CommunicationClient`.
 
-## Features
-
-- **Target frameworks**: .NET Framework 4.7.2, .NET 8, .NET 9 and .NET 10
-- **Feedback API**: Seller feedback and rating management (5 operations)
-- **Message API (M2M)**: Member-to-member messaging and conversation management (5 operations)
-- **Notification API**: Event notification subscriptions and delivery (22 operations)
-- **GraphQL Support**: Dynamic client for arbitrary GraphQL queries
-- **OAuth Authentication**: Token refresh handler interface for seamless authentication
-- **Dependency Injection**: First-class support for ASP.NET Core DI
-- **Strong Typing**: Internal generated types with public abstraction layer
-
-## Architecture
-
-```
-CommunicationSdk/
-├── Generated/                    # Kiota-generated REST clients (internal)
-│   ├── Feedback/
-│   ├── Message/
-│   ├── Notification/
-├── Clients/
-│   ├── Rest/
-│   │   ├── FeedbackClient.cs    # REST client wrappers (public API)
-│   │   ├── MessageClient.cs
-│   │   ├── NotificationClient.cs
-│   └── GraphQL/
-│       └── DynamicGraphQLClient.cs  # GraphQL escape hatch
-├── Configuration/                # SDK configuration and auth
-├── Exceptions/                   # SDK exceptions
-└── CommunicationClient.cs        # Main SDK facade
-```
+- **Target frameworks:** .NET Framework 4.7.2, .NET 8, .NET 9 and .NET 10
+- **C#:** usable from C# 7.3 and later
 
 ## Installation
 
+The package `EBay.Communication` is not on nuget.org yet. Reference the project, or build the package and add it to a local feed:
+
 ```bash
-# From source
-dotnet pack CommunicationSdk/CommunicationSdk.csproj
-dotnet add reference path/to/CommunicationSdk.1.0.0.nupkg
-
-# Or add project reference
-dotnet add reference CommunicationSdk/CommunicationSdk.csproj
+dotnet pack EBay.Communication -c Release -o artifacts/packages
 ```
 
-## Quick Start
-
-### 1. Implement Token Refresh Handler
+## Quick start
 
 ```csharp
-using Communication.Configuration;
+using EBay.Communication;
+using EBay.Communication.Configuration;
 
-public class MyTokenRefreshHandler : ITokenRefreshHandler
-{
-    private readonly string _clientId;
-    private readonly string _clientSecret;
-    private string? _accessToken;
-    private DateTime _tokenExpiry;
-
-    public MyTokenRefreshHandler(string clientId, string clientSecret)
-    {
-        _clientId = clientId;
-        _clientSecret = clientSecret;
-    }
-
-    public async Task<string> GetAccessTokenAsync(CancellationToken cancellationToken = default)
-    {
-        if (_accessToken != null && DateTime.UtcNow < _tokenExpiry.AddMinutes(-5))
-        {
-            return _accessToken;
-        }
-
-        // Refresh token using eBay OAuth API
-        using var client = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post, "https://api.ebay.com/identity/v1/oauth2/token");
-        request.Headers.Authorization = new AuthenticationHeaderValue(
-            "Basic",
-            Convert.ToBase64String(Encoding.UTF8.GetBytes($"{_clientId}:{_clientSecret}")));
-        
-        request.Content = new FormUrlEncodedContent(new[]
-        {
-            new KeyValuePair<string, string>("grant_type", "client_credentials"),
-            new KeyValuePair<string, string>("scope", "https://api.ebay.com/oauth/api_scope")
-        });
-
-        var response = await client.SendAsync(request, cancellationToken);
-        response.EnsureSuccessStatusCode();
-
-        var json = await response.Content.ReadAsStringAsync(cancellationToken);
-        var tokenResponse = JsonSerializer.Deserialize<TokenResponse>(json);
-
-        _accessToken = tokenResponse.AccessToken;
-        _tokenExpiry = DateTime.UtcNow.AddSeconds(tokenResponse.ExpiresIn);
-
-        return _accessToken;
-    }
-}
-```
-
-### 2. Configure and Use the SDK
-
-```csharp
-using Communication;
-using Communication.Configuration;
-
-// Create configuration
 var config = new CommunicationConfiguration
 {
-    TokenRefreshHandler = new MyTokenRefreshHandler(clientId, secret),
-    FeedbackBaseUrl = "https://api.ebay.com/commerce/feedback/v1",
-    MessageBaseUrl = "https://api.ebay.com/commerce/message/v1",
-    NotificationBaseUrl = "https://api.ebay.com/commerce/notification/v1",
-    GraphQLBaseUrl = "https://api.ebay.com/graphql"
+    // A user or application access token from your own OAuth flow (see "Authentication").
+    AccessToken = Environment.GetEnvironmentVariable("EBAY_ACCESS_TOKEN")
 };
 
-// Create SDK client
 using var client = new CommunicationClient(config);
 
-// Use Feedback API
-var feedback = await client.Feedback.GetFeedbackAsync();
-var summary = await client.Feedback.GetFeedbackRatingSummaryAsync();
-await client.Feedback.LeaveFeedbackAsync(feedbackJson);
-
-// Use Message API
-var conversations = await client.Message.GetConversationsAsync();
-var conversation = await client.Message.GetConversationAsync(conversationId);
-await client.Message.SendMessageAsync(messageJson);
-
-// Use Notification API
-var subscriptions = await client.Notification.GetSubscriptionsAsync();
-await client.Notification.CreateSubscriptionAsync(subscriptionJson);
-await client.Notification.EnableSubscriptionAsync(subscriptionId);
-
-
-// Use GraphQL (escape hatch for arbitrary queries)
-var result = await client.GraphQL.ExecuteAsync(@"
-    query {
-      userBiddingActivity(input: {}) {
-        auctions {
-          itemId
-          auctionDataSummary {
-            currentPrice { value currency }
-          }
-        }
-      }
-    }");
+var awaiting = await client.Feedback.GetItemsAwaitingFeedbackAsync(limit: "10");
+Console.WriteLine($"{awaiting?.ItemsAwaitingFeedbackCount} items awaiting feedback");
 ```
 
-### 3. Dependency Injection (ASP.NET Core)
+## APIs
 
-`AddCommunicationSdk` registers the configuration and one shared `CommunicationClient` (a singleton that owns its HTTP connections and is disposed with the container). Inject the client and use its properties for the individual APIs:
+| `CommunicationClient` property | API | Default base URL | Access token |
+|---|---|---|---|
+| `Feedback` | Feedback API | `https://api.ebay.com/commerce/feedback/v1` | User |
+| `Message` | M2M Public API Service | `https://api.ebay.com/commerce/message/v1` | User |
+| `Notification` | Notification API | `https://api.ebay.com/commerce/notification/v1` | User (some operations: application) |
+
+"Access token" is what eBay's OpenAPI spec declares: an application token (client credentials) or a user token (authorization code). Scopes are listed per API below.
+
+<details>
+<summary><b>Feedback</b>: Feedback API, 5 operations</summary>
+
+Scopes: `https://api.ebay.com/oauth/api_scope/commerce.feedback`, `https://api.ebay.com/oauth/api_scope/commerce.feedback.readonly`
+
+| Method | Description |
+|---|---|
+| `GetItemsAwaitingFeedbackAsync` | This method retrieves line items awaiting feedback from the user's order partner. |
+| `GetFeedbackAsync` | This method enables users to retrieve feedback for any specified user ID and feedback type (sent or received). |
+| `LeaveFeedbackAsync` | This method creates and submits feedback to the user's order partner for a line item in the order. |
+| `GetFeedbackRatingSummaryAsync` | This method provides a detailed overview of feedback ratings associated with a user in the eBay marketplace. |
+| `RespondToFeedbackAsync` | This method allows users to respond to feedback provided by the order partner for a specific line item in an order. |
+
+</details>
+
+<details>
+<summary><b>Message</b>: M2M Public API Service, 5 operations</summary>
+
+Scopes: `https://api.ebay.com/oauth/api_scope/commerce.message`
+
+| Method | Description |
+|---|---|
+| `BulkUpdateConversationAsync` | This method can be used to update the conversationStatus of up to 10 conversations. |
+| `GetConversationAsync` | This method can be used to retrieve messages within a specific conversation. |
+| `GetConversationsAsync` | This method can be used to retrieve one or more conversations associated with a user. |
+| `SendMessageAsync` | This method can be used to start a conversation with another user or send a message in an existing conversation with another user based on the information provided in the request. |
+| `UpdateConversationAsync` | This method can be used to update the conversationStatus or the read status of a specified conversation. |
+
+</details>
+
+<details>
+<summary><b>Notification</b>: Notification API, 21 operations</summary>
+
+Scopes: `https://api.ebay.com/oauth/api_scope`, `https://api.ebay.com/oauth/api_scope/commerce.notification.subscription`, `https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly`
+
+| Method | Description |
+|---|---|
+| `GetConfigAsync` | This method allows applications to retrieve a previously created configuration. |
+| `UpdateConfigAsync` | This method allows applications to create a new configuration or update an existing configuration. |
+| `GetDestinationsAsync` | This method allows applications to retrieve a paginated collection of destination resources and related details. |
+| `CreateDestinationAsync` | This method allows applications to create a destination. |
+| `GetDestinationAsync` | This method allows applications to fetch the details for a destination. |
+| `UpdateDestinationAsync` | This method allows applications to update a destination. |
+| `DeleteDestinationAsync` | This method provides applications a way to delete a destination. |
+| `GetPublicKeyAsync` | This method allows users to retrieve a public key using a specified key ID. |
+| `GetSubscriptionsAsync` | This method allows applications to retrieve a list of all subscriptions. |
+| `CreateSubscriptionAsync` | This method allows applications to create a subscription for a topic and supported schema version. |
+| `CreateSubscriptionFilterAsync` | This method allows applications to create a filter for a subscription. |
+| `GetSubscriptionAsync` | This method allows applications to retrieve subscription details for the specified subscription. |
+| `UpdateSubscriptionAsync` | This method allows applications to update a subscription. |
+| `DeleteSubscriptionAsync` | This method allows applications to delete a subscription. |
+| `GetSubscriptionFilterAsync` | This method allows applications to retrieve the filter details for the specified subscription filter. |
+| `DeleteSubscriptionFilterAsync` | This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added. |
+| `DisableSubscriptionAsync` | This method disables a subscription, which prevents the subscription from providing notifications. |
+| `EnableSubscriptionAsync` | This method allows applications to enable a disabled subscription. |
+| `TestSubscriptionAsync` | This method triggers a mocked test payload that includes a notification ID, publish date, and so on. |
+| `GetTopicAsync` | This method allows applications to retrieve details for the specified topic. |
+| `GetTopicsAsync` | This method returns a paginated collection of all supported topics, along with the details for the topics. |
+
+</details>
+
+## Authentication
+
+The SDK does not obtain or refresh tokens: get them with your own OAuth flow ([eBay OAuth guide](https://developer.ebay.com/develop/guides/sell/authorization)) and give them to the SDK in one of two ways:
+
+- `CommunicationConfiguration.AccessToken`: used for every call that doesn't pass its own token.
+- The `accessToken` parameter on every method: used for that call only, for example a user token where the configuration holds an application token.
+
+```csharp
+string userToken = Environment.GetEnvironmentVariable("EBAY_USER_TOKEN")!;
+var awaiting = await client.Feedback.GetItemsAwaitingFeedbackAsync(limit: "10", accessToken: userToken);
+```
+
+A token is only ever sent to trusted hosts, see below.
+
+## Configuration
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `FeedbackBaseUrl` | `string` | `https://api.ebay.com/commerce/feedback/v1` | Base URL of the Feedback API. |
+| `MessageBaseUrl` | `string` | `https://api.ebay.com/commerce/message/v1` | Base URL of the M2M Public API Service. |
+| `NotificationBaseUrl` | `string` | `https://api.ebay.com/commerce/notification/v1` | Base URL of the Notification API. |
+| `AccessToken` | `string?` |  | Fallback bearer token used when no per-call accessToken is supplied. |
+| `DiagnosticLogging` | `bool` | `false` | When true, logs the HTTP method, URL, status code, and response reason phrase for all non-success responses to stderr. |
+| `HttpTimeout` | `TimeSpan` | 30 seconds | Timeout applied to all HTTP requests. |
+| `DefaultRequestOptions` | `RequestOptions` | no headers | Default headers applied to every REST request. |
+| `AllowedHosts` | `IList<string>` | empty | Additional hosts trusted with the access token, for example a proxy (see below). |
+
+`CommunicationConfiguration.DefaultAllowedHosts` lists the hosts trusted by default.
+
+## Sandbox and trusted hosts
+
+The access token is only sent to trusted hosts: the hosts in `CommunicationConfiguration.DefaultAllowedHosts`, which are the eBay production hosts and their `*.sandbox.ebay.com` counterparts, plus any in `AllowedHosts`. Switching to the sandbox needs only the base URLs:
+
+```csharp
+var sandboxConfig = new CommunicationConfiguration
+{
+    AccessToken = Environment.GetEnvironmentVariable("EBAY_SANDBOX_ACCESS_TOKEN"),
+    FeedbackBaseUrl = "https://api.sandbox.ebay.com/commerce/feedback/v1",
+    MessageBaseUrl = "https://api.sandbox.ebay.com/commerce/message/v1",
+    NotificationBaseUrl = "https://api.sandbox.ebay.com/commerce/notification/v1",
+};
+```
+
+Any other host, for example a proxy that forwards to eBay, has to be added to `AllowedHosts`; the client constructor throws `InvalidOperationException` otherwise:
+
+```csharp
+var proxied = new CommunicationConfiguration
+{
+    FeedbackBaseUrl = "https://ebay-proxy.example.com/commerce/feedback/v1",
+    AllowedHosts = { "ebay-proxy.example.com" },
+};
+```
+
+## Dependency injection
+
+`AddCommunicationSdk` registers the configuration and one shared `CommunicationClient` as a singleton. It owns its HTTP connections and is disposed with the container. Inject the client and use its properties for the individual APIs:
 
 ```csharp
 using EBay.Communication;
 using EBay.Communication.Configuration;
 using EBay.Communication.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCommunicationSdk(new CommunicationConfiguration
 {
     AccessToken = builder.Configuration["EBay:AccessToken"]
 });
 
-app.MapGet("/example", async (CommunicationClient sdk) =>
-    Results.Ok(await sdk.Feedback.GetItemsAwaitingFeedbackAsync()));
-```
-
-To route requests through your own handler (proxy, client certificates, a test double), pass it to the constructor: `new CommunicationClient(config, handler)`. The handler is shared by all APIs and is not disposed by the client.
-
-## API Operations
-
-> The Negotiation API moved to the Offers and Leads SDK (`EBay.OffersAndLeads`, `client.Negotiation`) in 0.4.0.
-
-### Feedback API (5 operations)
-
-#### Get Feedback
-```csharp
-var feedback = await client.Feedback.GetFeedbackAsync();
-```
-Retrieves feedback left for a seller.
-
-#### Get Feedback Rating Summary
-```csharp
-var summary = await client.Feedback.GetFeedbackRatingSummaryAsync();
-```
-Gets the feedback rating summary for a seller.
-
-#### Get Items Awaiting Feedback
-```csharp
-var items = await client.Feedback.GetItemsAwaitingFeedbackAsync();
-```
-Gets items awaiting feedback from the seller.
-
-#### Leave Feedback
-```csharp
-await client.Feedback.LeaveFeedbackAsync(feedbackJson);
-```
-Leave feedback for a buyer or seller.
-
-#### Respond to Feedback
-```csharp
-await client.Feedback.RespondToFeedbackAsync(responseJson);
-```
-Respond to feedback left by a buyer.
-
-### Message API - M2M Public API Service (5 operations)
-
-#### Get Conversation
-```csharp
-var conversation = await client.Message.GetConversationAsync(conversationId);
-```
-Gets a specific conversation by ID.
-
-#### Get Conversations
-```csharp
-var conversations = await client.Message.GetConversationsAsync();
-```
-Gets all conversations for the authenticated user.
-
-#### Send Message
-```csharp
-await client.Message.SendMessageAsync(messageJson);
-```
-Sends a message in a conversation.
-
-#### Update Conversation
-```csharp
-await client.Message.UpdateConversationAsync(updateJson);
-```
-Updates a conversation.
-
-#### Bulk Update Conversation
-```csharp
-await client.Message.BulkUpdateConversationAsync(updateJson);
-```
-Bulk updates multiple conversations.
-
-
-### Notification API (22 operations)
-
-#### Config Operations
-```csharp
-var config = await client.Notification.GetConfigAsync();
-await client.Notification.UpdateConfigAsync(configJson);
-```
-
-#### Destination Operations
-```csharp
-await client.Notification.CreateDestinationAsync(destinationJson);
-var destination = await client.Notification.GetDestinationAsync(destinationId);
-var destinations = await client.Notification.GetDestinationsAsync();
-await client.Notification.UpdateDestinationAsync(destinationId, destinationJson);
-await client.Notification.DeleteDestinationAsync(destinationId);
-```
-
-#### Subscription Operations
-```csharp
-await client.Notification.CreateSubscriptionAsync(subscriptionJson);
-var subscription = await client.Notification.GetSubscriptionAsync(subscriptionId);
-var subscriptions = await client.Notification.GetSubscriptionsAsync();
-await client.Notification.UpdateSubscriptionAsync(subscriptionId, subscriptionJson);
-await client.Notification.DeleteSubscriptionAsync(subscriptionId);
-await client.Notification.EnableSubscriptionAsync(subscriptionId);
-await client.Notification.DisableSubscriptionAsync(subscriptionId);
-await client.Notification.TestSubscriptionAsync(subscriptionId);
-```
-
-#### Subscription Filter Operations
-```csharp
-await client.Notification.CreateSubscriptionFilterAsync(subscriptionId, filterJson);
-var filter = await client.Notification.GetSubscriptionFilterAsync(subscriptionId, filterId);
-await client.Notification.DeleteSubscriptionFilterAsync(subscriptionId, filterId);
-```
-
-#### Topic Operations
-```csharp
-var topic = await client.Notification.GetTopicAsync(topicId);
-var topics = await client.Notification.GetTopicsAsync();
-```
-
-#### Public Key Operations
-```csharp
-var publicKey = await client.Notification.GetPublicKeyAsync(publicKeyId);
-```
-
-### GraphQL API
-
-#### Execute Arbitrary Queries
-```csharp
-var result = await client.GraphQL.ExecuteAsync(@"
-    query GetUserInfo {
-      userBiddingActivity(input: {}) {
-        auctions {
-          itemId
-          auctionDataSummary {
-            currentPrice { value currency }
-            bidCount
-            endTime
-          }
-        }
-        paginationOutput {
-          total
-          limit
-        }
-      }
-    }");
-
-// Parse the response
-var data = result.RootElement.GetProperty("data");
-var auctions = data.GetProperty("userBiddingActivity").GetProperty("auctions");
-```
-
-## Trusted hosts and sandbox
-
-The access token is only sent to trusted hosts: the eBay hosts in `CommunicationConfiguration.DefaultAllowedHosts` (production and their `*.sandbox.ebay.com` counterparts) plus any you add to `AllowedHosts`. The sandbox needs no extra configuration:
-
-```csharp
-var config = new CommunicationConfiguration
+var app = builder.Build();
+app.MapGet("/example", async (CommunicationClient client) =>
 {
-    AccessToken = "...",
-    FeedbackBaseUrl = "https://api.sandbox.ebay.com/commerce/feedback/v1",
-};
+    var awaiting = await client.Feedback.GetItemsAwaitingFeedbackAsync(limit: "10");
+    return Results.Ok();
+});
+app.Run();
 ```
 
-Any other host, for example a proxy, has to be added explicitly; the client constructor throws `InvalidOperationException` otherwise:
+## Custom HTTP handler
+
+To send requests through your own handler, for example for a proxy, client certificates or a test double, pass it to the constructor. The handler is shared by all APIs and is not disposed by the client:
 
 ```csharp
-config.FeedbackBaseUrl = "https://ebay-proxy.example.com/commerce/feedback/v1";
-config.AllowedHosts.Add("ebay-proxy.example.com");
+var handler = new HttpClientHandler { Proxy = new WebProxy("http://corporate-proxy:8080") };
+using var proxiedClient = new CommunicationClient(config, handler);
 ```
 
-## Error Handling
+## Error handling
 
 ```csharp
-using Communication.Exceptions;
-
 try
 {
-    var feedback = await client.Feedback.GetFeedbackAsync();
+    var awaiting = await client.Feedback.GetItemsAwaitingFeedbackAsync(limit: "10");
 }
-catch (GraphQLException ex)
+catch (UnauthorizedException)
 {
-    foreach (var error in ex.Errors)
-    {
-        Console.WriteLine($"GraphQL Error: {error.Message}");
-        if (error.Path != null)
-        {
-            Console.WriteLine($"Path: {string.Join(" > ", error.Path)}");
-        }
-    }
+    // HTTP 401: the token is missing, expired, for the other environment, or lacks a scope.
 }
-catch (SdkException ex)
+catch (ApiException ex)
 {
-    Console.WriteLine($"SDK Error: {ex.Message}");
-}
-catch (HttpRequestException ex)
-{
-    Console.WriteLine($"HTTP Error: {ex.Message}");
+    // Any other REST error.
+    Console.WriteLine($"HTTP {ex.ResponseStatusCode}");
 }
 ```
 
-## Regenerating the SDK
+- `UnauthorizedException` (HTTP 401) derives from `SdkException`.
+- Other REST errors throw Kiota's `ApiException`, or a generated subclass named in eBay's spec for that operation, with `ResponseStatusCode`. eBay's error text is only available where the spec describes the error body correctly; set `DiagnosticLogging = true` to log failed requests to stderr.
 
-When OpenAPI specs or GraphQL schemas change:
+## .NET Framework
 
-```bash
-# Run the regeneration script
-./generate.sh
+The `net472` build is a classic package that `packages.config` projects can use. Such projects must list every dependency themselves. At the minimum versions the SDK supports, these are:
 
-# Or manually:
-dotnet tool restore
-dotnet kiota generate -l csharp -d specs/openapi/feedback.yaml ...
-dotnet build CommunicationSdk/CommunicationSdk.csproj
-```
+| Package | Version |
+|---|---|
+| Microsoft.Kiota.Abstractions, .Bundle, .Http.HttpClientLibrary, .Serialization.Form, .Serialization.Json, .Serialization.Multipart, .Serialization.Text | 1.22.0 |
+| Std.UriTemplate | 2.0.8 |
+| Microsoft.IO.RecyclableMemoryStream | 3.0.1 |
+| Microsoft.Extensions.DependencyInjection.Abstractions | 6.0.0 |
+| System.Diagnostics.DiagnosticSource, System.Net.Http.WinHttpHandler | 6.0.0 |
+| System.Text.Json, System.Text.Encodings.Web, System.IO.Pipelines, Microsoft.Bcl.AsyncInterfaces | 10.0.0 |
+| System.Runtime.CompilerServices.Unsafe | 6.1.2 |
+| System.Memory, System.Threading.Tasks.Extensions | 4.6.3 |
+| System.Buffers, System.Numerics.Vectors, System.ValueTuple | 4.6.1 |
 
-## Configuration Options
-
-| Property | Default | Description |
-|----------|---------|-------------|
-| `FeedbackBaseUrl` | `https://api.ebay.com/commerce/feedback/v1` | Feedback API base URL |
-| `MessageBaseUrl` | `https://api.ebay.com/commerce/message/v1` | Message API base URL |
-| `NotificationBaseUrl` | `https://api.ebay.com/commerce/notification/v1` | Notification API base URL |
-| `GraphQLBaseUrl` | `https://api.ebay.com/graphql` | GraphQL API endpoint |
-| `TokenRefreshHandler` | (required) | OAuth token refresh handler |
-
-## Project Structure
-
-- **Generated/**: Kiota-generated REST clients (internal, committed to git)
-- **Clients/Rest/**: Hand-crafted wrappers exposing public API
-- **Clients/GraphQL/**: GraphQL dynamic client for arbitrary queries
-- **Configuration/**: SDK config, auth providers
-- **Exceptions/**: SDK exceptions
-- **Extensions/**: DI extension methods
+With these versions the app needs binding redirects for Microsoft.Bcl.AsyncInterfaces (10.0.0.0), System.Buffers (4.0.5.0), System.Memory (4.0.5.0), System.Runtime.CompilerServices.Unsafe (6.0.3.0), System.Text.Encodings.Web (10.0.0.0), System.Text.Json (10.0.0.0) and System.Threading.Tasks.Extensions (4.2.4.0). There must be no redirect for System.ValueTuple: .NET Framework 4.7.1+ provides it. Newer package versions work too and change the redirect versions.
 
 ## Development
 
-### Prerequisites
+- .NET 10 SDK, plus the .NET 8 and .NET 9 SDKs so every target framework builds. `net472` builds on any OS; its tests run on Windows only.
+- Build: `dotnet build EBay.Communication`
+- Test: `dotnet test tests/EBay.Communication.Tests`
+- Most of this repository is generated from eBay's API specs by the SDK generator (`api-sdk-definitions`): the API clients, `Configuration/`, `Extensions/`, `CommunicationClient.cs`, `specs/` and `generate.sh`. Change the generator, not the generated files. `./generate.sh` reruns Kiota for the specs in `specs/openapi`.
 
-- .NET 10 SDK, plus the .NET 8 and .NET 9 SDKs so every target framework can build
-- `net472` builds on any OS (reference assemblies come from NuGet); its tests run on Windows only
-- Kiota CLI tool (auto-installed via dotnet tools)
-
-### Building
-
-```bash
-dotnet build CommunicationSdk/CommunicationSdk.csproj
-```
-
-### Packaging
-
-```bash
-dotnet pack CommunicationSdk/CommunicationSdk.csproj
-```
-
-## Dependencies
-
-- **Microsoft.Kiota.Bundle** (>= 1.22.0): REST runtime
-- **Microsoft.Extensions.DependencyInjection.Abstractions** (>= 6.0.0): `AddCommunicationSdk` registration
+See [CONTRIBUTING.adoc](CONTRIBUTING.adoc).
 
 ## License
 
-[Apache 2.0](LICENSE) © 2026 eBay Inc.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `./generate.sh` if specs changed
-5. Ensure `dotnet build` succeeds
-6. Submit a pull request
+Apache 2.0, see [LICENSE](LICENSE).
